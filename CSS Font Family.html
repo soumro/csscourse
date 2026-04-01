@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CSS Font Family – Complete Guide + Live Demo</title>
+  <!-- Google Fonts for examples -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Playfair+Display:wght@400;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      background: #f4f7fb;
+      padding: 2rem;
+      color: #1a2a3a;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    h1 {
+      font-size: 2.2rem;
+      margin-bottom: 0.5rem;
+      background: linear-gradient(135deg, #1e3c72, #2b5876);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .sub {
+      color: #2c3e50;
+      border-left: 4px solid #3b82f6;
+      padding-left: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .card {
+      background: white;
+      border-radius: 28px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    h2 {
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      border-bottom: 2px solid #e2e8f0;
+      display: inline-block;
+      padding-bottom: 0.25rem;
+    }
+
+    .demo-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      margin: 1.5rem 0;
+    }
+
+    .font-sample {
+      background: #f8fafc;
+      border-radius: 20px;
+      padding: 1rem;
+      flex: 1 1 250px;
+      transition: transform 0.1s;
+    }
+
+    .font-sample h3 {
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #475569;
+      margin-bottom: 0.75rem;
+    }
+
+    .font-sample p {
+      font-size: 1.2rem;
+      line-height: 1.4;
+    }
+
+    .note {
+      background: #eef2ff;
+      border-left: 4px solid #3b82f6;
+      padding: 0.8rem 1rem;
+      border-radius: 16px;
+      font-size: 0.85rem;
+      margin: 1rem 0;
+    }
+
+    code {
+      background: #e2e8f0;
+      padding: 0.2rem 0.4rem;
+      border-radius: 8px;
+      font-family: 'Fira Code', monospace;
+      font-size: 0.85rem;
+    }
+
+    .interactive-control {
+      background: #f1f5f9;
+      border-radius: 20px;
+      padding: 1rem;
+      margin-top: 1rem;
+    }
+
+    select, input {
+      padding: 0.5rem;
+      border-radius: 12px;
+      border: 1px solid #cbd5e1;
+      font-family: inherit;
+      margin: 0.5rem 0;
+    }
+
+    .demo-text {
+      background: white;
+      padding: 1rem;
+      border-radius: 16px;
+      border: 1px solid #e2e8f0;
+      margin-top: 1rem;
+      font-size: 1.2rem;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <h1>🎨 CSS font-family: The Ultimate Guide</h1>
+  <div class="sub">Choose typefaces, build fallback stacks, and use custom fonts with confidence.</div>
+
+  <!-- Section 1: Basic font families -->
+  <div class="card">
+    <h2>📌 1. Generic & Web‑Safe Fonts</h2>
+    <div class="demo-grid">
+      <div class="font-sample">
+        <h3>Serif</h3>
+        <p style="font-family: Georgia, 'Times New Roman', Times, serif;">The quick brown fox jumps over the lazy dog.</p>
+        <code>font-family: Georgia, 'Times New Roman', Times, serif;</code>
+      </div>
+      <div class="font-sample">
+        <h3>Sans-serif</h3>
+        <p style="font-family: Arial, Helvetica, sans-serif;">The quick brown fox jumps over the lazy dog.</p>
+        <code>font-family: Arial, Helvetica, sans-serif;</code>
+      </div>
+      <div class="font-sample">
+        <h3>Monospace</h3>
+        <p style="font-family: 'Courier New', Courier, monospace;">The quick brown fox jumps over the lazy dog.</p>
+        <code>font-family: 'Courier New', Courier, monospace;</code>
+      </div>
+      <div class="font-sample">
+        <h3>Cursive</h3>
+        <p style="font-family: 'Comic Sans MS', cursive, sans-serif;">The quick brown fox jumps over the lazy dog.</p>
+        <code>font-family: 'Comic Sans MS', cursive, sans-serif;</code>
+      </div>
+    </div>
+    <div class="note">
+      💡 <strong>Fallback order:</strong> The browser tries each font until it finds one installed on the user's system. Always end with a generic family.
+    </div>
+  </div>
+
+  <!-- Section 2: Modern System Font Stack -->
+  <div class="card">
+    <h2>🖥️ 2. System Font Stack (Native & Fast)</h2>
+    <p style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; font-size: 1.2rem;">
+      This text uses the system font stack – it matches the OS default interface font.
+    </p>
+    <code>font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;</code>
+    <div class="note">
+      ✅ Great performance, no external requests, and looks native on each platform.
+    </div>
+  </div>
+
+  <!-- Section 3: Google Fonts Examples -->
+  <div class="card">
+    <h2>🌐 3. Custom Fonts: Google Fonts</h2>
+    <div class="demo-grid">
+      <div class="font-sample">
+        <h3>Inter (sans)</h3>
+        <p style="font-family: 'Inter', sans-serif;">Design with modern, clean lines.</p>
+      </div>
+      <div class="font-sample">
+        <h3>Playfair Display (serif)</h3>
+        <p style="font-family: 'Playfair Display', serif;">Elegant and timeless.</p>
+      </div>
+      <div class="font-sample">
+        <h3>Fira Code (mono)</h3>
+        <p style="font-family: 'Fira Code', monospace;">const greeting = "Hello, World!";</p>
+      </div>
+    </div>
+    <div class="note">
+      📦 These fonts are loaded from Google Fonts. The <code>@import</code> or <code>&lt;link&gt;</code> is added in the HTML head.
+    </div>
+  </div>
+
+  <!-- Section 4: @font-face Self-hosted -->
+  <div class="card">
+    <h2>📁 4. Self‑Hosted Fonts with @font-face</h2>
+    <p>You can host font files (woff2, woff, ttf) on your server and define them with <code>@font-face</code>.</p>
+    <pre style="background:#f1f5f9; padding:0.8rem; border-radius:16px; overflow-x:auto;">
+@font-face {
+  font-family: 'MyCustomFont';
+  src: url('fonts/custom.woff2') format('woff2'),
+       url('fonts/custom.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}</pre>
+    <div class="note">
+      🔁 <code>font-display: swap</code> ensures text remains visible while the font loads, improving user experience.
+    </div>
+  </div>
+
+  <!-- Section 5: Interactive Playground -->
+  <div class="card">
+    <h2>🎮 Interactive Font Family Playground</h2>
+    <div class="interactive-control">
+      <label for="fontSelect">Choose a font family: </label>
+      <select id="fontSelect">
+        <option value="Georgia, 'Times New Roman', Times, serif">Serif (Georgia)</option>
+        <option value="Arial, Helvetica, sans-serif">Sans-serif (Arial)</option>
+        <option value="'Courier New', Courier, monospace">Monospace (Courier)</option>
+        <option value="'Inter', sans-serif">Inter (Google Font)</option>
+        <option value="'Playfair Display', serif">Playfair Display (Google Font)</option>
+        <option value="'Fira Code', monospace">Fira Code (monospace)</option>
+        <option value="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif">System UI</option>
+      </select>
+      <div>
+        <label for="customFontInput">Or type your own font stack: </label>
+        <input type="text" id="customFontInput" placeholder="e.g., 'Helvetica Neue', Arial, sans-serif" style="width: 80%;">
+      </div>
+      <div class="demo-text" id="playgroundText">
+        The quick brown fox jumps over the lazy dog. <br>
+        1234567890 — Font Family Demo
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 6: Best Practices -->
+  <div class="card">
+    <h2>✅ Best Practices & Tips</h2>
+    <ul style="margin-left: 1.5rem; line-height: 1.6;">
+      <li>🔹 <strong>Always end with a generic family</strong> (<code>serif</code>, <code>sans-serif</code>, <code>monospace</code>, etc.)</li>
+      <li>🔹 <strong>Quote font names with spaces</strong> → <code>"Times New Roman"</code></li>
+      <li>🔹 <strong>Use system fonts</strong> for better performance and native look.</li>
+      <li>🔹 <strong>Limit the number of custom fonts</strong> to avoid slow page loads.</li>
+      <li>🔹 <strong>Use <code>font-display: swap</code></strong> with web fonts to prevent invisible text (FOIT).</li>
+      <li>🔹 <strong>Test fallbacks</strong> – disable fonts in DevTools to ensure your stack degrades gracefully.</li>
+      <li>🔹 <strong>Combine with other font properties</strong> like <code>font-weight</code>, <code>font-size</code>, <code>line-height</code> for complete control.</li>
+    </ul>
+  </div>
+
+  <footer style="text-align: center; margin-top: 2rem; font-size: 0.8rem; color: #475569;">
+    ✨ CSS font-family gives you full control over typography. Experiment with the interactive playground above!
+  </footer>
+</div>
+
+<script>
+  const fontSelect = document.getElementById('fontSelect');
+  const customInput = document.getElementById('customFontInput');
+  const textDiv = document.getElementById('playgroundText');
+
+  function updateFont() {
+    let selectedFont = fontSelect.value;
+    if (customInput.value.trim() !== '') {
+      selectedFont = customInput.value.trim();
+    }
+    textDiv.style.fontFamily = selectedFont;
+  }
+
+  fontSelect.addEventListener('change', updateFont);
+  customInput.addEventListener('input', updateFont);
+  updateFont();
+</script>
+</body>
+</html>
