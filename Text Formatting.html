@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CSS Text Formatting – Complete Interactive Guide</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      font-family: system-ui, 'Segoe UI', 'Roboto', sans-serif;
+      background: #f8fafc;
+      margin: 0;
+      padding: 2rem;
+      color: #0f172a;
+    }
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 0.25rem;
+      background: linear-gradient(135deg, #1e293b, #3b82f6);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+    .sub {
+      border-left: 4px solid #3b82f6;
+      padding-left: 1rem;
+      color: #334155;
+      margin-bottom: 2rem;
+    }
+    .card {
+      background: white;
+      border-radius: 28px;
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+    }
+    h2 {
+      margin-top: 0;
+      margin-bottom: 1rem;
+      font-size: 1.4rem;
+      border-left: 5px solid #f97316;
+      padding-left: 0.75rem;
+    }
+    .demo-area {
+      background: #f1f5f9;
+      border-radius: 20px;
+      padding: 1.5rem;
+      margin: 1rem 0;
+    }
+    .text-demo {
+      background: white;
+      border-radius: 16px;
+      padding: 1.2rem;
+      margin: 0.5rem 0;
+      border: 1px solid #e2e8f0;
+      transition: all 0.2s;
+    }
+    .controls {
+      background: #f8fafc;
+      border-radius: 16px;
+      padding: 1rem;
+      margin-top: 1rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .control-group {
+      flex: 1;
+      min-width: 150px;
+    }
+    label {
+      display: block;
+      font-size: 0.8rem;
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+      color: #475569;
+    }
+    input, select {
+      width: 100%;
+      padding: 0.5rem;
+      border-radius: 12px;
+      border: 1px solid #cbd5e1;
+      font-family: inherit;
+    }
+    .note {
+      background: #eef2ff;
+      border-left: 4px solid #3b82f6;
+      padding: 0.8rem;
+      border-radius: 16px;
+      font-size: 0.85rem;
+      margin: 1rem 0;
+    }
+    code {
+      background: #e2e8f0;
+      padding: 0.2rem 0.4rem;
+      border-radius: 8px;
+      font-family: 'Fira Code', monospace;
+      font-size: 0.85rem;
+    }
+    footer {
+      text-align: center;
+      margin-top: 2rem;
+      font-size: 0.8rem;
+      color: #475569;
+    }
+    .grid-2 {
+      display: flex;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+    .grid-2 > * {
+      flex: 1;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <h1>✍️ CSS Text Formatting</h1>
+  <div class="sub">Control how text looks: alignment, spacing, decoration, and more.</div>
+
+  <!-- Section 1: Basic text properties (color, align, transform) -->
+  <div class="card">
+    <h2>1. Color, Alignment & Transform</h2>
+    <div class="grid-2">
+      <div class="demo-area">
+        <div class="text-demo" id="basicDemo">
+          The quick brown fox jumps over the lazy dog.
+        </div>
+        <div class="controls">
+          <div class="control-group">
+            <label>Color</label>
+            <input type="color" id="textColor" value="#0f172a">
+          </div>
+          <div class="control-group">
+            <label>Text-align</label>
+            <select id="textAlign">
+              <option value="left">left</option>
+              <option value="center">center</option>
+              <option value="right">right</option>
+              <option value="justify">justify</option>
+            </select>
+          </div>
+          <div class="control-group">
+            <label>Text-transform</label>
+            <select id="textTransform">
+              <option value="none">none</option>
+              <option value="uppercase">uppercase</option>
+              <option value="lowercase">lowercase</option>
+              <option value="capitalize">capitalize</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="demo-area">
+        <div class="text-demo" style="font-size: 1.2rem; font-weight: 500;">
+          <span style="color: #dc2626;">color</span> · 
+          <span style="text-align: center; display: inline-block; width: 80px;">align</span> · 
+          <span style="text-transform: uppercase;">transform</span>
+        </div>
+        <div class="note">
+          💡 <code>text-align</code> works on block elements. <code>text-transform</code> changes case without altering HTML content.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 2: Text Decoration -->
+  <div class="card">
+    <h2>2. Text Decoration (underline, overline, line-through)</h2>
+    <div class="grid-2">
+      <div class="demo-area">
+        <div class="text-demo" id="decorationDemo">
+          This text has a decorative line.
+        </div>
+        <div class="controls">
+          <div class="control-group">
+            <label>Decoration line</label>
+            <select id="textDecorationLine">
+              <option value="none">none</option>
+              <option value="underline">underline</option>
+              <option value="overline">overline</option>
+              <option value="line-through">line-through</option>
+              <option value="underline overline">underline overline</option>
+            </select>
+          </div>
+          <div class="control-group">
+            <label>Decoration color</label>
+            <input type="color" id="decorationColor" value="#f97316">
+          </div>
+          <div class="control-group">
+            <label>Decoration style</label>
+            <select id="decorationStyle">
+              <option value="solid">solid</option>
+              <option value="double">double</option>
+              <option value="dotted">dotted</option>
+              <option value="dashed">dashed</option>
+              <option value="wavy">wavy</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="demo-area">
+        <div class="text-demo">
+          <p>Common uses: <a href="#" style="text-decoration: none;">remove link underline</a>, <span style="text-decoration: line-through;">strikethrough</span>, <u>underline</u>.</p>
+        </div>
+        <div class="note">
+          🎨 <code>text-decoration</code> shorthand: <code>text-decoration: underline wavy red;</code>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 3: Letter & Word Spacing, Line Height -->
+  <div class="card">
+    <h2>3. Spacing: letter-spacing, word-spacing, line-height</h2>
+    <div class="demo-area">
+      <div class="text-demo" id="spacingDemo">
+        Spacing affects readability and style.
+      </div>
+      <div class="controls">
+        <div class="control-group">
+          <label>Letter spacing</label>
+          <input type="range" id="letterSpacing" min="-2" max="10" step="0.5" value="0">
+          <span id="letterSpacingVal">0px</span>
+        </div>
+        <div class="control-group">
+          <label>Word spacing</label>
+          <input type="range" id="wordSpacing" min="-2" max="10" step="0.5" value="0">
+          <span id="wordSpacingVal">0px</span>
+        </div>
+        <div class="control-group">
+          <label>Line height</label>
+          <input type="range" id="lineHeight" min="1" max="2.5" step="0.1" value="1.4">
+          <span id="lineHeightVal">1.4</span>
+        </div>
+      </div>
+      <div class="note">
+        📏 <code>line-height</code> without unit is relative to font size (best practice). <code>letter-spacing</code> can be negative for tight kerning.
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 4: Text Shadow & Indent -->
+  <div class="card">
+    <h2>4. Text Shadow & Text Indent</h2>
+    <div class="grid-2">
+      <div class="demo-area">
+        <div class="text-demo" id="shadowDemo" style="font-size: 1.5rem; font-weight: bold;">
+          Shadow Text
+        </div>
+        <div class="controls">
+          <div class="control-group">
+            <label>Shadow X offset</label>
+            <input type="range" id="shadowX" min="-5" max="10" step="1" value="2">
+          </div>
+          <div class="control-group">
+            <label>Shadow Y offset</label>
+            <input type="range" id="shadowY" min="-5" max="10" step="1" value="2">
+          </div>
+          <div class="control-group">
+            <label>Blur radius</label>
+            <input type="range" id="shadowBlur" min="0" max="10" step="1" value="4">
+          </div>
+          <div class="control-group">
+            <label>Shadow color</label>
+            <input type="color" id="shadowColor" value="#94a3b8">
+          </div>
+        </div>
+      </div>
+      <div class="demo-area">
+        <div class="text-demo" id="indentDemo" style="max-width: 300px;">
+          This paragraph demonstrates text-indent. The first line is indented by a custom amount. Useful for traditional typography.
+        </div>
+        <div class="controls">
+          <div class="control-group">
+            <label>Text indent</label>
+            <input type="range" id="textIndent" min="0" max="50" step="2" value="0">
+            <span id="indentVal">0px</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 5: White-space & Word Break -->
+  <div class="card">
+    <h2>5. White-space & Word Breaking</h2>
+    <div class="grid-2">
+      <div class="demo-area">
+        <div class="text-demo" id="whiteSpaceDemo" style="background: #fef9c3; font-family: monospace;">
+          This    text   has   multiple spaces
+          and line breaks. See how white-space handling changes.
+        </div>
+        <div class="controls">
+          <div class="control-group">
+            <label>white-space</label>
+            <select id="whiteSpace">
+              <option value="normal">normal (collapse, wrap)</option>
+              <option value="nowrap">nowrap (no wrap)</option>
+              <option value="pre">pre (preserve)</option>
+              <option value="pre-wrap">pre-wrap (preserve + wrap)</option>
+              <option value="pre-line">pre-line (collapse spaces, preserve lines)</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="demo-area">
+        <div class="text-demo" id="wordBreakDemo" style="width: 200px; background: #e0f2fe;">
+          SupercalifragilisticexpialidociousVeryLongWord
+        </div>
+        <div class="controls">
+          <div class="control-group">
+            <label>word-break / overflow-wrap</label>
+            <select id="wordBreak">
+              <option value="normal">normal</option>
+              <option value="break-all">break-all</option>
+              <option value="keep-all">keep-all</option>
+              <option value="break-word">overflow-wrap: break-word</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="note">
+      🧩 <code>white-space</code> controls how whitespace and line breaks are handled. <code>word-break: break-all</code> forces breaking long words to prevent overflow.
+    </div>
+  </div>
+
+  <!-- Section 6: Direction & Vertical Alignment -->
+  <div class="card">
+    <h2>6. Text Direction & Vertical Alignment</h2>
+    <div class="grid-2">
+      <div class="demo-area">
+        <div class="text-demo" id="directionDemo">
+          This text direction can be left-to-right or right-to-left.
+        </div>
+        <div class="controls">
+          <div class="control-group">
+            <label>direction</label>
+            <select id="direction">
+              <option value="ltr">ltr (left-to-right)</option>
+              <option value="rtl">rtl (right-to-left)</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="demo-area">
+        <div class="text-demo" style="line-height: 3;">
+          <span style="font-size: 1rem;">Baseline</span>
+          <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='%233b82f6'%3E%3Ccircle cx='12' cy='12' r='10'/%3E%3C/svg%3E" style="vertical-align: middle;" alt="icon"> 
+          <span style="font-size: 1.5rem;">Big text</span>
+          <select id="verticalAlign" style="width: auto; display: inline-block; width: 100px;">
+            <option value="baseline">baseline</option>
+            <option value="top">top</option>
+            <option value="middle">middle</option>
+            <option value="bottom">bottom</option>
+            <option value="text-top">text-top</option>
+            <option value="text-bottom">text-bottom</option>
+          </select>
+        </div>
+        <div class="note">
+          🔼 <code>vertical-align</code> affects inline or inline-block elements relative to their parent line box.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 7: All Properties Summary Table -->
+  <div class="card">
+    <h2>📚 Quick Reference</h2>
+    <div style="overflow-x: auto;">
+      <table style="width:100%; border-collapse: collapse; background: #f1f5f9; border-radius: 20px;">
+        <thead style="background: #334155; color: white;">
+          <tr><th style="padding: 10px;">Property</th><th>Description</th><th>Example</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><code>color</code></td><td>Text color</td><td><code>color: #ff6600;</code></td></tr>
+          <tr><td><code>text-align</code></td><td>Horizontal alignment</td><td><code>text-align: center;</code></td></tr>
+          <tr><td><code>text-decoration</code></td><td>Line decoration</td><td><code>text-decoration: underline wavy red;</code></td></tr>
+          <tr><td><code>text-transform</code></td><td>Case transformation</td><td><code>text-transform: uppercase;</code></td></tr>
+          <tr><td><code>letter-spacing</code></td><td>Space between characters</td><td><code>letter-spacing: 2px;</code></td></tr>
+          <tr><td><code>word-spacing</code></td><td>Space between words</td><td><code>word-spacing: 0.5em;</code></td></tr>
+          <tr><td><code>line-height</code></td><td>Line height (leading)</td><td><code>line-height: 1.5;</code></td></tr>
+          <tr><td><code>text-indent</code></td><td>First line indent</td><td><code>text-indent: 2em;</code></td></tr>
+          <tr><td><code>text-shadow</code></td><td>Shadow effect</td><td><code>text-shadow: 2px 2px 4px gray;</code></td></tr>
+          <tr><td><code>white-space</code></td><td>Whitespace handling</td><td><code>white-space: nowrap;</code></td></tr>
+          <tr><td><code>word-break</code></td><td>Breaking long words</td><td><code>word-break: break-all;</code></td></tr>
+          <tr><td><code>direction</code></td><td>Text direction</td><td><code>direction: rtl;</code></td></tr>
+          <tr><td><code>vertical-align</code></td><td>Inline alignment</td><td><code>vertical-align: middle;</code></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <footer>
+    🎨 All examples are interactive — modify controls to see real-time changes. Experiment with combinations!
+  </footer>
+</div>
+
+<script>
+  // Basic demo (color, align, transform)
+  const basicDemo = document.getElementById('basicDemo');
+  document.getElementById('textColor').addEventListener('input', e => basicDemo.style.color = e.target.value);
+  document.getElementById('textAlign').addEventListener('change', e => basicDemo.style.textAlign = e.target.value);
+  document.getElementById('textTransform').addEventListener('change', e => basicDemo.style.textTransform = e.target.value);
+
+  // Text decoration
+  const decoDemo = document.getElementById('decorationDemo');
+  function updateDecoration() {
+    const line = document.getElementById('textDecorationLine').value;
+    const color = document.getElementById('decorationColor').value;
+    const style = document.getElementById('decorationStyle').value;
+    decoDemo.style.textDecoration = `${line} ${style} ${color}`;
+  }
+  document.getElementById('textDecorationLine').addEventListener('change', updateDecoration);
+  document.getElementById('decorationColor').addEventListener('input', updateDecoration);
+  document.getElementById('decorationStyle').addEventListener('change', updateDecoration);
+  updateDecoration();
+
+  // Spacing
+  const spacingDemo = document.getElementById('spacingDemo');
+  const letterSpacing = document.getElementById('letterSpacing');
+  const wordSpacing = document.getElementById('wordSpacing');
+  const lineHeight = document.getElementById('lineHeight');
+  const letterSpan = document.getElementById('letterSpacingVal');
+  const wordSpan = document.getElementById('wordSpacingVal');
+  const lineSpan = document.getElementById('lineHeightVal');
+  function updateSpacing() {
+    const ls = letterSpacing.value;
+    const ws = wordSpacing.value;
+    const lh = lineHeight.value;
+    spacingDemo.style.letterSpacing = ls + 'px';
+    spacingDemo.style.wordSpacing = ws + 'px';
+    spacingDemo.style.lineHeight = lh;
+    letterSpan.innerText = ls + 'px';
+    wordSpan.innerText = ws + 'px';
+    lineSpan.innerText = lh;
+  }
+  letterSpacing.addEventListener('input', updateSpacing);
+  wordSpacing.addEventListener('input', updateSpacing);
+  lineHeight.addEventListener('input', updateSpacing);
+  updateSpacing();
+
+  // Text shadow
+  const shadowDemo = document.getElementById('shadowDemo');
+  const shadowX = document.getElementById('shadowX');
+  const shadowY = document.getElementById('shadowY');
+  const shadowBlur = document.getElementById('shadowBlur');
+  const shadowColor = document.getElementById('shadowColor');
+  function updateShadow() {
+    const x = shadowX.value;
+    const y = shadowY.value;
+    const blur = shadowBlur.value;
+    const color = shadowColor.value;
+    shadowDemo.style.textShadow = `${x}px ${y}px ${blur}px ${color}`;
+  }
+  shadowX.addEventListener('input', updateShadow);
+  shadowY.addEventListener('input', updateShadow);
+  shadowBlur.addEventListener('input', updateShadow);
+  shadowColor.addEventListener('input', updateShadow);
+  updateShadow();
+
+  // Text indent
+  const indentDemo = document.getElementById('indentDemo');
+  const indentSlider = document.getElementById('textIndent');
+  const indentVal = document.getElementById('indentVal');
+  indentSlider.addEventListener('input', () => {
+    const val = indentSlider.value;
+    indentDemo.style.textIndent = val + 'px';
+    indentVal.innerText = val + 'px';
+  });
+  indentSlider.dispatchEvent(new Event('input'));
+
+  // White-space
+  const wsDemo = document.getElementById('whiteSpaceDemo');
+  document.getElementById('whiteSpace').addEventListener('change', e => {
+    wsDemo.style.whiteSpace = e.target.value;
+  });
+
+  // Word break / overflow-wrap
+  const wbDemo = document.getElementById('wordBreakDemo');
+  document.getElementById('wordBreak').addEventListener('change', e => {
+    const val = e.target.value;
+    if (val === 'break-word') {
+      wbDemo.style.overflowWrap = 'break-word';
+      wbDemo.style.wordBreak = 'normal';
+    } else {
+      wbDemo.style.wordBreak = val;
+      wbDemo.style.overflowWrap = 'normal';
+    }
+  });
+
+  // Direction
+  const dirDemo = document.getElementById('directionDemo');
+  document.getElementById('direction').addEventListener('change', e => {
+    dirDemo.style.direction = e.target.value;
+    dirDemo.style.textAlign = e.target.value === 'rtl' ? 'right' : 'left';
+  });
+
+  // Vertical alignment on the icon inside the demo
+  const vertSelect = document.getElementById('verticalAlign');
+  const img = document.querySelector('#verticalAlign').previousElementSibling;
+  if (img && img.tagName === 'IMG') {
+    vertSelect.addEventListener('change', e => {
+      img.style.verticalAlign = e.target.value;
+    });
+  }
+</script>
+</body>
+</html>
