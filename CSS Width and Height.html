@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CSS Width & Height – Complete Interactive Guide</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      font-family: system-ui, 'Segoe UI', sans-serif;
+      background: #f4f7fb;
+      padding: 2rem;
+      margin: 0;
+      color: #1e293b;
+    }
+    .container {
+      max-width: 1300px;
+      margin: 0 auto;
+    }
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+    }
+    .sub {
+      border-left: 4px solid #3b82f6;
+      padding-left: 1rem;
+      color: #334155;
+      margin-bottom: 2rem;
+    }
+    .card {
+      background: white;
+      border-radius: 28px;
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+    }
+    h2 {
+      margin-top: 0;
+      margin-bottom: 1rem;
+      font-size: 1.5rem;
+      border-bottom: 2px solid #e2e8f0;
+      display: inline-block;
+      padding-bottom: 0.25rem;
+    }
+    .demo-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      margin: 1.5rem 0;
+    }
+    .demo-item {
+      background: #f8fafc;
+      border-radius: 20px;
+      padding: 1rem;
+      flex: 1 1 200px;
+      text-align: center;
+    }
+    .box {
+      background: #3b82f6;
+      color: white;
+      text-align: center;
+      padding: 0.5rem;
+      margin: 0.5rem auto;
+      border-radius: 12px;
+      transition: all 0.2s;
+    }
+    .controls {
+      background: #f1f5f9;
+      border-radius: 20px;
+      padding: 1rem;
+      margin-top: 1rem;
+    }
+    input, select {
+      padding: 0.5rem;
+      border-radius: 12px;
+      border: 1px solid #cbd5e1;
+      margin: 0.5rem 0;
+    }
+    .live-box {
+      background: #facc15;
+      color: #1e293b;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      margin: 1rem 0;
+      transition: all 0.2s;
+      border-radius: 12px;
+      font-weight: bold;
+      overflow: hidden;
+    }
+    .note {
+      background: #eef2ff;
+      border-left: 4px solid #3b82f6;
+      padding: 0.8rem;
+      border-radius: 16px;
+      font-size: 0.85rem;
+      margin: 1rem 0;
+    }
+    code {
+      background: #e2e8f0;
+      padding: 0.2rem 0.4rem;
+      border-radius: 8px;
+      font-family: monospace;
+    }
+    footer {
+      text-align: center;
+      margin-top: 2rem;
+      font-size: 0.8rem;
+      color: #475569;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <h1>📏 CSS Width & Height</h1>
+  <div class="sub">Control element sizing with absolute, relative, and responsive units.</div>
+
+  <!-- Section 1: Basic examples -->
+  <div class="card">
+    <h2>1. Basic Sizing</h2>
+    <div class="demo-grid">
+      <div class="demo-item">
+        <div class="box" style="width: 100px; height: 100px;">100x100</div>
+        <code>width: 100px; height: 100px;</code>
+      </div>
+      <div class="demo-item">
+        <div class="box" style="width: 150px; height: 80px;">150x80</div>
+        <code>width: 150px; height: 80px;</code>
+      </div>
+      <div class="demo-item">
+        <div class="box" style="width: 50%; height: auto;">width: 50%<br>height: auto</div>
+        <code>50% of parent width</code>
+      </div>
+      <div class="demo-item">
+        <div class="box" style="width: 30vw; height: 30vh;">30vw x 30vh</div>
+        <code>viewport units</code>
+      </div>
+    </div>
+    <div class="note">
+      💡 <code>auto</code> height makes the element expand to fit its content. <code>%</code> width is relative to parent’s content width.
+    </div>
+  </div>
+
+  <!-- Section 2: Box-sizing comparison -->
+  <div class="card">
+    <h2>2. Box‑sizing: content-box vs border-box</h2>
+    <div class="demo-grid">
+      <div class="demo-item">
+        <div style="background:#e2e8f0; padding: 10px; border-radius: 16px;">
+          <div class="box" style="width: 200px; padding: 20px; border: 5px solid #1e293b; box-sizing: content-box; background: #ef4444;">
+            content-box
+          </div>
+        </div>
+        <small>width:200px + padding+border → actual width 250px</small>
+      </div>
+      <div class="demo-item">
+        <div style="background:#e2e8f0; padding: 10px; border-radius: 16px;">
+          <div class="box" style="width: 200px; padding: 20px; border: 5px solid #1e293b; box-sizing: border-box; background: #10b981;">
+            border-box
+          </div>
+        </div>
+        <small>width:200px includes padding and border → content shrinks</small>
+      </div>
+    </div>
+    <div class="note">
+      🔄 Modern best practice: use <code>* { box-sizing: border-box; }</code> to make sizing predictable.
+    </div>
+  </div>
+
+  <!-- Section 3: Min / Max constraints -->
+  <div class="card">
+    <h2>3. Min‑width, Max‑width, Min‑height, Max‑height</h2>
+    <div class="demo-grid">
+      <div class="demo-item">
+        <div class="box" style="min-width: 150px; max-width: 250px; width: 50%; background: #8b5cf6;">
+          width: 50%<br>min:150px, max:250px
+        </div>
+        <small>Resize window → width stays between 150px and 250px</small>
+      </div>
+      <div class="demo-item">
+        <div class="box" style="min-height: 80px; max-height: 150px; height: auto; background: #ec489a; overflow-y: auto;">
+          min-height:80px, max-height:150px<br>
+          Content expands until 150px, then scrolls.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 4: Interactive playground -->
+  <div class="card">
+    <h2>🎮 Interactive Size Lab</h2>
+    <div class="controls">
+      <label>Width: </label>
+      <input type="range" id="widthSlider" min="50" max="400" value="200" step="5">
+      <span id="widthVal">200px</span><br>
+
+      <label>Height: </label>
+      <input type="range" id="heightSlider" min="50" max="300" value="150" step="5">
+      <span id="heightVal">150px</span><br>
+
+      <label>Box‑sizing: </label>
+      <select id="boxSizingSelect">
+        <option value="content-box">content-box</option>
+        <option value="border-box" selected>border-box</option>
+      </select><br>
+
+      <label>Padding: </label>
+      <input type="range" id="paddingSlider" min="0" max="30" value="10" step="2">
+      <span id="paddingVal">10px</span><br>
+
+      <label>Border: </label>
+      <input type="range" id="borderSlider" min="0" max="10" value="2" step="1">
+      <span id="borderVal">2px</span>
+    </div>
+
+    <div class="live-box" id="liveBox">
+      Resize me!
+    </div>
+
+    <div class="note" id="sizeNote">
+      Actual width: <span id="actualWidth">-</span>px, Height: <span id="actualHeight">-</span>px
+    </div>
+  </div>
+
+  <!-- Section 5: Aspect ratio -->
+  <div class="card">
+    <h2>📐 4. Aspect Ratio (modern)</h2>
+    <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+      <div style="flex: 1; background: #f1f5f9; border-radius: 20px; padding: 1rem;">
+        <div style="background: #f97316; color: white; width: 100%; aspect-ratio: 16 / 9; display: flex; align-items: center; justify-content: center;">
+          16:9
+        </div>
+        <code>aspect-ratio: 16 / 9;</code>
+      </div>
+      <div style="flex: 1; background: #f1f5f9; border-radius: 20px; padding: 1rem;">
+        <div style="background: #f97316; color: white; width: 100%; aspect-ratio: 1 / 1; display: flex; align-items: center; justify-content: center;">
+          1:1
+        </div>
+        <code>aspect-ratio: 1 / 1;</code>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 6: Viewport units -->
+  <div class="card">
+    <h2>📱 5. Viewport Units (vw, vh, vmin, vmax)</h2>
+    <div class="demo-grid">
+      <div class="demo-item">
+        <div class="box" style="width: 20vw; height: 10vh; background: #0f172a;">20vw x 10vh</div>
+        <small>20% of viewport width, 10% of viewport height</small>
+      </div>
+      <div class="demo-item">
+        <div class="box" style="width: 30vmin; height: 30vmin; background: #64748b;">30vmin</div>
+        <small>30% of the smaller viewport dimension (great for squares)</small>
+      </div>
+    </div>
+    <div class="note">
+      🖥️ vw/vh are relative to the browser’s viewport size; useful for full‑page sections and responsive typography.
+    </div>
+  </div>
+
+  <!-- Section 7: Common pitfalls & tips -->
+  <div class="card">
+    <h2>⚠️ Common Pitfalls & Best Practices</h2>
+    <ul style="margin-left: 1.5rem; line-height: 1.6;">
+      <li>🔹 <strong>Percentage height</strong> – only works if parent has an explicit height (or using flex/grid with align‑stretch).</li>
+      <li>🔹 <strong>Inline elements</strong> – width/height are ignored; use <code>display: inline-block</code> or <code>block</code>.</li>
+      <li>🔹 <strong>Box‑sizing</strong> – always set to <code>border-box</code> globally to avoid unexpected sizes.</li>
+      <li>🔹 <strong>Max‑width on images</strong> – <code>img { max-width: 100%; height: auto; }</code> makes images responsive.</li>
+      <li>🔹 <strong>Aspect‑ratio</strong> – use for videos, cards, and consistent shapes without JavaScript.</li>
+      <li>🔹 <strong>Viewport units on mobile</strong> – be aware that vh can change when address bar appears; consider using dvh (dynamic viewport height) in modern browsers.</li>
+    </ul>
+  </div>
+
+  <footer>
+    ✨ Experiment with the interactive playground to see how width, height, padding, and box‑sizing interact.
+  </footer>
+</div>
+
+<script>
+  const widthSlider = document.getElementById('widthSlider');
+  const heightSlider = document.getElementById('heightSlider');
+  const boxSizingSelect = document.getElementById('boxSizingSelect');
+  const paddingSlider = document.getElementById('paddingSlider');
+  const borderSlider = document.getElementById('borderSlider');
+  const liveBox = document.getElementById('liveBox');
+  const widthVal = document.getElementById('widthVal');
+  const heightVal = document.getElementById('heightVal');
+  const paddingVal = document.getElementById('paddingVal');
+  const borderVal = document.getElementById('borderVal');
+  const actualWidthSpan = document.getElementById('actualWidth');
+  const actualHeightSpan = document.getElementById('actualHeight');
+
+  function updateBox() {
+    const w = widthSlider.value;
+    const h = heightSlider.value;
+    const boxSizing = boxSizingSelect.value;
+    const padding = paddingSlider.value;
+    const border = borderSlider.value;
+
+    liveBox.style.width = w + 'px';
+    liveBox.style.height = h + 'px';
+    liveBox.style.boxSizing = boxSizing;
+    liveBox.style.padding = padding + 'px';
+    liveBox.style.border = border + 'px solid #334155';
+
+    widthVal.innerText = w + 'px';
+    heightVal.innerText = h + 'px';
+    paddingVal.innerText = padding + 'px';
+    borderVal.innerText = border + 'px';
+
+    // Get computed dimensions (actual rendered size)
+    const computedStyle = getComputedStyle(liveBox);
+    const actualW = parseInt(computedStyle.width);
+    const actualH = parseInt(computedStyle.height);
+    actualWidthSpan.innerText = actualW;
+    actualHeightSpan.innerText = actualH;
+  }
+
+  widthSlider.addEventListener('input', updateBox);
+  heightSlider.addEventListener('input', updateBox);
+  boxSizingSelect.addEventListener('change', updateBox);
+  paddingSlider.addEventListener('input', updateBox);
+  borderSlider.addEventListener('input', updateBox);
+  updateBox();
+</script>
+</body>
+</html>
