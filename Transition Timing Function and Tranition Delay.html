@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CSS Transition: Timing Function & Delay – Interactive Guide</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: system-ui, 'Segoe UI', Roboto, sans-serif;
+      background: #f4f7fc;
+      padding: 2rem;
+      color: #0f172a;
+    }
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+      background: linear-gradient(135deg, #1e293b, #3b82f6);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+    .sub {
+      border-left: 4px solid #3b82f6;
+      padding-left: 1rem;
+      color: #334155;
+      margin-bottom: 2rem;
+    }
+    .card {
+      background: white;
+      border-radius: 28px;
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+    }
+    h2 {
+      font-size: 1.4rem;
+      margin-top: 0;
+      margin-bottom: 1rem;
+      border-left: 5px solid #f97316;
+      padding-left: 0.75rem;
+    }
+    .demo-area {
+      background: #f1f5f9;
+      border-radius: 20px;
+      padding: 2rem;
+      margin: 1rem 0;
+      text-align: center;
+    }
+    .track {
+      position: relative;
+      height: 100px;
+      background: #e2e8f0;
+      border-radius: 50px;
+      margin: 2rem 0;
+      overflow: hidden;
+    }
+    .ball {
+      width: 60px;
+      height: 60px;
+      background: #3b82f6;
+      border-radius: 50%;
+      position: absolute;
+      left: 0;
+      top: 20px;
+      transition-property: left;
+      transition-duration: 1s;
+      cursor: pointer;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      margin: 1rem 0;
+      justify-content: center;
+    }
+    .control-group {
+      background: white;
+      padding: 0.8rem;
+      border-radius: 16px;
+      min-width: 200px;
+    }
+    label {
+      display: block;
+      font-size: 0.8rem;
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+      color: #475569;
+    }
+    select, input {
+      width: 100%;
+      padding: 0.4rem;
+      border-radius: 12px;
+      border: 1px solid #cbd5e1;
+      font-family: inherit;
+    }
+    .note {
+      background: #eef2ff;
+      border-left: 4px solid #3b82f6;
+      padding: 0.8rem;
+      border-radius: 16px;
+      font-size: 0.85rem;
+      margin: 1rem 0;
+    }
+    code {
+      background: #e2e8f0;
+      padding: 0.2rem 0.4rem;
+      border-radius: 8px;
+      font-family: monospace;
+    }
+    footer {
+      text-align: center;
+      margin-top: 2rem;
+      font-size: 0.8rem;
+      color: #475569;
+    }
+    .examples-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: center;
+      margin: 1rem 0;
+    }
+    .example-box {
+      width: 120px;
+      height: 80px;
+      background: #f97316;
+      transition: transform 0.5s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 0.8rem;
+      border-radius: 12px;
+      cursor: pointer;
+    }
+    .example-box:hover {
+      transform: translateY(-10px) scale(1.05);
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: #f1f5f9;
+      border-radius: 20px;
+      overflow: hidden;
+    }
+    th {
+      background: #334155;
+      color: white;
+      padding: 10px;
+      text-align: left;
+    }
+    td {
+      padding: 10px;
+      border-bottom: 1px solid #cbd5e1;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <h1>⏱️ Transition Timing Function & Delay</h1>
+  <div class="sub">Control the rhythm and pace of your animations.</div>
+
+  <!-- Interactive Playground -->
+  <div class="card">
+    <h2>1. Interactive Playground</h2>
+    <div class="demo-area">
+      <div class="track">
+        <div id="ball" class="ball"></div>
+      </div>
+      <button id="moveBtn" style="padding: 0.5rem 1rem; border-radius: 40px; background: #3b82f6; color: white; border: none; cursor: pointer;">Move Ball</button>
+      <div class="controls">
+        <div class="control-group">
+          <label>transition-timing-function</label>
+          <select id="timingSelect">
+            <option value="ease">ease (default)</option>
+            <option value="linear">linear</option>
+            <option value="ease-in">ease-in</option>
+            <option value="ease-out">ease-out</option>
+            <option value="ease-in-out">ease-in-out</option>
+            <option value="cubic-bezier(0.68, -0.55, 0.265, 1.55)">cubic-bezier(0.68, -0.55, 0.265, 1.55) (bounce)</option>
+            <option value="steps(4, end)">steps(4, end)</option>
+          </select>
+        </div>
+        <div class="control-group">
+          <label>transition-delay (seconds)</label>
+          <input type="range" id="delaySlider" min="0" max="2" step="0.05" value="0">
+          <span id="delayValue">0s</span>
+        </div>
+      </div>
+      <div class="note" id="cssOutput">
+        Current transition: <code>left 1s ease 0s</code>
+      </div>
+    </div>
+  </div>
+
+  <!-- Visual Examples of Timing Functions -->
+  <div class="card">
+    <h2>2. Visual Comparison: Timing Functions</h2>
+    <div class="examples-grid">
+      <div class="example-box" style="transition-timing-function: linear;">linear</div>
+      <div class="example-box" style="transition-timing-function: ease;">ease</div>
+      <div class="example-box" style="transition-timing-function: ease-in;">ease-in</div>
+      <div class="example-box" style="transition-timing-function: ease-out;">ease-out</div>
+      <div class="example-box" style="transition-timing-function: ease-in-out;">ease-in-out</div>
+      <div class="example-box" style="transition-timing-function: steps(4, end);">steps(4)</div>
+    </div>
+    <div class="note">
+      💡 Hover over each box to see the different motion curves. <code>steps()</code> creates a discrete jump animation.
+    </div>
+  </div>
+
+  <!-- Explanation Section -->
+  <div class="card">
+    <h2>3. Understanding Timing Functions</h2>
+    <div style="display: flex; flex-wrap: wrap; gap: 1.5rem;">
+      <div style="flex: 1;">
+        <h3>🎯 Common Keywords</h3>
+        <ul style="margin-left: 1rem; line-height: 1.6;">
+          <li><code>linear</code> – constant speed</li>
+          <li><code>ease</code> – starts slow, fast, ends slow (default)</li>
+          <li><code>ease-in</code> – starts slow, ends fast</li>
+          <li><code>ease-out</code> – starts fast, ends slow</li>
+          <li><code>ease-in-out</code> – slow at both ends</li>
+        </ul>
+      </div>
+      <div style="flex: 1;">
+        <h3>📐 Custom Bézier Curves</h3>
+        <p><code>cubic-bezier(x1, y1, x2, y2)</code> gives full control. Values go from 0 to 1 for x, y can go outside for overshoot effects.</p>
+        <p>Example: <code>cubic-bezier(0.68, -0.55, 0.265, 1.55)</code> creates a "bounce" overshoot.</p>
+      </div>
+      <div style="flex: 1;">
+        <h3>🪜 Step Functions</h3>
+        <p><code>steps(number, direction)</code> divides the transition into discrete steps.</p>
+        <p><code>steps(4, end)</code> – 4 jumps, changes at the end of each step.</p>
+        <p><code>step-start</code> = <code>steps(1, start)</code>, <code>step-end</code> = <code>steps(1, end)</code>.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Delay & Real-World Use -->
+  <div class="card">
+    <h2>4. Transition Delay in Action</h2>
+    <div class="demo-area">
+      <div style="display: flex; gap: 1rem; justify-content: center;">
+        <div id="delayedBox" style="width: 100px; height: 100px; background: #10b981; border-radius: 16px; transition: all 0.4s cubic-bezier(0.34, 1.2, 0.64, 1); cursor: pointer;">
+          <div style="text-align: center; padding-top: 35px; color: white;">Hover</div>
+        </div>
+      </div>
+      <div class="controls">
+        <div class="control-group">
+          <label>Delay (seconds)</label>
+          <input type="range" id="delayExampleSlider" min="0" max="1.5" step="0.05" value="0">
+          <span id="delayExampleValue">0s</span>
+        </div>
+      </div>
+      <p>Hover over the green square – the transition starts after the specified delay. Try different values.</p>
+      <div class="note">
+        ⏰ <strong>Use cases:</strong> Staggered animations, tooltips, hover effects that wait before showing, or creating a sequence.
+      </div>
+    </div>
+  </div>
+
+  <!-- Best Practices -->
+  <div class="card">
+    <h2>✅ Best Practices</h2>
+    <ul style="margin-left: 1.5rem; line-height: 1.6;">
+      <li>🔹 Use <code>ease</code> for most UI transitions – it feels natural.</li>
+      <li>🔹 <code>linear</code> works well for mechanical movements like loading bars.</li>
+      <li>🔹 <code>steps()</code> is perfect for frame‑by‑frame animations (e.g., sprite sheets).</li>
+      <li>🔹 Keep delays short (≤ 0.5s) for interactive elements to maintain responsiveness.</li>
+      <li>🔹 Use custom <code>cubic-bezier</code> sparingly for distinctive branding or playful effects.</li>
+      <li>🔹 Combine delay with multiple elements to create staggered, sequenced animations.</li>
+    </ul>
+  </div>
+
+  <!-- Quick Reference Table -->
+  <div class="card">
+    <h2>📋 Quick Reference</h2>
+    <table>
+      <thead><tr><th>Property</th><th>Description</th><th>Example</th></thead>
+      <tbody>
+        <tr><td><code>transition-timing-function</code></td><td>Speed curve of transition</td><td><code>ease</code>, <code>linear</code>, <code>cubic-bezier(0.1, 0.7, 1.0, 0.1)</code>, <code>steps(4, end)</code></td></tr>
+        <tr><td><code>transition-delay</code></td><td>Delay before transition starts</td><td><code>0.2s</code>, <code>300ms</code></td></tr>
+        <tr><td>Shorthand</td><td>All four properties in one</td><td><code>transition: background-color 0.3s ease-in 0.1s;</code></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <footer>
+    ✨ Experiment with the interactive playground – move the ball, change timing and delay, and watch the difference!
+  </footer>
+</div>
+
+<script>
+  const ball = document.getElementById('ball');
+  const moveBtn = document.getElementById('moveBtn');
+  const timingSelect = document.getElementById('timingSelect');
+  const delaySlider = document.getElementById('delaySlider');
+  const delayValue = document.getElementById('delayValue');
+  const cssOutput = document.getElementById('cssOutput');
+  let moving = false;
+
+  function updateBallTransition() {
+    const timing = timingSelect.value;
+    const delay = parseFloat(delaySlider.value);
+    ball.style.transitionTimingFunction = timing;
+    ball.style.transitionDelay = delay + 's';
+    cssOutput.innerHTML = `Current transition: <code>left 1s ${timing} ${delay}s</code>`;
+  }
+
+  function moveBall() {
+    if (moving) return;
+    moving = true;
+    const currentLeft = ball.style.left;
+    if (currentLeft === 'calc(100% - 60px)' || currentLeft === '') {
+      ball.style.left = '0px';
+    } else {
+      ball.style.left = 'calc(100% - 60px)';
+    }
+    setTimeout(() => { moving = false; }, 1100);
+  }
+
+  // Set initial state
+  ball.style.left = '0px';
+  ball.style.transitionProperty = 'left';
+  ball.style.transitionDuration = '1s';
+  updateBallTransition();
+
+  moveBtn.addEventListener('click', moveBall);
+  timingSelect.addEventListener('change', updateBallTransition);
+  delaySlider.addEventListener('input', () => {
+    const val = delaySlider.value;
+    delayValue.innerText = val + 's';
+    updateBallTransition();
+  });
+
+  // Delay example for green box
+  const delayedBox = document.getElementById('delayedBox');
+  const delayExampleSlider = document.getElementById('delayExampleSlider');
+  const delayExampleValue = document.getElementById('delayExampleValue');
+  function updateDelayExample() {
+    const delay = parseFloat(delayExampleSlider.value);
+    delayedBox.style.transitionDelay = delay + 's';
+    delayExampleValue.innerText = delay + 's';
+  }
+  delayExampleSlider.addEventListener('input', updateDelayExample);
+  updateDelayExample();
+</script>
+</body>
+</html>
