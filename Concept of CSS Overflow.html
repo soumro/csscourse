@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CSS Overflow – Complete Interactive Guide</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      font-family: system-ui, 'Segoe UI', Roboto, sans-serif;
+      background: #f4f7fc;
+      padding: 2rem;
+      color: #0f172a;
+    }
+    .container {
+      max-width: 1300px;
+      margin: 0 auto;
+    }
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+      background: linear-gradient(135deg, #1e293b, #3b82f6);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+    .sub {
+      border-left: 4px solid #3b82f6;
+      padding-left: 1rem;
+      color: #334155;
+      margin-bottom: 2rem;
+    }
+    .card {
+      background: white;
+      border-radius: 28px;
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+    }
+    h2 {
+      font-size: 1.4rem;
+      margin-top: 0;
+      margin-bottom: 1rem;
+      border-left: 5px solid #f97316;
+      padding-left: 0.75rem;
+    }
+    .demo-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      margin: 1rem 0;
+    }
+    .overflow-box {
+      width: 200px;
+      height: 150px;
+      background: #e0f2fe;
+      border: 2px solid #3b82f6;
+      border-radius: 16px;
+      padding: 0.8rem;
+      margin: 0 auto;
+      overflow: var(--overflow, visible);
+      font-size: 0.9rem;
+    }
+    .overflow-box p {
+      margin: 0 0 0.5rem 0;
+    }
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-top: 1rem;
+      align-items: center;
+    }
+    select, button {
+      padding: 0.5rem 1rem;
+      border-radius: 40px;
+      border: 1px solid #cbd5e1;
+      background: white;
+      font-family: inherit;
+      cursor: pointer;
+    }
+    code {
+      background: #e2e8f0;
+      padding: 0.2rem 0.4rem;
+      border-radius: 8px;
+      font-family: monospace;
+    }
+    .note {
+      background: #eef2ff;
+      border-left: 4px solid #3b82f6;
+      padding: 0.8rem;
+      border-radius: 16px;
+      font-size: 0.85rem;
+      margin: 1rem 0;
+    }
+    footer {
+      text-align: center;
+      margin-top: 2rem;
+      font-size: 0.8rem;
+      color: #475569;
+    }
+    .interactive-box {
+      width: 300px;
+      height: 200px;
+      background: #fef9c3;
+      border: 2px solid #f97316;
+      border-radius: 16px;
+      padding: 1rem;
+      margin: 1rem auto;
+      overflow: auto;
+      resize: both;
+    }
+    .long-content {
+      width: 500px;
+      height: 300px;
+      background: repeating-linear-gradient(45deg, #facc15, #facc15 20px, #fde047 20px, #fde047 40px);
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <h1>📦 CSS Overflow</h1>
+  <div class="sub">Control how content behaves when it doesn't fit inside its container.</div>
+
+  <!-- Interactive Playground -->
+  <div class="card">
+    <h2>1. Interactive Overflow Tester</h2>
+    <div class="demo-grid">
+      <div class="overflow-box" id="interactiveBox" style="--overflow: visible;">
+        <p><strong>This box has overflow: <span id="currentOverflow">visible</span></strong></p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+        <p>Additional content to make it overflow.</p>
+      </div>
+    </div>
+    <div class="controls">
+      <label>overflow:</label>
+      <select id="overflowSelect">
+        <option value="visible">visible (default)</option>
+        <option value="hidden">hidden</option>
+        <option value="scroll">scroll</option>
+        <option value="auto">auto</option>
+        <option value="clip">clip</option>
+      </select>
+      <button id="resetBtn">Reset</button>
+    </div>
+    <div class="note" id="overflowExplanation">
+      Select a value to see how the container handles overflowing content.
+    </div>
+  </div>
+
+  <!-- Visual Examples of Each Value -->
+  <div class="card">
+    <h2>2. Visual Comparison of Overflow Values</h2>
+    <div class="demo-grid">
+      <div class="overflow-box" style="overflow: visible;">
+        <strong>visible (default)</strong>
+        <p>Content overflows outside the box. It's visible and may overlap other elements.</p>
+        <p>This is the default behavior.</p>
+        <p>Extra text that makes the box overflow.</p>
+      </div>
+      <div class="overflow-box" style="overflow: hidden;">
+        <strong>hidden</strong>
+        <p>Content is clipped, and you cannot see the overflow.</p>
+        <p>No scrollbars appear, even if content is cut off.</p>
+        <p>Extra text that gets clipped.</p>
+      </div>
+      <div class="overflow-box" style="overflow: scroll;">
+        <strong>scroll</strong>
+        <p>Scrollbars always appear, even if content fits.</p>
+        <p>Useful for ensuring a scrolling area.</p>
+        <p>Extra text to show scrollbars.</p>
+      </div>
+      <div class="overflow-box" style="overflow: auto;">
+        <strong>auto</strong>
+        <p>Scrollbars appear only when needed.</p>
+        <p>Best for responsive containers.</p>
+        <p>Extra text that triggers scrollbars when it overflows.</p>
+      </div>
+      <div class="overflow-box" style="overflow: clip;">
+        <strong>clip</strong>
+        <p>Like hidden, but also disables programmatic scrolling and scroll chaining.</p>
+        <p>Content is clipped, and no scrollbars ever appear.</p>
+        <p>Extra text that gets clipped.</p>
+      </div>
+    </div>
+    <div class="note">
+      💡 <strong>Note:</strong> <code>clip</code> is newer and prevents scrolling via JavaScript or keyboard. <code>hidden</code> may still allow programmatic scrolling in some contexts.
+    </div>
+  </div>
+
+  <!-- overflow-x and overflow-y -->
+  <div class="card">
+    <h2>3. Controlling Axes Independently: <code>overflow-x</code> and <code>overflow-y</code></h2>
+    <div class="demo-grid">
+      <div class="overflow-box" style="overflow-x: scroll; overflow-y: hidden; width: 200px; white-space: nowrap;">
+        <strong>overflow-x: scroll; overflow-y: hidden</strong><br>
+        This text is very long and will cause horizontal scrolling, but vertical overflow is hidden.
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+      </div>
+      <div class="overflow-box" style="overflow-x: hidden; overflow-y: auto;">
+        <strong>overflow-x: hidden; overflow-y: auto</strong><br>
+        Only vertical scrollbar appears when needed. Horizontal overflow is clipped.
+        <p>Extra vertical content to make it scroll vertically.</p>
+        <p>More content...</p>
+        <p>Even more...</p>
+      </div>
+    </div>
+    <div class="note">
+      ⚙️ You can mix values: <code>overflow-x: scroll; overflow-y: auto;</code> gives horizontal scrollbar always, vertical only when needed.
+    </div>
+  </div>
+
+  <!-- Real-world Examples -->
+  <div class="card">
+    <h2>4. Real‑World Use Cases</h2>
+    <div style="display: flex; flex-wrap: wrap; gap: 1.5rem;">
+      <div style="flex: 1; background: #f1f5f9; border-radius: 20px; padding: 1rem;">
+        <h3>📜 Scrollable Chat Box</h3>
+        <div style="height: 150px; overflow-y: auto; background: white; border-radius: 12px; padding: 0.5rem;">
+          <p>User 1: Hello!</p>
+          <p>User 2: How are you?</p>
+          <p>User 1: I'm fine, thanks!</p>
+          <p>User 2: Long message that might scroll...</p>
+          <p>User 1: More messages...</p>
+          <p>User 2: Keep going...</p>
+          <p>User 1: This chat uses overflow: auto.</p>
+        </div>
+        <code>overflow-y: auto</code>
+      </div>
+      <div style="flex: 1; background: #f1f5f9; border-radius: 20px; padding: 1rem;">
+        <h3>🖼️ Image Gallery with Hidden Overflow</h3>
+        <div style="width: 100%; overflow-x: auto; white-space: nowrap; background: white; border-radius: 12px; padding: 0.5rem;">
+          <img src="https://picsum.photos/id/1/100/100" style="display: inline-block; margin-right: 8px;">
+          <img src="https://picsum.photos/id/2/100/100" style="display: inline-block; margin-right: 8px;">
+          <img src="https://picsum.photos/id/3/100/100" style="display: inline-block; margin-right: 8px;">
+          <img src="https://picsum.photos/id/4/100/100" style="display: inline-block; margin-right: 8px;">
+          <img src="https://picsum.photos/id/5/100/100" style="display: inline-block;">
+        </div>
+        <code>overflow-x: auto; white-space: nowrap;</code>
+      </div>
+      <div style="flex: 1; background: #f1f5f9; border-radius: 20px; padding: 1rem;">
+        <h3>📱 Modal with Scroll</h3>
+        <div style="height: 120px; overflow-y: auto; background: white; border-radius: 12px; padding: 0.5rem;">
+          <p>Modal content that is long and needs scrolling.</p>
+          <p>Line 2</p>
+          <p>Line 3</p>
+          <p>Line 4</p>
+          <p>Line 5 – this makes the modal scrollable.</p>
+        </div>
+        <code>overflow-y: auto</code> inside a fixed‑size container.
+      </div>
+    </div>
+  </div>
+
+  <!-- Resizable Demo -->
+  <div class="card">
+    <h2>5. Try It Yourself: Resizable Container</h2>
+    <div class="interactive-box">
+      <p><strong>Resize me!</strong> (drag the bottom-right corner)</p>
+      <div class="long-content"></div>
+      <p>This container has <code>overflow: auto</code> and <code>resize: both</code>. Resize it to see scrollbars appear when content overflows.</p>
+    </div>
+    <div class="note">
+      🧪 <code>resize: both</code> allows the user to resize the element. Combined with overflow, it's great for demos and debugging.
+    </div>
+  </div>
+
+  <!-- Summary Table -->
+  <div class="card">
+    <h2>📋 Quick Reference</h2>
+    <div style="overflow-x: auto;">
+      <table style="width:100%; border-collapse: collapse; background: #f1f5f9; border-radius: 20px;">
+        <thead style="background: #334155; color: white;">
+          <tr><th style="padding: 10px;">Value</th><th>Scrollbars</th><th>Content Visibility</th><th>Use Case</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><code>visible</code></td><td>Never</td><td>Overflows visibly</td><td>Default; rarely desired for containers.</td></tr>
+          <tr><td><code>hidden</code></td><td>Never</td><td>Clipped, invisible</td><td>Clean cuts, avoiding layout shifts.</td></tr>
+          <tr><td><code>scroll</code></td><td>Always</td><td>Clipped, scrollable</td><td>Forcing scrollbars (e.g., fixed layout).</td></tr>
+          <tr><td><code>auto</code></td><td>Only when needed</td><td>Clipped, scrollable</td><td>Most common for scrollable areas.</td></tr>
+          <tr><td><code>clip</code></td><td>Never (no scrolling)</td><td>Clipped, invisible</td><td>Strict clipping, no programmatic scroll.</td></tr>
+        </tbody>
+       </table>
+    </div>
+  </div>
+
+  <!-- Common Pitfalls -->
+  <div class="card">
+    <h2>⚠️ Important Notes & Pitfalls</h2>
+    <ul style="margin-left: 1.5rem; line-height: 1.6;">
+      <li>🔹 <strong>Overflow only works on block elements with a set height/width or max-height.</strong> For inline elements, you may need <code>display: block/inline-block</code>.</li>
+      <li>🔹 <strong>Scrollbars take up space</strong> and can shift layout. Use <code>overflow: auto</code> to avoid unnecessary scrollbars.</li>
+      <li>🔹 <strong>Negative margins or transforms</strong> can cause overflow even if content fits in the box.</li>
+      <li>🔹 <strong>Overflow can create a new block formatting context (BFC).</strong> Useful for containing floats and preventing margin collapse.</li>
+      <li>🔹 <strong>Hidden overflow can clip shadows, outlines, and absolutely positioned children</strong> if they extend outside the box.</li>
+    </ul>
+  </div>
+
+  <footer>
+    ✨ Master overflow to create elegant scrollable areas, prevent layout breaks, and handle edge cases gracefully.
+  </footer>
+</div>
+
+<script>
+  const interactiveBox = document.getElementById('interactiveBox');
+  const overflowSelect = document.getElementById('overflowSelect');
+  const currentOverflowSpan = document.getElementById('currentOverflow');
+  const explanationDiv = document.getElementById('overflowExplanation');
+  const resetBtn = document.getElementById('resetBtn');
+
+  function updateOverflow() {
+    const value = overflowSelect.value;
+    interactiveBox.style.setProperty('--overflow', value);
+    currentOverflowSpan.textContent = value;
+    let explanation = '';
+    switch (value) {
+      case 'visible':
+        explanation = 'Visible: content overflows the container and is fully visible. May overlap other elements.';
+        break;
+      case 'hidden':
+        explanation = 'Hidden: content is clipped and invisible. No scrollbars provided.';
+        break;
+      case 'scroll':
+        explanation = 'Scroll: scrollbars always appear, even if content fits. Good for predictable layout.';
+        break;
+      case 'auto':
+        explanation = 'Auto: scrollbars appear only when content overflows. Most user‑friendly.';
+        break;
+      case 'clip':
+        explanation = 'Clip: like hidden, but also disables any programmatic scrolling (no scroll chaining).';
+        break;
+    }
+    explanationDiv.innerHTML = `🧪 <strong>${value.toUpperCase()}</strong> – ${explanation}`;
+  }
+
+  overflowSelect.addEventListener('change', updateOverflow);
+  resetBtn.addEventListener('click', () => {
+    overflowSelect.value = 'visible';
+    updateOverflow();
+  });
+  updateOverflow();
+</script>
+</body>
+</html>

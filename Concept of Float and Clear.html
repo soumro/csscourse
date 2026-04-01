@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CSS Float & Clear – Interactive Guide</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: system-ui, 'Segoe UI', Roboto, sans-serif;
+      background: #f4f7fc;
+      padding: 2rem;
+      color: #0f172a;
+    }
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+      background: linear-gradient(135deg, #1e293b, #3b82f6);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+    .sub {
+      border-left: 4px solid #3b82f6;
+      padding-left: 1rem;
+      color: #334155;
+      margin-bottom: 2rem;
+    }
+    .card {
+      background: white;
+      border-radius: 28px;
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+    }
+    h2 {
+      font-size: 1.4rem;
+      margin-top: 0;
+      margin-bottom: 1rem;
+      border-left: 5px solid #f97316;
+      padding-left: 0.75rem;
+    }
+    .demo-area {
+      background: #f1f5f9;
+      border-radius: 20px;
+      padding: 1rem;
+      margin: 1rem 0;
+    }
+    .float-container {
+      background: #e2e8f0;
+      border: 2px dashed #475569;
+      padding: 1rem;
+      border-radius: 16px;
+      margin: 1rem 0;
+    }
+    .float-box {
+      width: 150px;
+      height: 100px;
+      background: #3b82f6;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 1rem 1rem 0;
+      border-radius: 12px;
+      font-weight: bold;
+    }
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-top: 1rem;
+      align-items: center;
+    }
+    select, button {
+      padding: 0.5rem 1rem;
+      border-radius: 40px;
+      border: 1px solid #cbd5e1;
+      background: white;
+      font-family: inherit;
+      cursor: pointer;
+    }
+    code {
+      background: #e2e8f0;
+      padding: 0.2rem 0.4rem;
+      border-radius: 8px;
+      font-family: monospace;
+    }
+    .note {
+      background: #eef2ff;
+      border-left: 4px solid #3b82f6;
+      padding: 0.8rem;
+      border-radius: 16px;
+      font-size: 0.85rem;
+      margin: 1rem 0;
+    }
+    footer {
+      text-align: center;
+      margin-top: 2rem;
+      font-size: 0.8rem;
+      color: #475569;
+    }
+    .clearfix::after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <h1>🌊 CSS Float & Clear</h1>
+  <div class="sub">Make elements float, and control how content wraps around them.</div>
+
+  <!-- Interactive Playground -->
+  <div class="card">
+    <h2>1. Interactive Float Tester</h2>
+    <div class="demo-area">
+      <div class="float-container" id="floatContainer">
+        <div id="floatBox" class="float-box" style="float: left;">
+          Float box
+        </div>
+        <p id="floatText">
+          This is a paragraph of text that will wrap around the floated element. 
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+          Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+          Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.
+          The text flows naturally around the float, demonstrating how float was 
+          originally designed for wrapping text around images.
+        </p>
+        <div style="clear: both;"></div>
+      </div>
+      <div class="controls">
+        <label>float:</label>
+        <select id="floatSelect">
+          <option value="left">left</option>
+          <option value="right">right</option>
+          <option value="none">none</option>
+        </select>
+        <label>clear on paragraph:</label>
+        <select id="clearSelect">
+          <option value="none">none (default)</option>
+          <option value="left">left</option>
+          <option value="right">right</option>
+          <option value="both">both</option>
+        </select>
+        <button id="resetFloatBtn">Reset</button>
+      </div>
+      <div class="note" id="floatExplanation">
+        Float: left → the blue box floats left, text wraps to its right.
+      </div>
+    </div>
+  </div>
+
+  <!-- Visual Examples: Floating Images -->
+  <div class="card">
+    <h2>2. Classic Use Case: Text Wrapping Around Images</h2>
+    <div class="demo-area">
+      <img src="https://picsum.photos/id/1/150/150" alt="Sample" style="float: left; margin: 0 1rem 1rem 0; border-radius: 12px;">
+      <p>This image is floated left with <code>margin-right: 1rem</code>. The text wraps around it naturally. You can see how float was intended for magazine-style layouts. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ac diam quis nisl vehicula tincidunt. Integer sed turpis eget nisl tincidunt tincidunt.</p>
+      <p style="clear: both;">This paragraph uses <code>clear: both</code> to move below the floated image, preventing further wrapping.</p>
+    </div>
+  </div>
+
+  <!-- Clearfix Demonstration -->
+  <div class="card">
+    <h2>3. The Clearfix Problem & Solution</h2>
+    <div style="display: flex; gap: 1.5rem; flex-wrap: wrap;">
+      <div style="flex: 1; background: #f1f5f9; border-radius: 20px; padding: 1rem;">
+        <h3>❌ Without Clearfix (Collapsed Parent)</h3>
+        <div style="background: #fef9c3; border: 2px solid #eab308; padding: 0.5rem;">
+          <div style="float: left; width: 80px; height: 80px; background: #f97316; margin: 0.5rem; display: flex; align-items: center; justify-content: center;">Float</div>
+          <div style="float: left; width: 80px; height: 80px; background: #f97316; margin: 0.5rem; display: flex; align-items: center; justify-content: center;">Float</div>
+          <!-- Parent has no clearfix, so its height is 0 -->
+        </div>
+        <p>The yellow parent's height collapsed because it contains only floated children.</p>
+      </div>
+      <div style="flex: 1; background: #f1f5f9; border-radius: 20px; padding: 1rem;">
+        <h3>✅ With Clearfix (Properly Contained)</h3>
+        <div class="clearfix" style="background: #dcfce7; border: 2px solid #22c55e; padding: 0.5rem;">
+          <div style="float: left; width: 80px; height: 80px; background: #10b981; margin: 0.5rem; display: flex; align-items: center; justify-content: center;">Float</div>
+          <div style="float: left; width: 80px; height: 80px; background: #10b981; margin: 0.5rem; display: flex; align-items: center; justify-content: center;">Float</div>
+        </div>
+        <p>The green parent uses <code>.clearfix::after</code> to clear floats, so it expands to contain its children.</p>
+      </div>
+    </div>
+    <div class="note">
+      🔧 <strong>Clearfix CSS:</strong> <code>.clearfix::after { content: ""; display: table; clear: both; }</code>
+    </div>
+  </div>
+
+  <!-- Multi-Column Layouts (Legacy) -->
+  <div class="card">
+    <h2>4. Legacy Multi-Column Layouts with Float</h2>
+    <div class="clearfix" style="background: #e2e8f0; padding: 1rem; border-radius: 16px;">
+      <div style="float: left; width: 30%; background: #bfdbfe; padding: 1rem; border-radius: 12px; margin-right: 5%;">
+        <strong>Column 1</strong><br>
+        Floated left, width 30%, margin-right 5%.
+      </div>
+      <div style="float: left; width: 30%; background: #bfdbfe; padding: 1rem; border-radius: 12px; margin-right: 5%;">
+        <strong>Column 2</strong><br>
+        Another floated column.
+      </div>
+      <div style="float: left; width: 30%; background: #bfdbfe; padding: 1rem; border-radius: 12px;">
+        <strong>Column 3</strong><br>
+        The clearfix ensures the container wraps these floats.
+      </div>
+    </div>
+    <div class="note">
+      ⚠️ Before Flexbox and Grid, floats were used for column layouts. Today, use Flexbox/Grid for easier, more responsive designs.
+    </div>
+  </div>
+
+  <!-- Modern Alternatives -->
+  <div class="card">
+    <h2>5. Modern Alternatives: Flexbox & Grid</h2>
+    <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+      <div style="flex: 1; background: #f1f5f9; border-radius: 20px; padding: 1rem;">
+        <h3>Flexbox</h3>
+        <div style="display: flex; gap: 1rem;">
+          <div style="background: #3b82f6; color: white; padding: 1rem; border-radius: 12px; flex: 1;">Item</div>
+          <div style="background: #3b82f6; color: white; padding: 1rem; border-radius: 12px; flex: 1;">Item</div>
+        </div>
+        <code>display: flex;</code>
+      </div>
+      <div style="flex: 1; background: #f1f5f9; border-radius: 20px; padding: 1rem;">
+        <h3>Grid</h3>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+          <div style="background: #f97316; color: white; padding: 1rem; border-radius: 12px;">Item</div>
+          <div style="background: #f97316; color: white; padding: 1rem; border-radius: 12px;">Item</div>
+        </div>
+        <code>display: grid;</code>
+      </div>
+    </div>
+    <div class="note">
+      🚀 For complex layouts, prefer Flexbox or Grid over float. Float is still perfect for text wrapping around images!
+    </div>
+  </div>
+
+  <!-- Summary Table -->
+  <div class="card">
+    <h2>📋 Quick Reference</h2>
+    <div style="overflow-x: auto;">
+      <table style="width:100%; border-collapse: collapse; background: #f1f5f9; border-radius: 20px;">
+        <thead style="background: #334155; color: white;">
+          <tr><th style="padding: 10px;">Property</th><th>Values</th><th>Effect</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><code>float</code></td><td><code>left | right | none</code></td><td>Element moves to side, inline content wraps around.</td></tr>
+          <tr><td><code>clear</code></td><td><code>left | right | both | none</code></td><td>Prevents element from being placed next to floats.</td></tr>
+          <tr><td>Clearfix</td><td><code>::after { content: ""; display: table; clear: both; }</code></td><td>Forces container to contain floated children.</td></tr>
+        </tbody>
+       </table>
+    </div>
+  </div>
+
+  <footer>
+    ✨ Experiment with float and clear above. Remember: float is great for wrapping text around images; for layouts, use modern CSS like Flexbox and Grid.
+  </footer>
+</div>
+
+<script>
+  const floatBox = document.getElementById('floatBox');
+  const floatText = document.getElementById('floatText');
+  const floatSelect = document.getElementById('floatSelect');
+  const clearSelect = document.getElementById('clearSelect');
+  const explanationDiv = document.getElementById('floatExplanation');
+  const resetBtn = document.getElementById('resetFloatBtn');
+
+  function updateFloat() {
+    const floatVal = floatSelect.value;
+    const clearVal = clearSelect.value;
+
+    floatBox.style.float = floatVal;
+    floatText.style.clear = clearVal;
+
+    let explanation = `Float: ${floatVal}. `;
+    if (floatVal === 'left') explanation += 'Box floats left, text wraps to its right.';
+    else if (floatVal === 'right') explanation += 'Box floats right, text wraps to its left.';
+    else explanation += 'Box does not float, text behaves normally.';
+
+    explanation += ` Clear: ${clearVal}. `;
+    if (clearVal !== 'none') explanation += 'Paragraph moves below floats.';
+    else explanation += 'Paragraph can sit next to floats.';
+
+    explanationDiv.innerHTML = `🧪 ${explanation}`;
+  }
+
+  floatSelect.addEventListener('change', updateFloat);
+  clearSelect.addEventListener('change', updateFloat);
+  resetBtn.addEventListener('click', () => {
+    floatSelect.value = 'left';
+    clearSelect.value = 'none';
+    updateFloat();
+  });
+  updateFloat();
+</script>
+</body>
+</html>

@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CSS Positioning – Interactive Guide</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: system-ui, 'Segoe UI', Roboto, sans-serif;
+      background: #f4f7fc;
+      padding: 2rem;
+      color: #0f172a;
+    }
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+      background: linear-gradient(135deg, #1e293b, #3b82f6);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+    .sub {
+      border-left: 4px solid #3b82f6;
+      padding-left: 1rem;
+      color: #334155;
+      margin-bottom: 2rem;
+    }
+    .card {
+      background: white;
+      border-radius: 28px;
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+    }
+    h2 {
+      font-size: 1.4rem;
+      margin-top: 0;
+      margin-bottom: 1rem;
+      border-left: 5px solid #f97316;
+      padding-left: 0.75rem;
+    }
+    .playground {
+      background: #f1f5f9;
+      border-radius: 20px;
+      padding: 1.5rem;
+      margin: 1rem 0;
+      position: relative;
+      min-height: 400px;
+      overflow-x: auto;
+    }
+    .parent {
+      background: #cbd5e1;
+      padding: 1rem;
+      border-radius: 16px;
+      margin: 1rem 0;
+      position: relative; /* becomes containing block for absolute children */
+      min-height: 300px;
+    }
+    .box {
+      background: #3b82f6;
+      color: white;
+      padding: 0.8rem;
+      border-radius: 12px;
+      text-align: center;
+      width: 150px;
+      transition: all 0.2s;
+    }
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-top: 1rem;
+      align-items: center;
+    }
+    select, input, button {
+      padding: 0.5rem;
+      border-radius: 12px;
+      border: 1px solid #cbd5e1;
+      background: white;
+      font-family: inherit;
+    }
+    code {
+      background: #e2e8f0;
+      padding: 0.2rem 0.4rem;
+      border-radius: 8px;
+      font-family: monospace;
+    }
+    .note {
+      background: #eef2ff;
+      border-left: 4px solid #3b82f6;
+      padding: 0.8rem;
+      border-radius: 16px;
+      font-size: 0.85rem;
+      margin: 1rem 0;
+    }
+    footer {
+      text-align: center;
+      margin-top: 2rem;
+      font-size: 0.8rem;
+      color: #475569;
+    }
+    .fixed-demo {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #f97316;
+      color: white;
+      padding: 8px 16px;
+      border-radius: 40px;
+      font-size: 0.8rem;
+      z-index: 100;
+    }
+    .sticky-demo {
+      position: sticky;
+      top: 10px;
+      background: #ec489a;
+      color: white;
+      padding: 8px;
+      border-radius: 12px;
+      margin: 10px 0;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <h1>🎯 CSS Positioning</h1>
+  <div class="sub">Take full control over element placement with position & offsets.</div>
+
+  <!-- Interactive Playground -->
+  <div class="card">
+    <h2>1. Playground: Test Positioning Live</h2>
+    <div class="playground" style="min-height: 350px;">
+      <div style="position: relative; background: #e2e8f0; border-radius: 16px; padding: 1rem; margin-bottom: 1rem;">
+        <div id="demoBox" class="box" style="width: 180px;">
+          I am the <strong>demo element</strong>
+          <div style="font-size:0.7rem;">position: <span id="positionValue">static</span></div>
+        </div>
+        <div class="note" style="margin-top: 0.5rem;">
+          ⚠️ The gray background represents the <strong>containing block</strong> for absolute positioning (since it has <code>position: relative</code>).
+        </div>
+      </div>
+      <div class="controls">
+        <label>position:</label>
+        <select id="positionSelect">
+          <option value="static">static (default)</option>
+          <option value="relative">relative</option>
+          <option value="absolute">absolute</option>
+          <option value="fixed">fixed</option>
+          <option value="sticky">sticky</option>
+        </select>
+        <label>top:</label> <input type="range" id="topSlider" min="-100" max="200" value="0" step="5"><span id="topVal">0px</span>
+        <label>left:</label> <input type="range" id="leftSlider" min="-100" max="200" value="0" step="5"><span id="leftVal">0px</span>
+        <button id="resetOffsets">Reset offsets</button>
+      </div>
+      <div id="explanation" class="note" style="margin-top: 1rem;">
+        Select a position type to see how the element behaves.
+      </div>
+    </div>
+  </div>
+
+  <!-- Detailed examples with visual comparisons -->
+  <div class="card">
+    <h2>2. Visual Comparison: Positioning Types</h2>
+    <div style="display: flex; flex-wrap: wrap; gap: 1rem;">
+      <div style="flex: 1; background: #f1f5f9; border-radius: 20px; padding: 1rem;">
+        <h3>Static (default)</h3>
+        <div style="background: white; padding: 1rem; border-radius: 12px;">
+          <div class="box" style="position: static;">Static box</div>
+          <div class="box" style="position: static; background: #64748b;">Another static</div>
+        </div>
+        <p>Elements follow normal flow. Offsets have no effect.</p>
+      </div>
+      <div style="flex: 1; background: #f1f5f9; border-radius: 20px; padding: 1rem;">
+        <h3>Relative</h3>
+        <div style="background: white; padding: 1rem; border-radius: 12px;">
+          <div class="box" style="position: relative; top: 20px; left: 20px;">Relative (moved)</div>
+          <div class="box" style="background: #64748b;">Next element (gap preserved)</div>
+        </div>
+        <p>Original space is preserved; element shifted from normal position.</p>
+      </div>
+      <div style="flex: 1; background: #f1f5f9; border-radius: 20px; padding: 1rem;">
+        <h3>Absolute</h3>
+        <div style="background: white; padding: 1rem; border-radius: 12px; position: relative; min-height: 120px;">
+          <div class="box" style="position: absolute; bottom: 10px; right: 10px;">Absolute</div>
+          <div>Other content flows as if absolute box doesn't exist.</div>
+        </div>
+        <p>Removed from flow; positioned relative to nearest positioned ancestor (or initial containing block).</p>
+      </div>
+    </div>
+    <div style="display: flex; flex-wrap: wrap; gap: 1rem; margin-top: 1rem;">
+      <div style="flex: 1; background: #f1f5f9; border-radius: 20px; padding: 1rem;">
+        <h3>Fixed</h3>
+        <div style="background: white; padding: 1rem; border-radius: 12px;">
+          <div class="box" style="position: fixed; bottom: 10px; right: 10px; width: auto;">Fixed (see bottom right of window)</div>
+        </div>
+        <p>Positioned relative to viewport; stays fixed on scroll.</p>
+      </div>
+      <div style="flex: 1; background: #f1f5f9; border-radius: 20px; padding: 1rem;">
+        <h3>Sticky</h3>
+        <div style="background: white; padding: 1rem; border-radius: 12px; height: 200px; overflow-y: auto;">
+          <p>Scroll this container →</p>
+          <div class="box" style="position: sticky; top: 0; background: #ec489a;">I'm sticky!</div>
+          <p style="height: 150px;">Content after sticky.</p>
+        </div>
+        <p>Sticks within parent container until scroll threshold.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- z-index and stacking context -->
+  <div class="card">
+    <h2>3. Stacking with <code>z-index</code></h2>
+    <div class="playground" style="position: relative; min-height: 200px;">
+      <div style="position: relative; background: #e2e8f0; border-radius: 16px; padding: 1rem; height: 150px;">
+        <div class="box" style="position: absolute; top: 20px; left: 20px; background: #3b82f6; z-index: 1;">z-index: 1</div>
+        <div class="box" style="position: absolute; top: 40px; left: 40px; background: #f97316; z-index: 2;">z-index: 2 (on top)</div>
+        <div class="box" style="position: absolute; top: 60px; left: 60px; background: #10b981; z-index: 0;">z-index: 0 (below)</div>
+      </div>
+      <p><code>z-index</code> only works on positioned elements (not static). Higher number appears on top.</p>
+    </div>
+  </div>
+
+  <!-- Common pitfalls -->
+  <div class="card">
+    <h2>4. Important Notes & Pitfalls</h2>
+    <ul style="margin-left: 1.5rem; line-height: 1.6;">
+      <li>🔹 <strong>Containing block for absolute:</strong> It's the nearest ancestor with <code>position: relative/absolute/fixed/sticky</code>. If none, it's the initial containing block (usually <code>&lt;html&gt;</code>).</li>
+      <li>🔹 <strong>Fixed elements are removed from flow:</strong> They ignore scroll of the page. Use <code>z-index</code> to layer properly.</li>
+      <li>🔹 <strong>Sticky requires a threshold (top/right/bottom/left)</strong> to activate.</li>
+      <li>🔹 <strong>Percentages in offsets</strong> refer to the containing block's dimensions (for absolute) or element's own dimensions (for relative).</li>
+      <li>🔹 <strong>Overflow and position:</strong> An element with <code>overflow: hidden</code> can clip absolutely positioned children if the child's containing block is that element.</li>
+      <li>🔹 <strong>Stacking context:</strong> <code>z-index</code> values only compare within the same stacking context. Creating a new stacking context (e.g., <code>position: relative; z-index: 0</code>) isolates layers.</li>
+    </ul>
+  </div>
+
+  <footer>
+    ✨ Experiment with the interactive playground – change position type and offsets to see real‑time behavior. <br>
+    Position is key to overlays, modals, sticky headers, and advanced layouts.
+  </footer>
+</div>
+
+<script>
+  const demoBox = document.getElementById('demoBox');
+  const positionSelect = document.getElementById('positionSelect');
+  const topSlider = document.getElementById('topSlider');
+  const leftSlider = document.getElementById('leftSlider');
+  const topVal = document.getElementById('topVal');
+  const leftVal = document.getElementById('leftVal');
+  const resetBtn = document.getElementById('resetOffsets');
+  const positionValueSpan = document.getElementById('positionValue');
+  const explanationDiv = document.getElementById('explanation');
+
+  function updateBox() {
+    const pos = positionSelect.value;
+    const top = topSlider.value;
+    const left = leftSlider.value;
+
+    demoBox.style.position = pos;
+    demoBox.style.top = top + 'px';
+    demoBox.style.left = left + 'px';
+    demoBox.style.bottom = 'auto';
+    demoBox.style.right = 'auto';
+
+    positionValueSpan.innerText = pos;
+    topVal.innerText = top + 'px';
+    leftVal.innerText = left + 'px';
+
+    let explanation = '';
+    switch (pos) {
+      case 'static':
+        explanation = 'Static: normal flow. Offsets have no effect.';
+        break;
+      case 'relative':
+        explanation = 'Relative: element shifted from its normal position. Original space remains reserved.';
+        break;
+      case 'absolute':
+        explanation = 'Absolute: removed from flow; positioned relative to the nearest positioned ancestor (the gray container has position:relative).';
+        break;
+      case 'fixed':
+        explanation = 'Fixed: positioned relative to the viewport. Stays fixed on scroll.';
+        break;
+      case 'sticky':
+        explanation = 'Sticky: acts like relative until scroll threshold (top:0), then becomes fixed. Try scrolling the page!';
+        break;
+    }
+    explanationDiv.innerHTML = `🧪 <strong>${pos.toUpperCase()}</strong> – ${explanation}<br>Top: ${top}px, Left: ${left}px`;
+  }
+
+  positionSelect.addEventListener('change', updateBox);
+  topSlider.addEventListener('input', updateBox);
+  leftSlider.addEventListener('input', updateBox);
+  resetBtn.addEventListener('click', () => {
+    topSlider.value = 0;
+    leftSlider.value = 0;
+    updateBox();
+  });
+  updateBox();
+</script>
+</body>
+</html>
