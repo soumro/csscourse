@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CSS Transition: Property & Duration – Fixed Interactive Guide</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: system-ui, 'Segoe UI', Roboto, sans-serif;
+      background: #f4f7fc;
+      padding: 2rem;
+      color: #0f172a;
+    }
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+      background: linear-gradient(135deg, #1e293b, #3b82f6);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+    .sub {
+      border-left: 4px solid #3b82f6;
+      padding-left: 1rem;
+      color: #334155;
+      margin-bottom: 2rem;
+    }
+    .card {
+      background: white;
+      border-radius: 28px;
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+    }
+    h2 {
+      font-size: 1.4rem;
+      margin-top: 0;
+      margin-bottom: 1rem;
+      border-left: 5px solid #f97316;
+      padding-left: 0.75rem;
+    }
+    .demo-area {
+      background: #f1f5f9;
+      border-radius: 20px;
+      padding: 2rem;
+      margin: 1rem 0;
+      text-align: center;
+    }
+    .transition-box {
+      width: 200px;
+      height: 200px;
+      background: #3b82f6;
+      margin: 1rem auto;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      transition-property: all;
+      transition-duration: 0.3s;
+    }
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      margin: 1rem 0;
+      justify-content: center;
+    }
+    .control-group {
+      background: white;
+      padding: 0.8rem;
+      border-radius: 16px;
+      min-width: 180px;
+    }
+    label {
+      display: block;
+      font-size: 0.8rem;
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+      color: #475569;
+    }
+    select, input {
+      width: 100%;
+      padding: 0.4rem;
+      border-radius: 12px;
+      border: 1px solid #cbd5e1;
+      font-family: inherit;
+    }
+    .note {
+      background: #eef2ff;
+      border-left: 4px solid #3b82f6;
+      padding: 0.8rem;
+      border-radius: 16px;
+      font-size: 0.85rem;
+      margin: 1rem 0;
+    }
+    code {
+      background: #e2e8f0;
+      padding: 0.2rem 0.4rem;
+      border-radius: 8px;
+      font-family: monospace;
+    }
+    footer {
+      text-align: center;
+      margin-top: 2rem;
+      font-size: 0.8rem;
+      color: #475569;
+    }
+    .example-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: center;
+      margin: 1rem 0;
+    }
+    .example-card {
+      background: #f1f5f9;
+      border-radius: 16px;
+      padding: 1rem;
+      width: 180px;
+      text-align: center;
+      /* No global transition here – each card defines its own */
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <h1>🎬 CSS Transitions</h1>
+  <div class="sub"><code>transition-property</code> and <code>transition-duration</code> – the keys to smooth animations.</div>
+
+  <!-- Interactive Playground -->
+  <div class="card">
+    <h2>1. Interactive Transition Lab</h2>
+    <div class="demo-area">
+      <div id="transitionBox" class="transition-box">
+        Hover over me
+      </div>
+      <div class="controls">
+        <div class="control-group">
+          <label>transition-property</label>
+          <select id="propertySelect">
+            <option value="all">all</option>
+            <option value="background-color">background-color</option>
+            <option value="transform">transform</option>
+            <option value="width">width</option>
+            <option value="border-radius">border-radius</option>
+          </select>
+        </div>
+        <div class="control-group">
+          <label>transition-duration</label>
+          <select id="durationSelect">
+            <option value="0.1s">0.1s (very fast)</option>
+            <option value="0.3s" selected>0.3s (default)</option>
+            <option value="0.6s">0.6s</option>
+            <option value="1s">1s (slow)</option>
+            <option value="2s">2s (very slow)</option>
+          </select>
+        </div>
+      </div>
+      <div class="note" id="cssOutput">
+        Current transition: <code>all 0.3s</code>
+      </div>
+    </div>
+  </div>
+
+  <!-- Fixed Real-World Examples -->
+  <div class="card">
+    <h2>2. Real‑World Examples</h2>
+    <div class="example-grid">
+      <!-- Card 1: transform only -->
+      <div class="example-card" style="transition-property: transform; transition-duration: 0.2s;">
+        Hover → Scale up
+        <style scoped>
+          .example-card:first-child:hover {
+            transform: scale(1.1);
+          }
+        </style>
+      </div>
+
+      <!-- Card 2: background-color only -->
+      <div class="example-card" style="transition-property: background-color; transition-duration: 0.3s; background: #3b82f6; color: white;">
+        Hover → Color change
+        <style scoped>
+          .example-card:nth-child(2):hover {
+            background: #f97316;
+          }
+        </style>
+      </div>
+
+      <!-- Card 3: all properties -->
+      <div class="example-card" style="transition-property: all; transition-duration: 0.4s;">
+        Hover → Multiple changes
+        <style scoped>
+          .example-card:nth-child(3):hover {
+            transform: translateY(-5px);
+            background: #e2e8f0;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+          }
+        </style>
+      </div>
+
+      <!-- Card 4: box-shadow only -->
+      <div class="example-card" style="transition-property: box-shadow; transition-duration: 0.25s;">
+        Hover → Shadow
+        <style scoped>
+          .example-card:nth-child(4):hover {
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+          }
+        </style>
+      </div>
+    </div>
+    <div class="note">
+      💡 Each card transitions <strong>only</strong> the property specified – watch the difference!
+    </div>
+  </div>
+
+  <!-- Multiple Properties & Durations -->
+  <div class="card">
+    <h2>3. Multiple Properties & Durations</h2>
+    <div class="demo-area">
+      <div id="multiDemo" class="transition-box" style="background: #f97316; transition-property: background-color, transform, width; transition-duration: 0.2s, 0.5s, 0.8s;">
+        Hover me
+      </div>
+      <p>This box transitions different properties with different durations (background 0.2s, transform 0.5s, width 0.8s).</p>
+      <code>transition-property: background-color, transform, width; transition-duration: 0.2s, 0.5s, 0.8s;</code>
+    </div>
+  </div>
+
+  <!-- Timing Function & Delay -->
+  <div class="card">
+    <h2>4. Bonus: timing-function & delay</h2>
+    <div class="demo-area">
+      <div class="transition-box" style="transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55); background: #10b981;">
+        Hover → bounce effect
+      </div>
+      <p><code>transition-timing-function</code> controls the acceleration curve. Common values: <code>ease</code>, <code>linear</code>, <code>ease-in</code>, <code>ease-out</code>, <code>ease-in-out</code>, or custom <code>cubic-bezier()</code>.</p>
+      <p><code>transition-delay</code> adds a wait before the transition starts. Example: <code>transition: all 0.3s 0.5s;</code> (wait 0.5s then animate).</p>
+    </div>
+  </div>
+
+  <!-- Best Practices -->
+  <div class="card">
+    <h2>✅ Best Practices</h2>
+    <ul style="margin-left: 1.5rem; line-height: 1.6;">
+      <li>🔹 <strong>Use specific properties</strong> instead of <code>all</code> to avoid unintended animations and improve performance.</li>
+      <li>🔹 <strong>Keep durations short</strong> – most UI transitions feel best between 0.2s and 0.4s.</li>
+      <li>🔹 <strong>Combine with <code>transform</code> and <code>opacity</code></strong> for hardware‑accelerated, smooth animations.</li>
+      <li>🔹 <strong>Test on hover, focus, and active states</strong> to ensure accessibility.</li>
+      <li>🔹 <strong>Use <code>will-change</code> sparingly</strong> to hint which properties will animate (can improve performance but may increase memory usage).</li>
+      <li>🔹 <strong>Always provide a fallback</strong> for older browsers if needed, though transitions are widely supported.</li>
+    </ul>
+  </div>
+
+  <!-- Quick Reference Table -->
+  <div class="card">
+    <h2>📋 Quick Reference</h2>
+    <div style="overflow-x: auto;">
+      <table style="width:100%; border-collapse: collapse; background: #f1f5f9; border-radius: 20px;">
+        <thead style="background: #334155; color: white;">
+          <tr><th style="padding: 10px;">Property</th><th>Description</th><th>Example</th>……
+        </thead>
+        <tbody>
+          <tr><td><code>transition-property</code></td><td>Which properties to animate</td><td><code>all</code>, <code>background-color</code>, <code>transform, opacity</code></td></tr>
+          <tr><td><code>transition-duration</code></td><td>How long the transition takes</td><td><code>0.3s</code>, <code>300ms</code>, <code>1s</code></td></tr>
+          <tr><td><code>transition-timing-function</code></td><td>Easing curve</td><td><code>ease</code>, <code>linear</code>, <code>cubic-bezier(0.25,0.1,0.25,1)</code></td></tr>
+          <tr><td><code>transition-delay</code></td><td>Delay before start</td><td><code>0.2s</code></td></tr>
+          <tr><td><code>transition</code> (shorthand)</td><td>All four in one</td><td><code>background-color 0.3s ease 0.1s</code></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <footer>
+    ✨ Hover over the cards in the "Real‑World Examples" section – each now works correctly!
+  </footer>
+</div>
+
+<script>
+  // Interactive playground
+  const box = document.getElementById('transitionBox');
+  const propertySelect = document.getElementById('propertySelect');
+  const durationSelect = document.getElementById('durationSelect');
+  const cssOutput = document.getElementById('cssOutput');
+
+  function updateTransition() {
+    const property = propertySelect.value;
+    const duration = durationSelect.value;
+    box.style.transitionProperty = property;
+    box.style.transitionDuration = duration;
+    cssOutput.innerHTML = `Current transition: <code>${property} ${duration}</code>`;
+  }
+
+  function applyHoverEffect() {
+    const property = propertySelect.value;
+    switch (property) {
+      case 'background-color':
+        box.style.backgroundColor = '#f97316';
+        break;
+      case 'transform':
+        box.style.transform = 'scale(1.1) rotate(5deg)';
+        break;
+      case 'width':
+        box.style.width = '280px';
+        break;
+      case 'border-radius':
+        box.style.borderRadius = '50%';
+        break;
+      case 'all':
+        box.style.backgroundColor = '#f97316';
+        box.style.transform = 'scale(1.05)';
+        box.style.width = '250px';
+        box.style.borderRadius = '40px';
+        break;
+    }
+  }
+
+  function resetStyles() {
+    box.style.backgroundColor = '#3b82f6';
+    box.style.transform = '';
+    box.style.width = '200px';
+    box.style.borderRadius = '16px';
+  }
+
+  box.addEventListener('mouseenter', applyHoverEffect);
+  box.addEventListener('mouseleave', resetStyles);
+  propertySelect.addEventListener('change', () => {
+    updateTransition();
+    resetStyles();
+  });
+  durationSelect.addEventListener('change', updateTransition);
+  updateTransition();
+
+  // Multiple properties demo
+  const multiDemo = document.getElementById('multiDemo');
+  if (multiDemo) {
+    multiDemo.addEventListener('mouseenter', () => {
+      multiDemo.style.backgroundColor = '#22c55e';
+      multiDemo.style.transform = 'scale(1.1)';
+      multiDemo.style.width = '280px';
+    });
+    multiDemo.addEventListener('mouseleave', () => {
+      multiDemo.style.backgroundColor = '#f97316';
+      multiDemo.style.transform = 'scale(1)';
+      multiDemo.style.width = '200px';
+    });
+  }
+</script>
+</body>
+</html>

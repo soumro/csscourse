@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CSS Text-Shadow – Interactive Guide</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: system-ui, 'Segoe UI', Roboto, sans-serif;
+      background: #f4f7fc;
+      padding: 2rem;
+      color: #0f172a;
+    }
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+      background: linear-gradient(135deg, #1e293b, #3b82f6);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+    .sub {
+      border-left: 4px solid #3b82f6;
+      padding-left: 1rem;
+      color: #334155;
+      margin-bottom: 2rem;
+    }
+    .card {
+      background: white;
+      border-radius: 28px;
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+    }
+    h2 {
+      font-size: 1.4rem;
+      margin-top: 0;
+      margin-bottom: 1rem;
+      border-left: 5px solid #f97316;
+      padding-left: 0.75rem;
+    }
+    .demo-area {
+      background: #f1f5f9;
+      border-radius: 20px;
+      padding: 2rem;
+      margin: 1rem 0;
+      text-align: center;
+    }
+    .text-demo {
+      font-size: 3rem;
+      font-weight: bold;
+      margin: 1rem auto;
+      transition: text-shadow 0.1s;
+    }
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin: 1rem 0;
+    }
+    .control-group {
+      flex: 1;
+      min-width: 120px;
+    }
+    label {
+      display: block;
+      font-size: 0.8rem;
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+      color: #475569;
+    }
+    input, select {
+      width: 100%;
+      padding: 0.4rem;
+      border-radius: 12px;
+      border: 1px solid #cbd5e1;
+      font-family: inherit;
+    }
+    .note {
+      background: #eef2ff;
+      border-left: 4px solid #3b82f6;
+      padding: 0.8rem;
+      border-radius: 16px;
+      font-size: 0.85rem;
+      margin: 1rem 0;
+    }
+    code {
+      background: #e2e8f0;
+      padding: 0.2rem 0.4rem;
+      border-radius: 8px;
+      font-family: monospace;
+    }
+    footer {
+      text-align: center;
+      margin-top: 2rem;
+      font-size: 0.8rem;
+      color: #475569;
+    }
+    .example-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      justify-content: center;
+      margin: 1rem 0;
+    }
+    .example-text {
+      font-size: 2rem;
+      font-weight: bold;
+      padding: 1rem;
+      background: white;
+      border-radius: 16px;
+      width: 100%;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <h1>✨ CSS Text-Shadow</h1>
+  <div class="sub">Add depth, glow, and style to typography.</div>
+
+  <!-- Interactive Playground -->
+  <div class="card">
+    <h2>1. Interactive Shadow Lab</h2>
+    <div class="demo-area">
+      <div id="demoText" class="text-demo">
+        Shadow Me
+      </div>
+      <div class="controls">
+        <div class="control-group">
+          <label>Offset X</label>
+          <input type="range" id="offsetX" min="-20" max="20" value="4" step="1">
+          <span id="xVal">4px</span>
+        </div>
+        <div class="control-group">
+          <label>Offset Y</label>
+          <input type="range" id="offsetY" min="-20" max="20" value="4" step="1">
+          <span id="yVal">4px</span>
+        </div>
+        <div class="control-group">
+          <label>Blur</label>
+          <input type="range" id="blur" min="0" max="20" value="4" step="1">
+          <span id="blurVal">4px</span>
+        </div>
+        <div class="control-group">
+          <label>Color</label>
+          <input type="color" id="shadowColor" value="#000000">
+        </div>
+      </div>
+      <div class="note" id="cssOutput">
+        Current shadow: <code>4px 4px 4px #000000</code>
+      </div>
+    </div>
+  </div>
+
+  <!-- Predefined Examples -->
+  <div class="card">
+    <h2>2. Predefined Shadow Styles</h2>
+    <div class="example-grid">
+      <div class="example-text" style="text-shadow: 2px 2px 4px rgba(0,0,0,0.3);">
+        Subtle Depth
+      </div>
+      <div class="example-text" style="text-shadow: 0 0 8px #3b82f6;">
+        Glow (blue)
+      </div>
+      <div class="example-text" style="text-shadow: 2px 2px 0 #f97316, -1px -1px 0 #f97316;">
+        Retro (hard shadow)
+      </div>
+      <div class="example-text" style="text-shadow: 0 1px 0 #ccc, 0 2px 0 #bbb, 0 3px 0 #aaa, 0 4px 0 #999, 0 5px 0 #888;">
+        3D / Letterpress
+      </div>
+      <div class="example-text" style="text-shadow: -1px -1px 0 #fff, 1px 1px 0 #000;">
+        Embossed (inset look)
+      </div>
+      <div class="example-text" style="text-shadow: 0 0 5px #ff0000, 0 0 10px #ff6600, 0 0 15px #ffff00;">
+        Neon Glow
+      </div>
+    </div>
+  </div>
+
+  <!-- Real-World Use Cases -->
+  <div class="card">
+    <h2>3. Real-World Examples</h2>
+    <div style="display: flex; flex-wrap: wrap; gap: 1.5rem; justify-content: center;">
+      <div style="background: #1e293b; color: white; padding: 1rem; border-radius: 20px; width: 260px; text-align: center; text-shadow: 0 2px 4px rgba(0,0,0,0.5);">
+        <strong>Hero Headline</strong><br>with depth
+      </div>
+      <div style="background: #facc15; color: #1e293b; padding: 1rem; border-radius: 20px; width: 260px; text-align: center; text-shadow: 2px 2px 0 #f97316;">
+        <strong>Retro Sticker</strong><br>hard shadow
+      </div>
+      <div style="background: #0f172a; color: #3b82f6; padding: 1rem; border-radius: 20px; width: 260px; text-align: center; text-shadow: 0 0 8px #3b82f6;">
+        <strong>Neon Text</strong><br>glow effect
+      </div>
+    </div>
+    <div class="note">
+      💡 Text shadows can dramatically improve readability on busy backgrounds when used subtly, or create standout headings.
+    </div>
+  </div>
+
+  <!-- Multiple Shadows Explanation -->
+  <div class="card">
+    <h2>4. Multiple Shadows & Layering</h2>
+    <div class="demo-area">
+      <div class="text-demo" style="font-size: 2rem; text-shadow: 2px 2px 0 #f97316, 4px 4px 0 #3b82f6, 6px 6px 0 #22c55e;">
+        Multi Shadow
+      </div>
+      <p>Shadows are applied in order; the first listed appears on top. Combine for complex effects like 3D or layered glows.</p>
+      <code>text-shadow: 2px 2px 0 #f97316, 4px 4px 0 #3b82f6, 6px 6px 0 #22c55e;</code>
+    </div>
+  </div>
+
+  <!-- Accessibility & Performance -->
+  <div class="card">
+    <h2>5. Best Practices & Performance</h2>
+    <ul style="margin-left: 1.5rem; line-height: 1.6;">
+      <li>🔹 Use shadows sparingly – too many or large blur can reduce readability and increase render cost.</li>
+      <li>🔹 For large text, subtle shadows improve contrast and depth without distraction.</li>
+      <li>🔹 Multiple shadows can be combined, but too many layers may impact performance, especially on animations.</li>
+      <li>🔹 Animating <code>text-shadow</code> is possible but can be heavy; consider using <code>transition</code> sparingly.</li>
+      <li>🔹 Always ensure sufficient contrast between text and its shadow (and background) for accessibility.</li>
+    </ul>
+  </div>
+
+  <!-- Quick Reference Table -->
+  <div class="card">
+    <h2>📋 Quick Reference</h2>
+    <div style="overflow-x: auto;">
+      <table style="width:100%; border-collapse: collapse; background: #f1f5f9; border-radius: 20px;">
+        <thead style="background: #334155; color: white;">
+          <tr><th style="padding: 10px;">Value</th><th>Description</th><th>Example</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><code>offset-x offset-y</code></td><td>Required; moves shadow</td><td><code>2px 2px</code></td> </tr>
+          <tr><td><code>blur-radius</code></td><td>Optional; higher = softer</td><td><code>4px</code></td> </tr>
+          <tr><td><code>color</code></td><td>Any CSS color</td><td><code>rgba(0,0,0,0.3)</code></td> </tr>
+          <tr><td><code>multiple</code></td><td>Comma‑separated list</td><td><code>0 0 4px red, 0 0 8px blue</code></td> </tr>
+        </tbody>
+       </table>
+    </div>
+  </div>
+
+  <footer>
+    ✨ Experiment with the interactive lab above to see how each parameter affects the shadow. Text‑shadow is a powerful tool for enhancing typography.
+  </footer>
+</div>
+
+<script>
+  const textElem = document.getElementById('demoText');
+  const offsetX = document.getElementById('offsetX');
+  const offsetY = document.getElementById('offsetY');
+  const blur = document.getElementById('blur');
+  const colorPicker = document.getElementById('shadowColor');
+  const xVal = document.getElementById('xVal');
+  const yVal = document.getElementById('yVal');
+  const blurVal = document.getElementById('blurVal');
+  const cssOutput = document.getElementById('cssOutput');
+
+  function updateShadow() {
+    const x = offsetX.value;
+    const y = offsetY.value;
+    const b = blur.value;
+    const color = colorPicker.value;
+    const shadow = `${x}px ${y}px ${b}px ${color}`;
+    textElem.style.textShadow = shadow;
+
+    xVal.innerText = x + 'px';
+    yVal.innerText = y + 'px';
+    blurVal.innerText = b + 'px';
+    cssOutput.innerHTML = `Current shadow: <code>${shadow}</code>`;
+  }
+
+  offsetX.addEventListener('input', updateShadow);
+  offsetY.addEventListener('input', updateShadow);
+  blur.addEventListener('input', updateShadow);
+  colorPicker.addEventListener('input', updateShadow);
+  updateShadow();
+</script>
+</body>
+</html>

@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CSS Box-Shadow – Interactive Guide</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: system-ui, 'Segoe UI', Roboto, sans-serif;
+      background: #f4f7fc;
+      padding: 2rem;
+      color: #0f172a;
+    }
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+      background: linear-gradient(135deg, #1e293b, #3b82f6);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+    .sub {
+      border-left: 4px solid #3b82f6;
+      padding-left: 1rem;
+      color: #334155;
+      margin-bottom: 2rem;
+    }
+    .card {
+      background: white;
+      border-radius: 28px;
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+    }
+    h2 {
+      font-size: 1.4rem;
+      margin-top: 0;
+      margin-bottom: 1rem;
+      border-left: 5px solid #f97316;
+      padding-left: 0.75rem;
+    }
+    .demo-area {
+      background: #f1f5f9;
+      border-radius: 20px;
+      padding: 2rem;
+      margin: 1rem 0;
+      text-align: center;
+    }
+    .shadow-box {
+      width: 250px;
+      height: 150px;
+      background: white;
+      border-radius: 16px;
+      margin: 1rem auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 500;
+      transition: box-shadow 0.1s;
+      font-size: 1rem;
+    }
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin: 1rem 0;
+    }
+    .control-group {
+      flex: 1;
+      min-width: 120px;
+    }
+    label {
+      display: block;
+      font-size: 0.8rem;
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+      color: #475569;
+    }
+    input, select {
+      width: 100%;
+      padding: 0.4rem;
+      border-radius: 12px;
+      border: 1px solid #cbd5e1;
+      font-family: inherit;
+    }
+    .note {
+      background: #eef2ff;
+      border-left: 4px solid #3b82f6;
+      padding: 0.8rem;
+      border-radius: 16px;
+      font-size: 0.85rem;
+      margin: 1rem 0;
+    }
+    code {
+      background: #e2e8f0;
+      padding: 0.2rem 0.4rem;
+      border-radius: 8px;
+      font-family: monospace;
+    }
+    footer {
+      text-align: center;
+      margin-top: 2rem;
+      font-size: 0.8rem;
+      color: #475569;
+    }
+    .example-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      justify-content: center;
+      margin: 1rem 0;
+    }
+    .example-card {
+      background: white;
+      border-radius: 16px;
+      padding: 1rem;
+      width: 200px;
+      text-align: center;
+      transition: transform 0.2s;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <h1>✨ CSS Box-Shadow</h1>
+  <div class="sub">Add depth, dimension, and style with flexible shadow effects.</div>
+
+  <!-- Interactive Playground -->
+  <div class="card">
+    <h2>1. Interactive Shadow Lab</h2>
+    <div class="demo-area">
+      <div id="demoBox" class="shadow-box">
+        🎨 shadow me
+      </div>
+      <div class="controls">
+        <div class="control-group">
+          <label>Offset X</label>
+          <input type="range" id="offsetX" min="-30" max="30" value="10" step="1">
+          <span id="xVal">10px</span>
+        </div>
+        <div class="control-group">
+          <label>Offset Y</label>
+          <input type="range" id="offsetY" min="-30" max="30" value="10" step="1">
+          <span id="yVal">10px</span>
+        </div>
+        <div class="control-group">
+          <label>Blur</label>
+          <input type="range" id="blur" min="0" max="40" value="12" step="1">
+          <span id="blurVal">12px</span>
+        </div>
+        <div class="control-group">
+          <label>Spread</label>
+          <input type="range" id="spread" min="-20" max="20" value="0" step="1">
+          <span id="spreadVal">0px</span>
+        </div>
+        <div class="control-group">
+          <label>Color</label>
+          <input type="color" id="shadowColor" value="#000000">
+        </div>
+        <div class="control-group">
+          <label>Inset</label>
+          <select id="inset">
+            <option value="false">No (outer)</option>
+            <option value="true">Yes (inner)</option>
+          </select>
+        </div>
+      </div>
+      <div class="note" id="cssOutput">
+        Current shadow: <code>10px 10px 12px 0px rgba(0,0,0,0.75)</code>
+      </div>
+    </div>
+  </div>
+
+  <!-- Predefined Examples -->
+  <div class="card">
+    <h2>2. Predefined Shadow Styles</h2>
+    <div class="example-grid">
+      <div class="example-card" style="box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);">
+        Subtle (Material)
+      </div>
+      <div class="example-card" style="box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);">
+        Medium
+      </div>
+      <div class="example-card" style="box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);">
+        Large
+      </div>
+      <div class="example-card" style="box-shadow: 0 0 15px 5px #3b82f6;">
+        Glow (blue)
+      </div>
+      <div class="example-card" style="box-shadow: inset 0 0 8px rgba(0,0,0,0.2);">
+        Inset shadow
+      </div>
+      <div class="example-card" style="box-shadow: 0 0 0 3px #f97316, 0 2px 8px rgba(0,0,0,0.2);">
+        Outline effect
+      </div>
+    </div>
+  </div>
+
+  <!-- Real-World Use Cases -->
+  <div class="card">
+    <h2>3. Real-World Examples</h2>
+    <div style="display: flex; flex-wrap: wrap; gap: 1.5rem; justify-content: center;">
+      <div style="background: white; border-radius: 20px; padding: 1rem; width: 240px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);">
+        <h3>Card</h3>
+        <p>Soft shadow adds elevation.</p>
+      </div>
+      <button style="background: #3b82f6; border: none; color: white; padding: 0.8rem 1.5rem; border-radius: 40px; font-weight: bold; cursor: pointer; box-shadow: 0 4px 6px rgba(0,0,0,0.2); transition: all 0.2s;">
+        Button with shadow
+      </button>
+      <div style="background: #f1f5f9; border-radius: 20px; padding: 1rem; width: 240px; box-shadow: inset 0 0 0 2px #3b82f6, 0 0 0 4px #facc15;">
+        Double shadow (outline)
+      </div>
+    </div>
+    <div class="note">
+      💡 Hover effects often use <code>box-shadow</code> with transitions for interactive feedback.
+    </div>
+  </div>
+
+  <!-- Multiple Shadows Explanation -->
+  <div class="card">
+    <h2>4. Multiple Shadows & Layering</h2>
+    <div class="demo-area">
+      <div class="shadow-box" style="box-shadow: 0 0 0 3px #f97316, 0 0 0 6px #3b82f6, 0 8px 20px rgba(0,0,0,0.2);">
+        Multiple shadows
+      </div>
+      <p>Shadows are applied in order; the first listed appears on top. Combine for complex effects.</p>
+      <code>box-shadow: 0 0 0 3px #f97316, 0 0 0 6px #3b82f6, 0 8px 20px rgba(0,0,0,0.2);</code>
+    </div>
+  </div>
+
+  <!-- Performance & Tips -->
+  <div class="card">
+    <h2>5. Best Practices & Performance</h2>
+    <ul style="margin-left: 1.5rem; line-height: 1.6;">
+      <li>🔹 Use shadows sparingly – too many can overwhelm design and hurt performance.</li>
+      <li>🔹 For animations, prefer <code>box-shadow</code> transitions; but be aware that changing shadows can be expensive. Consider using <code>will-change: box-shadow;</code> for smoothness.</li>
+      <li>🔹 Combine with <code>transition</code> to create interactive hover effects.</li>
+      <li>🔹 Use <code>inset</code> for inner shadows to create pressed or inset effects.</li>
+      <li>🔹 Multiple shadows can be used to mimic complex effects like neon glow, borders, or 3D depth.</li>
+      <li>🔹 When using large blur or spread, the shadow may extend far; ensure it doesn't overlap important UI in undesirable ways.</li>
+    </ul>
+  </div>
+
+  <!-- Quick Reference Table -->
+  <div class="card">
+    <h2>📋 Quick Reference</h2>
+    <div style="overflow-x: auto;">
+      <table style="width:100%; border-collapse: collapse; background: #f1f5f9; border-radius: 20px;">
+        <thead style="background: #334155; color: white;">
+          <tr><th style="padding: 10px;">Value</th><th>Description</th><th>Example</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><code>offset-x offset-y</code></td><td>Required; moves shadow</td><td><code>10px 10px</code></td></tr>
+          <tr><td><code>blur</code></td><td>Optional; higher = softer</td><td><code>8px</code></td></tr>
+          <tr><td><code>spread</code></td><td>Optional; expands/shrinks</td><td><code>4px</code> (positive expands)</td></tr>
+          <tr><td><code>color</code></td><td>Any CSS color</td><td><code>rgba(0,0,0,0.2)</code></td></tr>
+          <tr><td><code>inset</code></td><td>Optional; inner shadow</td><td><code>inset</code></td></tr>
+          <tr><td><code>multiple</code></td><td>Comma‑separated list</td><td><code>0 2px 4px rgba(0,0,0,0.1), 0 4px 8px rgba(0,0,0,0.1);</code></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <footer>
+    ✨ Experiment with the interactive lab above to see how each parameter affects the shadow. Box‑shadow is a powerful tool for creating depth, focus, and polish.
+  </footer>
+</div>
+
+<script>
+  const box = document.getElementById('demoBox');
+  const offsetX = document.getElementById('offsetX');
+  const offsetY = document.getElementById('offsetY');
+  const blur = document.getElementById('blur');
+  const spread = document.getElementById('spread');
+  const colorPicker = document.getElementById('shadowColor');
+  const insetSelect = document.getElementById('inset');
+  const xVal = document.getElementById('xVal');
+  const yVal = document.getElementById('yVal');
+  const blurVal = document.getElementById('blurVal');
+  const spreadVal = document.getElementById('spreadVal');
+  const cssOutput = document.getElementById('cssOutput');
+
+  function updateShadow() {
+    const x = offsetX.value;
+    const y = offsetY.value;
+    const b = blur.value;
+    const s = spread.value;
+    const color = colorPicker.value;
+    const inset = insetSelect.value === 'true' ? 'inset' : '';
+
+    // Convert hex to rgb for rgba alpha? We'll keep hex but show as is
+    let shadow = '';
+    if (inset) shadow += 'inset ';
+    shadow += `${x}px ${y}px ${b}px ${s}px ${color}`;
+    box.style.boxShadow = shadow;
+
+    xVal.innerText = x + 'px';
+    yVal.innerText = y + 'px';
+    blurVal.innerText = b + 'px';
+    spreadVal.innerText = s + 'px';
+    cssOutput.innerHTML = `Current shadow: <code>${shadow}</code>`;
+  }
+
+  offsetX.addEventListener('input', updateShadow);
+  offsetY.addEventListener('input', updateShadow);
+  blur.addEventListener('input', updateShadow);
+  spread.addEventListener('input', updateShadow);
+  colorPicker.addEventListener('input', updateShadow);
+  insetSelect.addEventListener('change', updateShadow);
+  updateShadow();
+</script>
+</body>
+</html>
