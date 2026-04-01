@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CSS Display – Complete Interactive Guide</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: system-ui, 'Segoe UI', Roboto, sans-serif;
+      background: #f4f7fc;
+      padding: 2rem;
+      color: #0f172a;
+    }
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+      background: linear-gradient(135deg, #1e293b, #3b82f6);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+    .sub {
+      border-left: 4px solid #3b82f6;
+      padding-left: 1rem;
+      color: #334155;
+      margin-bottom: 2rem;
+    }
+    .card {
+      background: white;
+      border-radius: 28px;
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+    }
+    h2 {
+      font-size: 1.4rem;
+      margin-top: 0;
+      margin-bottom: 1rem;
+      border-left: 5px solid #f97316;
+      padding-left: 0.75rem;
+    }
+    .demo-area {
+      background: #f1f5f9;
+      border-radius: 20px;
+      padding: 1.5rem;
+      margin: 1rem 0;
+    }
+    .demo-box {
+      background: #e0f2fe;
+      border: 2px solid #3b82f6;
+      border-radius: 12px;
+      padding: 1rem;
+      margin: 0.5rem 0;
+      text-align: center;
+      font-weight: 500;
+      transition: all 0.2s;
+    }
+    .controls {
+      margin-top: 1rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      align-items: center;
+    }
+    select, button {
+      padding: 0.5rem 1rem;
+      border-radius: 40px;
+      border: 1px solid #cbd5e1;
+      background: white;
+      font-family: inherit;
+      cursor: pointer;
+    }
+    code {
+      background: #e2e8f0;
+      padding: 0.2rem 0.4rem;
+      border-radius: 8px;
+      font-family: monospace;
+    }
+    .inline-demo span {
+      background: #facc15;
+      padding: 0.2rem 0.5rem;
+      border-radius: 8px;
+      margin: 0 2px;
+    }
+    .grid-2 {
+      display: flex;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+    .grid-2 > * {
+      flex: 1;
+    }
+    .note {
+      background: #eef2ff;
+      border-left: 4px solid #3b82f6;
+      padding: 0.8rem;
+      border-radius: 16px;
+      font-size: 0.85rem;
+      margin: 1rem 0;
+    }
+    footer {
+      text-align: center;
+      margin-top: 2rem;
+      font-size: 0.8rem;
+      color: #475569;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <h1>🎛️ CSS Display Property</h1>
+  <div class="sub">Controls layout behavior: block, inline, flex, grid, and more.</div>
+
+  <!-- Section 1: Interactive playground -->
+  <div class="card">
+    <h2>1. Interactive Display Tester</h2>
+    <div class="demo-area">
+      <div class="demo-box" id="playgroundBox">
+        This is a test element.<br>
+        Change its display value below.
+      </div>
+      <div class="controls">
+        <label for="displaySelect">display: </label>
+        <select id="displaySelect">
+          <option value="block">block</option>
+          <option value="inline">inline</option>
+          <option value="inline-block">inline-block</option>
+          <option value="none">none (hides element)</option>
+          <option value="flex">flex</option>
+          <option value="grid">grid</option>
+          <option value="inline-flex">inline-flex</option>
+          <option value="inline-grid">inline-grid</option>
+        </select>
+        <button id="resetBtn">Reset</button>
+      </div>
+      <div class="note" id="explanation">
+        Select a value to see how the box behaves.
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 2: Block vs Inline vs Inline-block -->
+  <div class="card">
+    <h2>2. Block vs Inline vs Inline-block</h2>
+    <div class="grid-2">
+      <div class="demo-area">
+        <div style="background: #fff; padding: 0.5rem; border-radius: 12px;">
+          <div class="demo-box" style="background: #bfdbfe; margin: 0 0 0.5rem 0;">Block element</div>
+          <div class="demo-box" style="background: #bfdbfe; margin: 0;">Another block</div>
+        </div>
+        <p><code>display: block</code> – takes full width, starts new line.</p>
+      </div>
+      <div class="demo-area">
+        <div style="background: #fff; padding: 0.5rem; border-radius: 12px;">
+          <span class="demo-box" style="display: inline; width: 200px; background: #fed7aa;">Inline</span>
+          <span class="demo-box" style="display: inline; background: #fed7aa;">Inline</span>
+          <span class="demo-box" style="display: inline; background: #fed7aa;">Inline</span>
+        </div>
+        <p><code>display: inline</code> – flows in line, width/height ignored.</p>
+      </div>
+      <div class="demo-area">
+        <div style="background: #fff; padding: 0.5rem; border-radius: 12px;">
+          <span class="demo-box" style="display: inline-block; width: 120px; background: #c7d2fe;">inline-block</span>
+          <span class="demo-box" style="display: inline-block; width: 120px; background: #c7d2fe;">inline-block</span>
+          <span class="demo-box" style="display: inline-block; width: 120px; background: #c7d2fe;">inline-block</span>
+        </div>
+        <p><code>display: inline-block</code> – inline but respects width/height and vertical margins.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 3: Flexbox example -->
+  <div class="card">
+    <h2>3. Flexbox: <code>display: flex</code></h2>
+    <div class="demo-area">
+      <div style="display: flex; gap: 1rem; background: white; padding: 1rem; border-radius: 16px; flex-wrap: wrap;">
+        <div style="background: #3b82f6; color: white; padding: 1rem; border-radius: 12px; flex: 1;">Flex item 1</div>
+        <div style="background: #3b82f6; color: white; padding: 1rem; border-radius: 12px; flex: 1;">Flex item 2</div>
+        <div style="background: #3b82f6; color: white; padding: 1rem; border-radius: 12px; flex: 1;">Flex item 3</div>
+      </div>
+      <p><code>display: flex</code> enables flexible box layout. Children can grow/shrink, align, and reorder easily.</p>
+    </div>
+  </div>
+
+  <!-- Section 4: Grid example -->
+  <div class="card">
+    <h2>4. Grid: <code>display: grid</code></h2>
+    <div class="demo-area">
+      <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; background: white; padding: 1rem; border-radius: 16px;">
+        <div style="background: #f97316; color: white; padding: 1rem; border-radius: 12px;">Grid cell 1</div>
+        <div style="background: #f97316; color: white; padding: 1rem; border-radius: 12px;">Grid cell 2</div>
+        <div style="background: #f97316; color: white; padding: 1rem; border-radius: 12px;">Grid cell 3</div>
+      </div>
+      <p><code>display: grid</code> creates a two‑dimensional grid layout. Powerful for complex alignments.</p>
+    </div>
+  </div>
+
+  <!-- Section 5: Display: none vs visibility: hidden -->
+  <div class="card">
+    <h2>5. <code>display: none</code> vs <code>visibility: hidden</code></h2>
+    <div class="grid-2">
+      <div class="demo-area">
+        <div>
+          <div class="demo-box" id="hideDemo1">This box will be hidden with <code>display: none</code> (removed from layout)</div>
+          <div class="demo-box" id="hideDemo2">This box will be hidden with <code>visibility: hidden</code> (invisible but occupies space)</div>
+          <div class="demo-box">I'm always visible</div>
+        </div>
+        <div class="controls">
+          <button id="toggleDisplayNone">Toggle display: none</button>
+          <button id="toggleVisibilityHidden">Toggle visibility: hidden</button>
+        </div>
+        <div class="note">
+          💡 <code>display: none</code> removes the element completely – it’s like it never existed. <br>
+          <code>visibility: hidden</code> makes the element invisible but it still takes up space in the layout.
+        </div>
+      </div>
+      <div class="demo-area">
+        <h3>Other special values</h3>
+        <ul style="margin-left: 1.5rem;">
+          <li><code>list-item</code> – adds a marker (like &lt;li&gt;)</li>
+          <li><code>table</code>, <code>table-cell</code>, etc. – for table layouts</li>
+          <li><code>contents</code> – element disappears, its children take its place</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 6: Inline elements and width/height -->
+  <div class="card">
+    <h2>6. Inline elements ignore width & height</h2>
+    <div class="demo-area">
+      <span class="demo-box" style="display: inline; width: 300px; height: 100px; background: #fbcfe8;">I'm inline – width/height ignored</span>
+      <span class="demo-box" style="display: inline-block; width: 150px; height: 60px; background: #fbcfe8;">inline-block respects dimensions</span>
+    </div>
+  </div>
+
+  <!-- Section 7: Quick reference table -->
+  <div class="card">
+    <h2>📋 Quick Reference</h2>
+    <div style="overflow-x: auto;">
+      <table style="width:100%; border-collapse: collapse; background: #f1f5f9; border-radius: 20px;">
+        <thead style="background: #334155; color: white;">
+          <tr><th style="padding: 10px;">Value</th><th>Description</th><th>Width/Height?</th><th>New line?</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><code>block</code></td><td>Takes full width, starts new line</td><td>Yes</td><td>Yes</td></tr>
+          <tr><td><code>inline</code></td><td>Flows within text</td><td>No</td><td>No</td></tr>
+          <tr><td><code>inline-block</code></td><td>Inline but respects dimensions</td><td>Yes</td><td>No</td></tr>
+          <tr><td><code>none</code></td><td>Hides element (no space)</td><td>–</td><td>–</td></tr>
+          <tr><td><code>flex</code></td><td>Flexbox container (block‑level)</td><td>–</td><td>Yes</td></tr>
+          <tr><td><code>inline-flex</code></td><td>Flexbox container (inline‑level)</td><td>–</td><td>No</td></tr>
+          <tr><td><code>grid</code></td><td>Grid container (block‑level)</td><td>–</td><td>Yes</td></tr>
+          <tr><td><code>inline-grid</code></td><td>Grid container (inline‑level)</td><td>–</td><td>No</td></tr>
+          <tr><td><code>list-item</code></td><td>Like block, adds list marker</td><td>Yes</td><td>Yes</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <footer>
+    ✨ Experiment with the interactive demo above. The <code>display</code> property is the cornerstone of CSS layout.
+  </footer>
+</div>
+
+<script>
+  const playgroundBox = document.getElementById('playgroundBox');
+  const displaySelect = document.getElementById('displaySelect');
+  const explanation = document.getElementById('explanation');
+  const resetBtn = document.getElementById('resetBtn');
+
+  function updateDisplay() {
+    const value = displaySelect.value;
+    playgroundBox.style.display = value;
+    // Provide a simple explanation
+    let text = '';
+    if (value === 'block') text = 'Block: takes full width, starts new line, respects width/height.';
+    else if (value === 'inline') text = 'Inline: flows within text; width/height ignored; only horizontal margins/padding work.';
+    else if (value === 'inline-block') text = 'Inline-block: flows inline but respects width, height, and vertical margins.';
+    else if (value === 'none') text = 'display: none – element is hidden and takes no space.';
+    else if (value === 'flex') text = 'Flex: enables flexbox layout on children. The container becomes a block‑level flex parent.';
+    else if (value === 'grid') text = 'Grid: enables CSS Grid layout on children. Block‑level grid container.';
+    else if (value === 'inline-flex') text = 'Inline-flex: flex container that behaves like an inline element.';
+    else if (value === 'inline-grid') text = 'Inline-grid: grid container that behaves like an inline element.';
+    else text = '';
+    explanation.innerHTML = `🔍 Currently: <strong>display: ${value}</strong><br>${text}`;
+  }
+
+  displaySelect.addEventListener('change', updateDisplay);
+  resetBtn.addEventListener('click', () => {
+    displaySelect.value = 'block';
+    updateDisplay();
+  });
+  updateDisplay();
+
+  // Toggle display: none demo
+  const hideDemo1 = document.getElementById('hideDemo1');
+  let hidden1 = false;
+  document.getElementById('toggleDisplayNone').addEventListener('click', () => {
+    hidden1 = !hidden1;
+    hideDemo1.style.display = hidden1 ? 'none' : 'block';
+  });
+
+  // Toggle visibility: hidden demo
+  const hideDemo2 = document.getElementById('hideDemo2');
+  let hidden2 = false;
+  document.getElementById('toggleVisibilityHidden').addEventListener('click', () => {
+    hidden2 = !hidden2;
+    hideDemo2.style.visibility = hidden2 ? 'hidden' : 'visible';
+  });
+</script>
+</body>
+</html>
