@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+  * { box-sizing: border-box; }
+  body { font-family: system-ui; padding: 2rem; background: #f8fafc; }
+  .playground {
+    background: white;
+    border-radius: 28px;
+    padding: 1.5rem;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+    margin-bottom: 2rem;
+  }
+  .demo-box {
+    width: 300px;
+    background: #bae6fd;
+    text-align: center;
+    transition: all 0.2s ease;
+    margin: 0 auto;
+  }
+  .controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin: 1.5rem 0;
+  }
+  .control-group {
+    background: #f1f5f9;
+    padding: 0.8rem;
+    border-radius: 16px;
+    flex: 1;
+  }
+  input {
+    width: 100%;
+    margin-top: 0.5rem;
+  }
+  .calc {
+    background: #e6f7ff;
+    padding: 0.8rem;
+    border-radius: 16px;
+    font-family: monospace;
+  }
+</style>
+</head>
+<body>
+<h1>🎮 Interactive Box Model Lab</h1>
+<p>Adjust the sliders – the box below changes in real time.</p>
+
+<div class="playground">
+  <div class="demo-box" id="targetBox">
+    Content<br>
+    <span style="font-size:0.8rem;">I'm the content area</span>
+  </div>
+
+  <div class="controls">
+    <div class="control-group">
+      <label>📦 Width (content)</label>
+      <input type="range" id="widthSlider" min="100" max="400" value="200" step="5">
+      <span id="widthVal">200px</span>
+    </div>
+    <div class="control-group">
+      <label>🧩 Padding</label>
+      <input type="range" id="paddingSlider" min="0" max="60" value="20" step="2">
+      <span id="paddingVal">20px</span>
+    </div>
+    <div class="control-group">
+      <label>🖌️ Border</label>
+      <input type="range" id="borderSlider" min="0" max="20" value="4" step="1">
+      <span id="borderVal">4px</span>
+    </div>
+    <div class="control-group">
+      <label>📏 Margin</label>
+      <input type="range" id="marginSlider" min="0" max="50" value="10" step="2">
+      <span id="marginVal">10px</span>
+    </div>
+  </div>
+
+  <div class="calc" id="dimensions">
+    Total width: calculating...
+  </div>
+  <p><small>💡 Note: Margin adds space around the element but is not part of its own width.</small></p>
+</div>
+
+<script>
+  const box = document.getElementById('targetBox');
+  const widthSlider = document.getElementById('widthSlider');
+  const paddingSlider = document.getElementById('paddingSlider');
+  const borderSlider = document.getElementById('borderSlider');
+  const marginSlider = document.getElementById('marginSlider');
+  const widthVal = document.getElementById('widthVal');
+  const paddingVal = document.getElementById('paddingVal');
+  const borderVal = document.getElementById('borderVal');
+  const marginVal = document.getElementById('marginVal');
+  const dimensionsDiv = document.getElementById('dimensions');
+
+  function updateBox() {
+    let w = widthSlider.value;
+    let p = paddingSlider.value;
+    let b = borderSlider.value;
+    let m = marginSlider.value;
+
+    box.style.width = w + 'px';
+    box.style.padding = p + 'px';
+    box.style.border = b + 'px solid #0f172a';
+    box.style.margin = m + 'px';
+
+    widthVal.innerText = w + 'px';
+    paddingVal.innerText = p + 'px';
+    borderVal.innerText = b + 'px';
+    marginVal.innerText = m + 'px';
+
+    // Total width = content width + left/right padding + left/right border
+    let total = parseInt(w) + (parseInt(p)*2) + (parseInt(b)*2);
+    dimensionsDiv.innerHTML = `📐 Total width (content + padding + border) = <strong>${total}px</strong><br>➕ Margin adds ${parseInt(m)*2}px outer space → total page footprint ≈ ${total + (parseInt(m)*2)}px`;
+  }
+
+  widthSlider.addEventListener('input', updateBox);
+  paddingSlider.addEventListener('input', updateBox);
+  borderSlider.addEventListener('input', updateBox);
+  marginSlider.addEventListener('input', updateBox);
+  updateBox();
+</script>
+</body>
+</html>

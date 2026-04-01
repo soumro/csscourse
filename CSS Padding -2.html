@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+  * { box-sizing: border-box; }
+  body { font-family: system-ui; padding: 2rem; background: #f0f2f5; }
+  .demo {
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+    margin-bottom: 2rem;
+  }
+  .card {
+    background: white;
+    border-radius: 24px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    flex: 1;
+  }
+  .card h3 {
+    margin: 0 0 0.5rem 0;
+  }
+  .padding-example {
+    background: #3b82f6;
+    color: white;
+    border-radius: 16px;
+    text-align: center;
+  }
+  .highlight {
+    background: rgba(255,255,200,0.3);
+    border-radius: 8px;
+    display: inline-block;
+    padding: 4px 8px;
+  }
+  .note {
+    background: #e6f7ff;
+    border-left: 4px solid #0891b2;
+    padding: 0.75rem;
+    border-radius: 12px;
+    margin-top: 1rem;
+  }
+</style>
+</head>
+<body>
+
+<h1>📦 CSS Padding – Live Examples</h1>
+
+<div class="demo">
+  <div class="card" style="padding: 0;">
+    <div class="padding-example" style="padding: 20px;">
+      <span class="highlight">padding: 20px</span>
+    </div>
+    <div style="padding: 16px;">
+      <strong>All sides equal</strong><br>
+      Background fills the padded region.
+    </div>
+  </div>
+
+  <div class="card" style="padding: 0;">
+    <div class="padding-example" style="padding: 10px 40px;">
+      <span class="highlight">padding: 10px 40px</span>
+    </div>
+    <div style="padding: 16px;">
+      <strong>Vertical 10px · Horizontal 40px</strong>
+    </div>
+  </div>
+
+  <div class="card" style="padding: 0;">
+    <div class="padding-example" style="padding-top: 30px; padding-right: 10px; padding-bottom: 40px; padding-left: 20px;">
+      <span class="highlight">different sides</span>
+    </div>
+    <div style="padding: 16px;">
+      <strong>top:30px | right:10px | bottom:40px | left:20px</strong>
+    </div>
+  </div>
+</div>
+
+<div class="demo">
+  <div class="card">
+    <div style="padding: 20px;">
+      <h3>🔄 box-sizing comparison</h3>
+      <div style="background: #f1f5f9; padding: 12px; border-radius: 16px;">
+        <div style="background: #ef4444; color: white; width: 200px; padding: 20px; box-sizing: content-box; margin-bottom: 12px;">
+          content-box<br> width 200px → total 240px
+        </div>
+        <div style="background: #10b981; color: white; width: 200px; padding: 20px; box-sizing: border-box;">
+          border-box<br> width stays 200px
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div style="padding: 20px;">
+      <h3>🧪 Button with padding</h3>
+      <button style="background: #0f172a; color: white; border: none; padding: 14px 32px; border-radius: 60px; font-size: 1rem; cursor: pointer;">
+        Clickable area
+      </button>
+      <div class="note">
+        ✅ Larger padding = larger click target + better readability.
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="note">
+  💡 <strong>Key takeaways:</strong> Padding adds inner breathing room, improves UX, and (unlike margin) is part of the element’s background. Use <code>box-sizing: border-box</code> for predictable sizing.
+</div>
+
+</body>
+</html>
