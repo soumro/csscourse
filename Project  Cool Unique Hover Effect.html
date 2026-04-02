@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>✨ Cool Unique Hover Effect – 3D Glow Morph Card</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: radial-gradient(circle at 20% 30%, #0a0f1e, #03050a);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: system-ui, 'Segoe UI', 'Poppins', 'Inter', sans-serif;
+      padding: 2rem;
+    }
+
+    .container {
+      max-width: 1200px;
+      width: 100%;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, #e0e7ff, #a5f3fc);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+      margin-bottom: 0.5rem;
+      letter-spacing: -0.02em;
+    }
+
+    .sub {
+      color: #94a3b8;
+      margin-bottom: 3rem;
+      font-size: 1.1rem;
+      border-left: 3px solid #f97316;
+      padding-left: 1rem;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* grid of cards */
+    .card-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 2rem;
+    }
+
+    /* card container – sets perspective for 3D */
+    .card {
+      background: rgba(15, 25, 45, 0.7);
+      backdrop-filter: blur(4px);
+      border-radius: 2rem;
+      padding: 1.5rem;
+      width: 280px;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      position: relative;
+      isolation: isolate;
+      border: 1px solid rgba(59, 130, 246, 0.3);
+      box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.5);
+    }
+
+    /* inner content that will move independently */
+    .card-inner {
+      position: relative;
+      z-index: 2;
+      transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+    }
+
+    /* icon / emoji */
+    .card-icon {
+      font-size: 3.5rem;
+      margin-bottom: 1rem;
+      display: inline-block;
+      transition: transform 0.3s ease;
+    }
+
+    h3 {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: #f1f5f9;
+      margin-bottom: 0.5rem;
+    }
+
+    .card-description {
+      color: #cbd5e1;
+      font-size: 0.9rem;
+      line-height: 1.4;
+      margin-bottom: 1.2rem;
+      transition: color 0.2s;
+    }
+
+    /* hidden text that appears on hover */
+    .hover-reveal {
+      max-height: 0;
+      opacity: 0;
+      overflow: hidden;
+      transition: all 0.4s cubic-bezier(0.19, 1, 0.22, 1);
+      color: #facc15;
+      font-size: 0.85rem;
+      font-weight: 500;
+      margin-top: 0;
+    }
+
+    /* glowing border pseudo-element */
+    .card::before {
+      content: '';
+      position: absolute;
+      inset: -2px;
+      background: linear-gradient(135deg, #f97316, #3b82f6, #8b5cf6);
+      border-radius: 2rem;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+      z-index: -1;
+    }
+
+    /* inner shadow / light effect */
+    .card::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 2rem;
+      background: radial-gradient(circle at 50% 0%, rgba(59,130,246,0.3), transparent 70%);
+      opacity: 0;
+      transition: opacity 0.3s;
+      pointer-events: none;
+    }
+
+    /* HOVER EFFECTS – everything comes together */
+    .card:hover {
+      transform: translateY(-8px) scale(1.02);
+      border-color: rgba(249, 115, 22, 0.6);
+      box-shadow: 0 25px 40px -12px rgba(0, 0, 0, 0.6);
+    }
+
+    .card:hover::before {
+      opacity: 1;
+    }
+
+    .card:hover::after {
+      opacity: 1;
+    }
+
+    .card:hover .card-inner {
+      transform: translateY(-4px);
+    }
+
+    .card:hover .card-icon {
+      transform: scale(1.1) rotate(5deg);
+    }
+
+    .card:hover .card-description {
+      color: #facc15;
+    }
+
+    .card:hover .hover-reveal {
+      max-height: 80px;
+      opacity: 1;
+      margin-top: 0.8rem;
+    }
+
+    /* additional micro-interaction: text gradient on hover */
+    .card:hover h3 {
+      background: linear-gradient(135deg, #fff, #facc15);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    /* responsive */
+    @media (max-width: 700px) {
+      .card-grid {
+        gap: 1.5rem;
+      }
+      .card {
+        width: 260px;
+      }
+    }
+
+    /* tiny note */
+    .info-note {
+      margin-top: 3rem;
+      background: rgba(15, 23, 42, 0.6);
+      backdrop-filter: blur(4px);
+      border-radius: 2rem;
+      padding: 1rem;
+      font-size: 0.8rem;
+      color: #94a3b8;
+      border: 1px solid rgba(59,130,246,0.3);
+    }
+    code {
+      background: #0f172a;
+      padding: 0.2rem 0.5rem;
+      border-radius: 12px;
+      color: #facc15;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <h1>✨ Cool Unique Hover Effect</h1>
+  <div class="sub">3D lift + glowing border + slide‑in content + icon wiggle</div>
+
+  <div class="card-grid">
+    <!-- Card 1 -->
+    <div class="card">
+      <div class="card-inner">
+        <div class="card-icon">🚀</div>
+        <h3>Launch Pad</h3>
+        <div class="card-description">Hover to ignite the engine</div>
+        <div class="hover-reveal">⚡ Instant takeoff · Glow thrusters activated</div>
+      </div>
+    </div>
+
+    <!-- Card 2 -->
+    <div class="card">
+      <div class="card-inner">
+        <div class="card-icon">🎨</div>
+        <h3>Creative Spark</h3>
+        <div class="card-description">Unleash your imagination</div>
+        <div class="hover-reveal">🌈 Gradient palette · Morphing border</div>
+      </div>
+    </div>
+
+    <!-- Card 3 -->
+    <div class="card">
+      <div class="card-inner">
+        <div class="card-icon">🌀</div>
+        <h3>3D Morph</h3>
+        <div class="card-description">Experience depth & motion</div>
+        <div class="hover-reveal">🔮 Perspective shift · Smooth transform</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="info-note">
+    💡 <strong>How it works:</strong> Each card uses <code>transform: translateY() scale()</code> on hover, plus a pseudo-element for the glowing gradient border.  
+    The hidden text expands with <code>max-height</code> transition, and icons get a subtle scale + rotation.  
+    All transitions are hardware‑accelerated and use <code>cubic-bezier</code> for a snappy feel.
+  </div>
+</div>
+</body>
+</html>

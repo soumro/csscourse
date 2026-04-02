@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CSS Animation Basics – Part 1: Keyframes & Core Properties</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: system-ui, 'Segoe UI', 'Roboto', sans-serif;
+      background: linear-gradient(145deg, #f1f5f9 0%, #e2e8f0 100%);
+      padding: 2rem;
+      color: #0f172a;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    h1 {
+      font-size: 2.2rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, #1e293b, #3b82f6);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+      margin-bottom: 0.5rem;
+    }
+
+    .sub {
+      border-left: 4px solid #f97316;
+      padding-left: 1rem;
+      color: #334155;
+      margin-bottom: 2rem;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(2px);
+      border-radius: 28px;
+      padding: 1.8rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.1);
+      border: 1px solid rgba(255,255,255,0.5);
+    }
+
+    h2 {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      border-left: 5px solid #f97316;
+      padding-left: 0.8rem;
+    }
+
+    .demo-area {
+      background: #f8fafc;
+      border-radius: 24px;
+      padding: 2rem;
+      margin: 1rem 0;
+      text-align: center;
+    }
+
+    .animated-box {
+      width: 150px;
+      height: 150px;
+      background: #3b82f6;
+      border-radius: 20px;
+      margin: 1rem auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: bold;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    }
+
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.2rem;
+      justify-content: center;
+      margin: 1.5rem 0;
+    }
+
+    .control-group {
+      background: white;
+      padding: 0.8rem 1rem;
+      border-radius: 20px;
+      min-width: 160px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+
+    label {
+      display: block;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: #475569;
+      margin-bottom: 0.3rem;
+    }
+
+    select, input {
+      width: 100%;
+      padding: 0.4rem;
+      border-radius: 12px;
+      border: 1px solid #cbd5e1;
+      font-family: monospace;
+      font-size: 0.9rem;
+    }
+
+    button {
+      background: #0f172a;
+      color: white;
+      border: none;
+      padding: 0.5rem 1.2rem;
+      border-radius: 40px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    button:hover {
+      background: #1e293b;
+      transform: scale(1.02);
+    }
+
+    .code-snippet {
+      background: #1e293b;
+      color: #e2e8f0;
+      padding: 1rem;
+      border-radius: 20px;
+      font-family: 'Fira Code', monospace;
+      font-size: 0.85rem;
+      overflow-x: auto;
+      margin: 1rem 0;
+    }
+
+    .example-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      justify-content: center;
+      margin: 1.5rem 0;
+    }
+
+    .example-card {
+      background: white;
+      border-radius: 20px;
+      padding: 1rem;
+      width: 180px;
+      text-align: center;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    }
+
+    .note {
+      background: #eef2ff;
+      border-left: 4px solid #3b82f6;
+      padding: 0.8rem;
+      border-radius: 16px;
+      font-size: 0.85rem;
+      margin-top: 1rem;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 2rem;
+      font-size: 0.8rem;
+      color: #475569;
+    }
+
+    /* Keyframe definitions used in examples */
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-30px); }
+    }
+
+    @keyframes colorShift {
+      0% { background: #3b82f6; }
+      50% { background: #f97316; }
+      100% { background: #10b981; }
+    }
+
+    @keyframes rotateZoom {
+      0% { transform: rotate(0deg) scale(1); }
+      50% { transform: rotate(180deg) scale(1.2); }
+      100% { transform: rotate(360deg) scale(1); }
+    }
+
+    @keyframes slideFade {
+      0% { opacity: 0; transform: translateX(-50px); }
+      100% { opacity: 1; transform: translateX(0); }
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <h1>🎬 CSS Animation Basics – Part 1</h1>
+  <div class="sub">Master <code>@keyframes</code>, <code>animation-name</code>, <code>duration</code>, <code>iteration-count</code> & <code>delay</code></div>
+
+  <!-- Interactive Playground -->
+  <div class="card">
+    <h2>🔧 Interactive Animation Lab</h2>
+    <div class="demo-area">
+      <div id="playgroundBox" class="animated-box">Animate Me</div>
+      <div class="controls">
+        <div class="control-group">
+          <label>animation-name</label>
+          <select id="animName">
+            <option value="bounce">bounce</option>
+            <option value="colorShift">colorShift</option>
+            <option value="rotateZoom">rotateZoom</option>
+            <option value="slideFade">slideFade</option>
+          </select>
+        </div>
+        <div class="control-group">
+          <label>duration (s)</label>
+          <input type="range" id="durationSlider" min="0.2" max="3" step="0.1" value="1">
+          <span id="durationVal">1s</span>
+        </div>
+        <div class="control-group">
+          <label>iteration-count</label>
+          <select id="iterationCount">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="infinite">infinite</option>
+          </select>
+        </div>
+        <div class="control-group">
+          <label>delay (s)</label>
+          <input type="range" id="delaySlider" min="0" max="2" step="0.1" value="0">
+          <span id="delayVal">0s</span>
+        </div>
+      </div>
+      <button id="applyBtn">Apply & Restart Animation</button>
+      <div class="code-snippet" id="liveCode">
+        animation: bounce 1s infinite 0s;
+      </div>
+    </div>
+  </div>
+
+  <!-- Static Examples -->
+  <div class="card">
+    <h2>📌 Basic Animation Examples</h2>
+    <div class="example-grid">
+      <div class="example-card">
+        <div style="width: 80px; height: 80px; background: #3b82f6; border-radius: 20px; margin: 0 auto 0.5rem; animation: bounce 0.8s infinite ease-in-out;"></div>
+        <code>bounce</code><br>
+        <small>infinite, 0.8s</small>
+      </div>
+      <div class="example-card">
+        <div style="width: 80px; height: 80px; background: #3b82f6; border-radius: 20px; margin: 0 auto 0.5rem; animation: colorShift 2s infinite alternate;"></div>
+        <code>colorShift</code><br>
+        <small>alternate direction</small>
+      </div>
+      <div class="example-card">
+        <div style="width: 80px; height: 80px; background: #3b82f6; border-radius: 20px; margin: 0 auto 0.5rem; animation: rotateZoom 1.2s 3 ease-in-out;"></div>
+        <code>rotateZoom</code><br>
+        <small>runs 3 times</small>
+      </div>
+      <div class="example-card">
+        <div style="width: 80px; height: 80px; background: #3b82f6; border-radius: 20px; margin: 0 auto 0.5rem; animation: slideFade 0.6s 1 ease-out;"></div>
+        <code>slideFade</code><br>
+        <small>single run</small>
+      </div>
+    </div>
+  </div>
+
+  <!-- Explanation of Keyframe Syntax -->
+  <div class="card">
+    <h2>📖 Understanding @keyframes</h2>
+    <div class="code-snippet">
+      @keyframes bounce {<br>
+      &nbsp;&nbsp;0% { transform: translateY(0); }<br>
+      &nbsp;&nbsp;50% { transform: translateY(-30px); }<br>
+      &nbsp;&nbsp;100% { transform: translateY(0); }<br>
+      }
+    </div>
+    <p><strong>Keyframe selectors</strong> can be <code>from</code> / <code>to</code> (same as 0% / 100%) or any percentage. You can define multiple steps to create complex sequences.</p>
+    <div class="note">
+      💡 <strong>Animation Properties Cheatsheet:</strong><br>
+      <code>animation-name</code> – which keyframes to use.<br>
+      <code>animation-duration</code> – how long one cycle lasts (s or ms).<br>
+      <code>animation-iteration-count</code> – number of repeats or <code>infinite</code>.<br>
+      <code>animation-delay</code> – wait before starting.<br>
+      <code>animation-direction</code> – normal, reverse, alternate, alternate-reverse.<br>
+      <code>animation-timing-function</code> – ease, linear, ease-in-out, etc.<br>
+      <code>animation-fill-mode</code> – styles before/after animation.
+    </div>
+  </div>
+
+  <!-- Animation Timing Function Preview -->
+  <div class="card">
+    <h2>🎯 Coming Next (Part 2 Preview)</h2>
+    <p>We'll explore <code>animation-timing-function</code>, <code>animation-direction</code>, <code>animation-fill-mode</code>, and advanced keyframe tricks. But for now, you've mastered the foundation!</p>
+    <div class="demo-area">
+      <div style="display: flex; gap: 1rem; justify-content: center;">
+        <div style="width: 60px; height: 60px; background: #f97316; border-radius: 12px; animation: bounce 0.6s infinite alternate ease-in-out;"></div>
+        <div style="width: 60px; height: 60px; background: #10b981; border-radius: 12px; animation: rotateZoom 1s infinite linear;"></div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    ✨ Experiment with the interactive lab above. Change the animation name, speed, repeat count, and delay. Each animation is defined with pure CSS keyframes!
+  </footer>
+</div>
+
+<script>
+  const box = document.getElementById('playgroundBox');
+  const animNameSelect = document.getElementById('animName');
+  const durationSlider = document.getElementById('durationSlider');
+  const durationVal = document.getElementById('durationVal');
+  const iterationSelect = document.getElementById('iterationCount');
+  const delaySlider = document.getElementById('delaySlider');
+  const delayVal = document.getElementById('delayVal');
+  const applyBtn = document.getElementById('applyBtn');
+  const liveCodeSpan = document.getElementById('liveCode');
+
+  function updateAnimation() {
+    const name = animNameSelect.value;
+    const duration = durationSlider.value + 's';
+    const iteration = iterationSelect.value;
+    const delay = delaySlider.value + 's';
+
+    // Apply the animation (restart by removing and re-adding)
+    box.style.animation = 'none';
+    // force reflow
+    void box.offsetHeight;
+    box.style.animation = `${name} ${duration} ${iteration} ${delay}`;
+
+    liveCodeSpan.innerHTML = `animation: ${name} ${duration} ${iteration} ${delay};`;
+    durationVal.innerText = duration;
+    delayVal.innerText = delay;
+  }
+
+  applyBtn.addEventListener('click', updateAnimation);
+  // also update on slider changes if you want instant preview? but using button for clarity
+  durationSlider.addEventListener('input', () => {
+    durationVal.innerText = durationSlider.value + 's';
+  });
+  delaySlider.addEventListener('input', () => {
+    delayVal.innerText = delaySlider.value + 's';
+  });
+
+  // initial animation
+  updateAnimation();
+</script>
+</body>
+</html>

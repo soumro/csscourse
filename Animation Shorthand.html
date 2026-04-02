@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CSS Animation Shorthand – Complete Guide</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: system-ui, 'Segoe UI', 'Roboto', sans-serif;
+      background: linear-gradient(145deg, #f0f4fa 0%, #e2e8f0 100%);
+      padding: 2rem;
+      color: #0f172a;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    h1 {
+      font-size: 2.2rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, #1e293b, #3b82f6);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+      margin-bottom: 0.5rem;
+    }
+
+    .sub {
+      border-left: 4px solid #f97316;
+      padding-left: 1rem;
+      color: #334155;
+      margin-bottom: 2rem;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(2px);
+      border-radius: 32px;
+      padding: 1.8rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.6);
+    }
+
+    h2 {
+      font-size: 1.6rem;
+      margin-bottom: 1rem;
+      border-left: 5px solid #f97316;
+      padding-left: 0.8rem;
+    }
+
+    .demo-area {
+      background: #f8fafc;
+      border-radius: 28px;
+      padding: 2rem;
+      margin: 1rem 0;
+      text-align: center;
+    }
+
+    .animated-box {
+      width: 160px;
+      height: 160px;
+      background: #3b82f6;
+      border-radius: 24px;
+      margin: 1rem auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: bold;
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+    }
+
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: center;
+      margin: 1.5rem 0;
+    }
+
+    .control-group {
+      background: white;
+      padding: 0.8rem 1rem;
+      border-radius: 20px;
+      min-width: 140px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+    }
+
+    label {
+      display: block;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: #475569;
+      margin-bottom: 0.3rem;
+    }
+
+    select, input {
+      width: 100%;
+      padding: 0.4rem;
+      border-radius: 12px;
+      border: 1px solid #cbd5e1;
+      font-family: monospace;
+      font-size: 0.85rem;
+    }
+
+    button {
+      background: #0f172a;
+      color: white;
+      border: none;
+      padding: 0.6rem 1.2rem;
+      border-radius: 40px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    button:hover {
+      background: #1e293b;
+      transform: scale(1.02);
+    }
+
+    .code-snippet {
+      background: #1e293b;
+      color: #e2e8f0;
+      padding: 1rem;
+      border-radius: 20px;
+      font-family: 'Fira Code', monospace;
+      font-size: 0.85rem;
+      overflow-x: auto;
+      margin: 1rem 0;
+    }
+
+    .example-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      justify-content: center;
+      margin: 1.5rem 0;
+    }
+
+    .example-card {
+      background: white;
+      border-radius: 24px;
+      padding: 1rem;
+      width: 200px;
+      text-align: center;
+      box-shadow: 0 6px 14px rgba(0, 0, 0, 0.06);
+    }
+
+    .note {
+      background: #eef2ff;
+      border-left: 4px solid #8b5cf6;
+      padding: 0.8rem;
+      border-radius: 16px;
+      font-size: 0.85rem;
+      margin-top: 1rem;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 2rem;
+      font-size: 0.8rem;
+      color: #475569;
+    }
+
+    /* Keyframe definitions */
+    @keyframes moveRotate {
+      0% { transform: translateX(0) rotate(0deg); background: #3b82f6; }
+      50% { transform: translateX(60px) rotate(180deg); background: #f97316; }
+      100% { transform: translateX(0) rotate(360deg); background: #10b981; }
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-40px); }
+    }
+
+    @keyframes fadeScale {
+      0% { opacity: 0; transform: scale(0.5); }
+      100% { opacity: 1; transform: scale(1); }
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <h1>⚡ CSS Animation Shorthand</h1>
+  <div class="sub">Write clean, powerful animations with a single line of code.</div>
+
+  <!-- Interactive Shorthand Builder -->
+  <div class="card">
+    <h2>🎮 Interactive Shorthand Builder</h2>
+    <div class="demo-area">
+      <div id="shorthandBox" class="animated-box">Animate</div>
+      <div class="controls">
+        <div class="control-group">
+          <label>name</label>
+          <select id="nameSelect">
+            <option value="moveRotate">moveRotate</option>
+            <option value="bounce">bounce</option>
+            <option value="fadeScale">fadeScale</option>
+          </select>
+        </div>
+        <div class="control-group">
+          <label>duration</label>
+          <input type="range" id="durationSlider" min="0.3" max="3" step="0.1" value="1.2">
+          <span id="durationVal">1.2s</span>
+        </div>
+        <div class="control-group">
+          <label>timing-function</label>
+          <select id="timingSelect">
+            <option value="ease">ease</option>
+            <option value="linear">linear</option>
+            <option value="ease-in">ease-in</option>
+            <option value="ease-out">ease-out</option>
+            <option value="ease-in-out">ease-in-out</option>
+            <option value="cubic-bezier(0.68, -0.55, 0.265, 1.55)">bounce-bezier</option>
+          </select>
+        </div>
+        <div class="control-group">
+          <label>delay</label>
+          <input type="range" id="delaySlider" min="0" max="2" step="0.1" value="0">
+          <span id="delayVal">0s</span>
+        </div>
+        <div class="control-group">
+          <label>iteration-count</label>
+          <select id="iterationSelect">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="infinite" selected>infinite</option>
+          </select>
+        </div>
+        <div class="control-group">
+          <label>direction</label>
+          <select id="directionSelect">
+            <option value="normal">normal</option>
+            <option value="reverse">reverse</option>
+            <option value="alternate">alternate</option>
+            <option value="alternate-reverse">alternate-reverse</option>
+          </select>
+        </div>
+        <div class="control-group">
+          <label>fill-mode</label>
+          <select id="fillSelect">
+            <option value="none">none</option>
+            <option value="forwards">forwards</option>
+            <option value="backwards">backwards</option>
+            <option value="both">both</option>
+          </select>
+        </div>
+        <div class="control-group">
+          <label>play-state</label>
+          <select id="playSelect">
+            <option value="running">running</option>
+            <option value="paused">paused</option>
+          </select>
+        </div>
+      </div>
+      <button id="applyBtn">Apply Shorthand</button>
+      <div class="code-snippet" id="shorthandOutput">
+        animation: moveRotate 1.2s ease 0s infinite normal none running;
+      </div>
+    </div>
+  </div>
+
+  <!-- Shorthand Syntax Explanation -->
+  <div class="card">
+    <h2>📖 Shorthand Syntax</h2>
+    <div class="code-snippet">
+      animation: name duration timing-function delay iteration-count direction fill-mode play-state;
+    </div>
+    <ul style="margin-top: 1rem; line-height: 1.6; margin-left: 1.5rem;">
+      <li><strong>Only <code>name</code> and <code>duration</code> are required.</strong> The rest are optional and will use default values if omitted.</li>
+      <li>Default values: <code>duration: 0s</code> (no animation), <code>timing-function: ease</code>, <code>delay: 0s</code>, <code>iteration-count: 1</code>, <code>direction: normal</code>, <code>fill-mode: none</code>, <code>play-state: running</code>.</li>
+      <li><strong>Order matters</strong> – the first time value is duration, the second is delay.</li>
+      <li>Example: <code>animation: bounce 0.8s infinite alternate;</code> (duration 0.8s, infinite loops, alternate direction).</li>
+    </ul>
+  </div>
+
+  <!-- Valid Shorthand Examples -->
+  <div class="card">
+    <h2>✅ Valid Shorthand Examples</h2>
+    <div class="example-grid">
+      <div class="example-card">
+        <div style="width: 80px; height: 80px; background: #3b82f6; border-radius: 20px; margin: 0 auto; animation: bounce 0.6s infinite alternate;"></div>
+        <code>animation: bounce 0.6s infinite alternate;</code>
+      </div>
+      <div class="example-card">
+        <div style="width: 80px; height: 80px; background: #3b82f6; border-radius: 20px; margin: 0 auto; animation: fadeScale 0.5s ease-out 0.2s forwards;"></div>
+        <code>animation: fadeScale 0.5s ease-out 0.2s forwards;</code>
+      </div>
+      <div class="example-card">
+        <div style="width: 80px; height: 80px; background: #3b82f6; border-radius: 20px; margin: 0 auto; animation: moveRotate 1s linear infinite reverse;"></div>
+        <code>animation: moveRotate 1s linear infinite reverse;</code>
+      </div>
+      <div class="example-card">
+        <div style="width: 80px; height: 80px; background: #3b82f6; border-radius: 20px; margin: 0 auto; animation: bounce 0.8s 3;"></div>
+        <code>animation: bounce 0.8s 3;</code> (runs 3 times)
+      </div>
+    </div>
+  </div>
+
+  <!-- Multiple Animations -->
+  <div class="card">
+    <h2>🎭 Multiple Animations (comma‑separated)</h2>
+    <div class="demo-area">
+      <div id="multiBox" class="animated-box" style="background: #f97316;">Multi</div>
+      <p>You can apply multiple animations to the same element by separating shorthand values with commas.</p>
+      <div class="code-snippet">
+        animation: bounce 0.6s infinite alternate, fadeScale 0.4s 1 forwards;
+      </div>
+      <button id="multiBtn">Apply Multi Animation</button>
+      <div class="note">
+        💡 The first animation listed runs first, but they start simultaneously. Use delays to sequence them.
+      </div>
+    </div>
+  </div>
+
+  <!-- Tips & Best Practices -->
+  <div class="card">
+    <h2>💡 Tips & Best Practices</h2>
+    <ul style="margin-left: 1.5rem; line-height: 1.6;">
+      <li>🔹 <strong>Always include <code>duration</code></strong> – otherwise animation won't run (defaults to 0s).</li>
+      <li>🔹 <strong>Use descriptive keyframe names</strong> to keep your code readable.</li>
+      <li>🔹 <strong>For complex animations</strong>, consider splitting into multiple keyframes or using separate properties for clarity.</li>
+      <li>🔹 <strong>Comma‑separate multiple animations</strong> to combine effects (e.g., a continuous rotation + a one‑time fade‑in).</li>
+      <li>🔹 <strong>Remember the order of time values:</strong> first is duration, second is delay.</li>
+      <li>🔹 <strong>Omitted values</strong> take their default – e.g., <code>animation: slide 2s;</code> will run once with ease timing, no delay, etc.</li>
+    </ul>
+  </div>
+
+  <footer>
+    ✨ Master the shorthand to write cleaner, more maintainable CSS animations. Use the builder above to experiment with any combination!
+  </footer>
+</div>
+
+<script>
+  // DOM elements
+  const box = document.getElementById('shorthandBox');
+  const nameSelect = document.getElementById('nameSelect');
+  const durationSlider = document.getElementById('durationSlider');
+  const durationVal = document.getElementById('durationVal');
+  const timingSelect = document.getElementById('timingSelect');
+  const delaySlider = document.getElementById('delaySlider');
+  const delayVal = document.getElementById('delayVal');
+  const iterationSelect = document.getElementById('iterationSelect');
+  const directionSelect = document.getElementById('directionSelect');
+  const fillSelect = document.getElementById('fillSelect');
+  const playSelect = document.getElementById('playSelect');
+  const applyBtn = document.getElementById('applyBtn');
+  const outputSpan = document.getElementById('shorthandOutput');
+
+  function buildShorthand() {
+    const name = nameSelect.value;
+    const duration = durationSlider.value + 's';
+    const timing = timingSelect.value;
+    const delay = delaySlider.value + 's';
+    const iteration = iterationSelect.value;
+    const direction = directionSelect.value;
+    const fill = fillSelect.value;
+    const play = playSelect.value;
+
+    // Build shorthand string
+    const shorthand = `${name} ${duration} ${timing} ${delay} ${iteration} ${direction} ${fill} ${play}`;
+    return shorthand.trim();
+  }
+
+  function applyAnimation() {
+    const shorthand = buildShorthand();
+    box.style.animation = 'none';
+    // force reflow
+    void box.offsetHeight;
+    box.style.animation = shorthand;
+    outputSpan.innerHTML = `animation: ${shorthand};`;
+  }
+
+  // Update displayed values
+  durationSlider.addEventListener('input', () => {
+    durationVal.innerText = durationSlider.value + 's';
+  });
+  delaySlider.addEventListener('input', () => {
+    delayVal.innerText = delaySlider.value + 's';
+  });
+
+  applyBtn.addEventListener('click', applyAnimation);
+  // initial apply
+  applyAnimation();
+
+  // Multi-animation demo
+  const multiBox = document.getElementById('multiBox');
+  const multiBtn = document.getElementById('multiBtn');
+  multiBtn.addEventListener('click', () => {
+    multiBox.style.animation = 'bounce 0.6s infinite alternate, fadeScale 0.4s 1 forwards';
+    outputSpan.innerHTML = `animation: bounce 0.6s infinite alternate, fadeScale 0.4s 1 forwards;`;
+    // optional: reset after some time? but fine as demo.
+  });
+</script>
+</body>
+</html>

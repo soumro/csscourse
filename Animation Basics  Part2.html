@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CSS Animation Basics – Part 2: Direction, Fill Mode, Timing & Play State</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: system-ui, 'Segoe UI', 'Roboto', sans-serif;
+      background: linear-gradient(145deg, #eef2f5 0%, #dce3ec 100%);
+      padding: 2rem;
+      color: #0f172a;
+    }
+
+    .container {
+      max-width: 1300px;
+      margin: 0 auto;
+    }
+
+    h1 {
+      font-size: 2.2rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, #1e293b, #8b5cf6);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+      margin-bottom: 0.5rem;
+    }
+
+    .sub {
+      border-left: 4px solid #f97316;
+      padding-left: 1rem;
+      color: #334155;
+      margin-bottom: 2rem;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(2px);
+      border-radius: 32px;
+      padding: 1.8rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.12);
+      border: 1px solid rgba(255,255,255,0.6);
+    }
+
+    h2 {
+      font-size: 1.6rem;
+      margin-bottom: 1rem;
+      border-left: 5px solid #f97316;
+      padding-left: 0.8rem;
+    }
+
+    .demo-area {
+      background: #f8fafc;
+      border-radius: 28px;
+      padding: 2rem;
+      margin: 1rem 0;
+      text-align: center;
+    }
+
+    .animated-box {
+      width: 160px;
+      height: 160px;
+      background: #3b82f6;
+      border-radius: 24px;
+      margin: 1rem auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: bold;
+      box-shadow: 0 12px 24px rgba(0,0,0,0.15);
+    }
+
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.2rem;
+      justify-content: center;
+      margin: 1.5rem 0;
+    }
+
+    .control-group {
+      background: white;
+      padding: 0.8rem 1rem;
+      border-radius: 20px;
+      min-width: 170px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    }
+
+    label {
+      display: block;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: #475569;
+      margin-bottom: 0.3rem;
+    }
+
+    select, input {
+      width: 100%;
+      padding: 0.4rem;
+      border-radius: 12px;
+      border: 1px solid #cbd5e1;
+      font-family: monospace;
+      font-size: 0.85rem;
+    }
+
+    button {
+      background: #0f172a;
+      color: white;
+      border: none;
+      padding: 0.6rem 1.2rem;
+      border-radius: 40px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s;
+      margin-top: 0.5rem;
+    }
+
+    button:hover {
+      background: #1e293b;
+      transform: scale(1.02);
+    }
+
+    .code-snippet {
+      background: #1e293b;
+      color: #e2e8f0;
+      padding: 1rem;
+      border-radius: 20px;
+      font-family: 'Fira Code', monospace;
+      font-size: 0.85rem;
+      overflow-x: auto;
+      margin: 1rem 0;
+    }
+
+    .example-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      justify-content: center;
+      margin: 1.5rem 0;
+    }
+
+    .example-card {
+      background: white;
+      border-radius: 24px;
+      padding: 1rem;
+      width: 200px;
+      text-align: center;
+      box-shadow: 0 6px 14px rgba(0,0,0,0.06);
+    }
+
+    .note {
+      background: #eef2ff;
+      border-left: 4px solid #8b5cf6;
+      padding: 0.8rem;
+      border-radius: 16px;
+      font-size: 0.85rem;
+      margin-top: 1rem;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 2rem;
+      font-size: 0.8rem;
+      color: #475569;
+    }
+
+    /* Keyframes used in demos */
+    @keyframes slideMove {
+      0% { transform: translateX(0); background: #3b82f6; }
+      50% { transform: translateX(60px); background: #f97316; }
+      100% { transform: translateX(0); background: #3b82f6; }
+    }
+
+    @keyframes pulseScale {
+      0% { transform: scale(1); opacity: 1; }
+      100% { transform: scale(1.3); opacity: 0.6; background: #ec489a; }
+    }
+
+    @keyframes colorCycle {
+      0% { background: #3b82f6; }
+      50% { background: #facc15; }
+      100% { background: #10b981; }
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <h1>🎬 CSS Animation Basics – Part 2</h1>
+  <div class="sub"><code>animation-direction</code> · <code>fill-mode</code> · <code>timing-function</code> · <code>play-state</code> · Shorthand</div>
+
+  <!-- Interactive Playground -->
+  <div class="card">
+    <h2>🔧 Advanced Animation Lab</h2>
+    <div class="demo-area">
+      <div id="playgroundBox" class="animated-box">Hover / Play</div>
+      <div class="controls">
+        <div class="control-group">
+          <label>direction</label>
+          <select id="directionSelect">
+            <option value="normal">normal</option>
+            <option value="reverse">reverse</option>
+            <option value="alternate">alternate</option>
+            <option value="alternate-reverse">alternate-reverse</option>
+          </select>
+        </div>
+        <div class="control-group">
+          <label>fill-mode</label>
+          <select id="fillModeSelect">
+            <option value="none">none</option>
+            <option value="forwards">forwards</option>
+            <option value="backwards">backwards</option>
+            <option value="both">both</option>
+          </select>
+        </div>
+        <div class="control-group">
+          <label>timing-function</label>
+          <select id="timingSelect">
+            <option value="ease">ease</option>
+            <option value="linear">linear</option>
+            <option value="ease-in">ease-in</option>
+            <option value="ease-out">ease-out</option>
+            <option value="ease-in-out">ease-in-out</option>
+            <option value="steps(4, end)">steps(4, end)</option>
+            <option value="cubic-bezier(0.68, -0.55, 0.265, 1.55)">bounce bezier</option>
+          </select>
+        </div>
+        <div class="control-group">
+          <label>play-state</label>
+          <select id="playStateSelect">
+            <option value="running">running</option>
+            <option value="paused">paused</option>
+          </select>
+        </div>
+      </div>
+      <button id="restartBtn">⟳ Restart Animation</button>
+      <div class="code-snippet" id="liveCode">
+        animation: slideMove 1s ease normal forwards running;
+      </div>
+    </div>
+  </div>
+
+  <!-- Visual examples for each new concept -->
+  <div class="card">
+    <h2>📌 Real‑world Examples</h2>
+    <div class="example-grid">
+      <div class="example-card">
+        <div style="width: 80px; height: 80px; background: #3b82f6; border-radius: 20px; margin: 0 auto 0.5rem; animation: slideMove 1.2s infinite alternate ease-in-out;"></div>
+        <strong>alternate</strong><br>goes back and forth
+      </div>
+      <div class="example-card">
+        <div style="width: 80px; height: 80px; background: #3b82f6; border-radius: 20px; margin: 0 auto 0.5rem; animation: pulseScale 0.8s 3 forwards ease-out;"></div>
+        <strong>forwards</strong><br>stays at final keyframe
+      </div>
+      <div class="example-card">
+        <div style="width: 80px; height: 80px; background: #3b82f6; border-radius: 20px; margin: 0 auto 0.5rem; animation: colorCycle 2s infinite steps(4);"></div>
+        <strong>steps(4)</strong><br>discrete jumps
+      </div>
+      <div class="example-card">
+        <div style="width: 80px; height: 80px; background: #3b82f6; border-radius: 20px; margin: 0 auto 0.5rem; animation: slideMove 1.2s infinite reverse linear;"></div>
+        <strong>reverse</strong><br>plays backwards
+      </div>
+    </div>
+  </div>
+
+  <!-- Explanation of each property -->
+  <div class="card">
+    <h2>📖 Deep Dive</h2>
+    <div style="display: flex; flex-wrap: wrap; gap: 1.5rem;">
+      <div style="flex: 1;">
+        <h3>🎯 animation-direction</h3>
+        <ul style="margin-left: 1.2rem; line-height: 1.5;">
+          <li><code>normal</code> – plays from 0% to 100%.</li>
+          <li><code>reverse</code> – plays from 100% to 0%.</li>
+          <li><code>alternate</code> – forward then reverse each cycle.</li>
+          <li><code>alternate-reverse</code> – reverse then forward.</li>
+        </ul>
+      </div>
+      <div style="flex: 1;">
+        <h3>📌 animation-fill-mode</h3>
+        <ul style="margin-left: 1.2rem; line-height: 1.5;">
+          <li><code>none</code> – no styles applied outside animation.</li>
+          <li><code>forwards</code> – retains last keyframe values.</li>
+          <li><code>backwards</code> – applies first keyframe before delay.</li>
+          <li><code>both</code> – both forwards and backwards.</li>
+        </ul>
+      </div>
+      <div style="flex: 1;">
+        <h3>⚡ animation-timing-function</h3>
+        <ul style="margin-left: 1.2rem; line-height: 1.5;">
+          <li><code>ease, linear, ease-in, ease-out, ease-in-out</code></li>
+          <li><code>steps(n)</code> – discrete steps (stop‑motion).</li>
+          <li><code>cubic-bezier()</code> – custom curves.</li>
+        </ul>
+      </div>
+      <div style="flex: 1;">
+        <h3>⏯️ animation-play-state</h3>
+        <ul style="margin-left: 1.2rem; line-height: 1.5;">
+          <li><code>running</code> – plays normally.</li>
+          <li><code>paused</code> – freezes the animation.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="note">
+      💡 <strong>Shorthand order:</strong> <code>animation: name duration timing-function delay iteration-count direction fill-mode play-state;</code><br>
+      Example: <code>animation: slideMove 1.2s ease-in-out 0s infinite alternate forwards running;</code>
+    </div>
+  </div>
+
+  <!-- Live hover pause demo -->
+  <div class="card">
+    <h2>🖱️ Interactive: Play-State on Hover</h2>
+    <div class="demo-area">
+      <div id="hoverPauseBox" class="animated-box" style="animation: pulseScale 1.2s infinite alternate ease-in-out;">
+        Hover to pause
+      </div>
+      <p>Move your mouse over the box – animation pauses (<code>animation-play-state: paused</code>). Leave and it resumes.</p>
+      <div class="code-snippet">
+        .box:hover { animation-play-state: paused; }
+      </div>
+    </div>
+  </div>
+
+  <!-- Fill-mode demonstration -->
+  <div class="card">
+    <h2>🎨 Fill-Mode in Action</h2>
+    <div class="example-grid">
+      <div class="example-card">
+        <div id="fillNone" style="width: 70px; height: 70px; background: #3b82f6; border-radius: 16px; margin: 0 auto; animation: pulseScale 0.8s 1 none;"></div>
+        <code>none</code><br>resets to original
+      </div>
+      <div class="example-card">
+        <div id="fillForwards" style="width: 70px; height: 70px; background: #3b82f6; border-radius: 16px; margin: 0 auto; animation: pulseScale 0.8s 1 forwards;"></div>
+        <code>forwards</code><br>stays scaled/pink
+      </div>
+      <div class="example-card">
+        <div style="width: 70px; height: 70px; background: #3b82f6; border-radius: 16px; margin: 0 auto; animation: colorCycle 1.5s 1 backwards; animation-delay: 1s;"></div>
+        <code>backwards</code><br>applies 0% before delay (yellowish)
+      </div>
+    </div>
+    <div class="note">
+      ⏳ The third box has <code>animation-delay: 1s</code>. With <code>backwards</code>, it instantly takes the first keyframe style (yellowish background) during the delay.
+    </div>
+  </div>
+
+  <footer>
+    ✨ Experiment with the advanced playground – combine direction, fill-mode, timing, and play-state. Next: chaining animations and keyframe tricks!
+  </footer>
+</div>
+
+<script>
+  const box = document.getElementById('playgroundBox');
+  const directionSelect = document.getElementById('directionSelect');
+  const fillModeSelect = document.getElementById('fillModeSelect');
+  const timingSelect = document.getElementById('timingSelect');
+  const playStateSelect = document.getElementById('playStateSelect');
+  const restartBtn = document.getElementById('restartBtn');
+  const liveCodeSpan = document.getElementById('liveCode');
+
+  // Base keyframe name (we'll use slideMove)
+  const keyframeName = 'slideMove';
+  const duration = '1s';  // fixed for simplicity, but could be made adjustable
+
+  function updateAnimation() {
+    const direction = directionSelect.value;
+    const fillMode = fillModeSelect.value;
+    const timing = timingSelect.value;
+    const playState = playStateSelect.value;
+
+    // Build shorthand
+    const animationValue = `${keyframeName} ${duration} ${timing} 0s infinite ${direction} ${fillMode} ${playState}`;
+    box.style.animation = animationValue;
+    liveCodeSpan.innerHTML = `animation: ${keyframeName} 1s ${timing} 0s infinite ${direction} ${fillMode} ${playState};`;
+  }
+
+  function restartAnimation() {
+    // Force restart by removing and re-adding
+    const currentAnim = box.style.animation;
+    box.style.animation = 'none';
+    void box.offsetHeight; // reflow
+    box.style.animation = currentAnim;
+  }
+
+  directionSelect.addEventListener('change', updateAnimation);
+  fillModeSelect.addEventListener('change', updateAnimation);
+  timingSelect.addEventListener('change', updateAnimation);
+  playStateSelect.addEventListener('change', updateAnimation);
+  restartBtn.addEventListener('click', restartAnimation);
+  updateAnimation();
+
+  // Hover pause demo
+  const hoverBox = document.getElementById('hoverPauseBox');
+  if (hoverBox) {
+    hoverBox.addEventListener('mouseenter', () => {
+      hoverBox.style.animationPlayState = 'paused';
+    });
+    hoverBox.addEventListener('mouseleave', () => {
+      hoverBox.style.animationPlayState = 'running';
+    });
+  }
+</script>
+</body>
+</html>
