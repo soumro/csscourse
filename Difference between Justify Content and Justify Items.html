@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>justify-content vs justify-items – CSS Grid Alignment Explained</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: system-ui, 'Segoe UI', Roboto, sans-serif;
+      background: #f4f7fc;
+      padding: 2rem;
+      color: #0f172a;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+      background: linear-gradient(135deg, #1e293b, #3b82f6);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .sub {
+      border-left: 4px solid #f97316;
+      padding-left: 1rem;
+      margin-bottom: 2rem;
+      color: #334155;
+    }
+
+    .card {
+      background: white;
+      border-radius: 28px;
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+    }
+
+    h2 {
+      font-size: 1.4rem;
+      margin-bottom: 1rem;
+      border-left: 5px solid #f97316;
+      padding-left: 0.75rem;
+    }
+
+    .demo-area {
+      background: #f1f5f9;
+      border-radius: 20px;
+      padding: 1rem;
+      margin: 1rem 0;
+    }
+
+    .grid-container {
+      background: #cbd5e1;
+      border: 2px solid #475569;
+      border-radius: 16px;
+      padding: 1rem;
+      display: grid;
+      grid-template-columns: 100px 100px;
+      gap: 12px;
+      transition: all 0.2s;
+    }
+
+    .grid-item {
+      background: #3b82f6;
+      color: white;
+      padding: 1rem;
+      border-radius: 12px;
+      text-align: center;
+      font-weight: 500;
+    }
+
+    /* Make items have different widths to see justify-items effect */
+    .wide-item {
+      background: #f97316;
+    }
+
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin: 1rem 0;
+    }
+
+    .control-group {
+      background: white;
+      padding: 0.8rem;
+      border-radius: 16px;
+      flex: 1;
+      min-width: 180px;
+    }
+
+    label {
+      display: block;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      color: #475569;
+      margin-bottom: 0.3rem;
+    }
+
+    select {
+      width: 100%;
+      padding: 0.4rem;
+      border-radius: 12px;
+      border: 1px solid #cbd5e1;
+      font-family: monospace;
+    }
+
+    .code-snippet {
+      background: #1e293b;
+      color: #e2e8f0;
+      padding: 0.8rem;
+      border-radius: 16px;
+      font-family: monospace;
+      font-size: 0.85rem;
+      margin-top: 1rem;
+      overflow-x: auto;
+    }
+
+    .comparison {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      margin-top: 1rem;
+    }
+
+    .comparison-card {
+      flex: 1;
+      background: #f8fafc;
+      border-radius: 20px;
+      padding: 1rem;
+    }
+
+    .note {
+      background: #eef2ff;
+      border-left: 4px solid #3b82f6;
+      padding: 0.8rem;
+      border-radius: 16px;
+      font-size: 0.85rem;
+      margin-top: 1rem;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 2rem;
+      font-size: 0.8rem;
+      color: #475569;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <h1>🎯 justify-content vs justify-items</h1>
+  <div class="sub">Understanding the difference in CSS Grid (and Flexbox context)</div>
+
+  <!-- Interactive Grid Demo -->
+  <div class="card">
+    <h2>⚡ Live Grid Comparison</h2>
+    <div class="demo-area">
+      <div id="demoGrid" class="grid-container" style="justify-content: start; justify-items: stretch;">
+        <div class="grid-item">1</div>
+        <div class="grid-item wide-item">2 (wider text)</div>
+        <div class="grid-item">3</div>
+        <div class="grid-item">4</div>
+      </div>
+      <div class="controls">
+        <div class="control-group">
+          <label>justify-content (aligns grid inside container)</label>
+          <select id="justifyContentSelect">
+            <option value="start">start</option>
+            <option value="end">end</option>
+            <option value="center">center</option>
+            <option value="space-between">space-between</option>
+            <option value="space-around">space-around</option>
+            <option value="space-evenly">space-evenly</option>
+          </select>
+        </div>
+        <div class="control-group">
+          <label>justify-items (aligns items inside grid cells)</label>
+          <select id="justifyItemsSelect">
+            <option value="stretch">stretch (default)</option>
+            <option value="start">start</option>
+            <option value="end">end</option>
+            <option value="center">center</option>
+          </select>
+        </div>
+      </div>
+      <div class="code-snippet" id="gridCode">
+        justify-content: start;<br>
+        justify-items: stretch;
+      </div>
+      <div class="note">
+        💡 <strong>justify-content</strong> moves the entire grid inside the container (only noticeable when grid is smaller than container).<br>
+        🧩 <strong>justify-items</strong> aligns each item <strong>within its own grid cell</strong> horizontally.
+      </div>
+    </div>
+  </div>
+
+  <!-- Detailed Explanation with Visuals -->
+  <div class="card">
+    <h2>📖 Explanation & Visual Examples</h2>
+    <div class="comparison">
+      <div class="comparison-card">
+        <h3>📦 justify-content</h3>
+        <div style="background: #e2e8f0; padding: 1rem; border-radius: 16px;">
+          <div style="display: grid; grid-template-columns: 80px 80px; justify-content: space-between; background: #cbd5e1; padding: 0.5rem; border-radius: 12px;">
+            <div class="grid-item" style="width: auto;">A</div>
+            <div class="grid-item" style="width: auto;">B</div>
+          </div>
+        </div>
+        <p>Aligns the <strong>entire grid</strong> horizontally within the container. Works when total grid width is less than container width.</p>
+        <code>justify-content: space-between;</code>
+      </div>
+      <div class="comparison-card">
+        <h3>📌 justify-items</h3>
+        <div style="background: #e2e8f0; padding: 1rem; border-radius: 16px;">
+          <div style="display: grid; grid-template-columns: 100px 100px; justify-items: center; gap: 8px; background: #cbd5e1; padding: 0.5rem; border-radius: 12px;">
+            <div class="grid-item" style="width: 60px;">A</div>
+            <div class="grid-item" style="width: 40px;">B</div>
+          </div>
+        </div>
+        <p>Aligns each item <strong>inside its own grid cell</strong> horizontally. Items can have different widths.</p>
+        <code>justify-items: center;</code>
+      </div>
+    </div>
+    <div class="note">
+      ⚡ <strong>justify-self</strong> does the same as justify-items but on a single item (overrides the parent's justify-items).
+    </div>
+  </div>
+
+  <!-- Flexbox Note -->
+  <div class="card">
+    <h2>🔄 Flexbox Context</h2>
+    <p>In Flexbox, there is no <code>justify-items</code> – only <code>justify-content</code> (aligns flex items along the main axis) and <code>align-items</code> (cross axis).<br>
+    For individual item alignment, use <code>align-self</code> or <code>margin: auto</code>.</p>
+    <div class="demo-area">
+      <div style="display: flex; justify-content: space-between; background: #e2e8f0; padding: 1rem; border-radius: 16px;">
+        <div class="grid-item">Flex 1</div>
+        <div class="grid-item">Flex 2</div>
+      </div>
+      <code>justify-content: space-between; (Flexbox)</code>
+    </div>
+  </div>
+
+  <!-- Summary Table -->
+  <div class="card">
+    <h2>📋 Quick Reference</h2>
+    <div style="overflow-x: auto;">
+      <table style="width:100%; border-collapse: collapse; background: #f1f5f9; border-radius: 20px;">
+        <thead style="background: #334155; color: white;">
+          <tr><th style="padding: 10px;">Property</th><th>Aligns What?</th><th>Applies To</th><th>Grid</th><th>Flexbox</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><code>justify-content</code></td><td>The whole grid/flex container along main axis</td><td>Container</td><td>✅</td><td>✅</td></tr>
+          <tr><td><code>justify-items</code></td><td>Items inside their grid cells (horizontal)</td><td>Container (affects all items)</td><td>✅</td><td>❌</td></tr>
+          <tr><td><code>justify-self</code></td><td>A single item inside its grid cell</td><td>Individual item</td><td>✅</td><td>❌ (use <code>align-self</code> or margin)</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <footer>
+    ✨ Experiment with the live grid above. Change <code>justify-content</code> to move the whole grid; change <code>justify-items</code> to align items inside their cells.
+  </footer>
+</div>
+
+<script>
+  const grid = document.getElementById('demoGrid');
+  const justifySelect = document.getElementById('justifyContentSelect');
+  const itemsSelect = document.getElementById('justifyItemsSelect');
+  const codeBlock = document.getElementById('gridCode');
+
+  function updateGrid() {
+    const justifyVal = justifySelect.value;
+    const itemsVal = itemsSelect.value;
+    grid.style.justifyContent = justifyVal;
+    grid.style.justifyItems = itemsVal;
+    codeBlock.innerHTML = `justify-content: ${justifyVal};<br>justify-items: ${itemsVal};`;
+  }
+
+  justifySelect.addEventListener('change', updateGrid);
+  itemsSelect.addEventListener('change', updateGrid);
+  updateGrid();
+</script>
+</body>
+</html>

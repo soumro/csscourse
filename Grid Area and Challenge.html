@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CSS Grid Areas – Complete Guide + Challenge</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: system-ui, 'Segoe UI', Roboto, sans-serif;
+      background: #f4f7fc;
+      padding: 2rem;
+      color: #0f172a;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+      background: linear-gradient(135deg, #1e293b, #3b82f6);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .sub {
+      border-left: 4px solid #f97316;
+      padding-left: 1rem;
+      margin-bottom: 2rem;
+      color: #334155;
+    }
+
+    .card {
+      background: white;
+      border-radius: 28px;
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+    }
+
+    h2 {
+      font-size: 1.4rem;
+      margin-bottom: 1rem;
+      border-left: 5px solid #f97316;
+      padding-left: 0.75rem;
+    }
+
+    .demo-area {
+      background: #f1f5f9;
+      border-radius: 20px;
+      padding: 1rem;
+      margin: 1rem 0;
+    }
+
+    .grid {
+      display: grid;
+      gap: 12px;
+      background: #e2e8f0;
+      padding: 1rem;
+      border-radius: 16px;
+      margin-bottom: 1rem;
+    }
+
+    .grid-item {
+      background: #3b82f6;
+      color: white;
+      padding: 1rem;
+      border-radius: 12px;
+      text-align: center;
+      font-weight: 600;
+    }
+
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin: 1rem 0;
+    }
+
+    .control-group {
+      background: white;
+      padding: 0.8rem;
+      border-radius: 16px;
+      flex: 1;
+      min-width: 180px;
+    }
+
+    label {
+      display: block;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      color: #475569;
+      margin-bottom: 0.3rem;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 0.5rem;
+      border-radius: 12px;
+      border: 1px solid #cbd5e1;
+      font-family: monospace;
+      font-size: 0.85rem;
+    }
+
+    button {
+      background: #0f172a;
+      color: white;
+      border: none;
+      padding: 0.6rem 1.2rem;
+      border-radius: 40px;
+      cursor: pointer;
+      font-weight: 500;
+      transition: all 0.2s;
+    }
+
+    button:hover {
+      background: #1e293b;
+      transform: scale(1.02);
+    }
+
+    .code-snippet {
+      background: #1e293b;
+      color: #e2e8f0;
+      padding: 0.8rem;
+      border-radius: 16px;
+      font-family: monospace;
+      font-size: 0.85rem;
+      margin-top: 1rem;
+      overflow-x: auto;
+    }
+
+    .note {
+      background: #eef2ff;
+      border-left: 4px solid #3b82f6;
+      padding: 0.8rem;
+      border-radius: 16px;
+      font-size: 0.85rem;
+      margin-top: 1rem;
+    }
+
+    .challenge-box {
+      background: #fef9c3;
+      border-left: 5px solid #f97316;
+      padding: 1rem;
+      border-radius: 20px;
+      margin-top: 1rem;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 2rem;
+      font-size: 0.8rem;
+      color: #475569;
+    }
+
+    .correct {
+      background: #22c55e;
+      color: white;
+      padding: 0.5rem;
+      border-radius: 12px;
+      text-align: center;
+      margin-top: 0.5rem;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <h1>🧩 CSS Grid Areas: The Ultimate Guide</h1>
+  <div class="sub">Name grid cells and place items with <code>grid-area</code> and <code>grid-template-areas</code> – the most intuitive way to build complex layouts.</div>
+
+  <!-- Interactive Demo: grid-template-areas -->
+  <div class="card">
+    <h2>📐 1. <code>grid-template-areas</code> + <code>grid-area</code></h2>
+    <p>Define a visual map of your grid using ASCII art. Then assign each item to a named area.</p>
+    <div class="demo-area">
+      <div class="grid" id="areaGrid" style="grid-template-areas: 'header header' 'sidebar main' 'footer footer'; grid-template-columns: 1fr 2fr;">
+        <div class="grid-item" style="grid-area: header;">Header</div>
+        <div class="grid-item" style="grid-area: sidebar;">Sidebar</div>
+        <div class="grid-item" style="grid-area: main;">Main Content</div>
+        <div class="grid-item" style="grid-area: footer;">Footer</div>
+      </div>
+      <div class="controls">
+        <div class="control-group">
+          <label>Edit grid-template-areas:</label>
+          <textarea id="areasInput" rows="3" style="font-family: monospace;">'header header'
+'sidebar main'
+'footer footer'</textarea>
+        </div>
+        <div class="control-group">
+          <label>grid-template-columns:</label>
+          <input type="text" id="colsInput" value="1fr 2fr">
+        </div>
+        <button id="applyAreasBtn">Apply Layout</button>
+      </div>
+      <div class="code-snippet" id="areaCode">
+        grid-template-areas: 'header header'<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'sidebar main'<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'footer footer';<br>
+        grid-template-columns: 1fr 2fr;
+      </div>
+      <div class="note">
+        💡 The number of columns in your ASCII map must match <code>grid-template-columns</code>. Use a period (<code>.</code>) to leave an empty cell.
+      </div>
+    </div>
+  </div>
+
+  <!-- grid-area shorthand (line numbers) -->
+  <div class="card">
+    <h2>📏 2. <code>grid-area</code> with line numbers</h2>
+    <p><code>grid-area: row-start / col-start / row-end / col-end;</code> – a shorthand for placing an item by grid lines.</p>
+    <div class="demo-area">
+      <div class="grid" id="lineGrid" style="grid-template-columns: repeat(4, 1fr); grid-auto-rows: 80px;">
+        <div class="grid-item" id="lineItem">Item</div>
+      </div>
+      <div class="controls">
+        <div class="control-group">
+          <label>grid-area:</label>
+          <input type="text" id="lineAreaInput" value="2 / 2 / 4 / 4" placeholder="row-start / col-start / row-end / col-end">
+        </div>
+        <button id="applyLineBtn">Apply</button>
+      </div>
+      <div class="code-snippet" id="lineCode">
+        grid-area: 2 / 2 / 4 / 4;  /* spans rows 2-3, cols 2-3 */
+      </div>
+      <div class="note">
+        🎯 Line numbers start at 1. Negative values count from the end. You can also use <code>span</code> (e.g., <code>2 / span 2 / 4 / span 2</code>).
+      </div>
+    </div>
+  </div>
+
+  <!-- Challenge Section -->
+  <div class="card" id="challenge">
+    <h2>🏆 Challenge: Build a Magazine Layout</h2>
+    <div class="challenge-box">
+      <p><strong>Your task:</strong> Recreate the magazine layout shown below using <code>grid-template-areas</code> and <code>grid-area</code>. You have a 3x3 grid (3 columns, 3 rows).</p>
+      <div style="background: #e2e8f0; padding: 0.5rem; border-radius: 16px; margin: 1rem 0;">
+        <pre style="font-family: monospace; background: #1e293b; color: #e2e8f0; padding: 0.5rem; border-radius: 12px;">
++-------+-------+-------+
+|       |       |       |
+| HEADER| HEADER| HEADER |
+|       |       |       |
++-------+-------+-------+
+|       |       |       |
+| SIDE  |  MAIN |  MAIN |
+|       |       |       |
++-------+-------+-------+
+|       |       |       |
+| FOOTER| FOOTER| FOOTER |
+|       |       |       |
++-------+-------+-------+
+        </pre>
+      </div>
+      <p>Write the <code>grid-template-areas</code> definition that produces the layout above. Then apply it to the container below.</p>
+      <div class="demo-area">
+        <div class="grid" id="challengeGrid" style="grid-template-columns: repeat(3, 1fr); grid-auto-rows: 80px;">
+          <div class="grid-item" style="background: #f97316;">Header</div>
+          <div class="grid-item" style="background: #3b82f6;">Sidebar</div>
+          <div class="grid-item" style="background: #10b981;">Main</div>
+          <div class="grid-item" style="background: #8b5cf6;">Footer</div>
+        </div>
+        <div class="controls">
+          <div class="control-group">
+            <label>Your grid-template-areas (3 rows, 3 columns):</label>
+            <textarea id="challengeAreas" rows="3" style="font-family: monospace;" placeholder="'header header header'\n'sidebar main main'\n'footer footer footer'"></textarea>
+          </div>
+          <div class="control-group">
+            <label>Assign grid-area to each item:</label>
+            <input type="text" id="headerArea" placeholder="header" value="header">
+            <input type="text" id="sidebarArea" placeholder="sidebar" value="sidebar" style="margin-top: 4px;">
+            <input type="text" id="mainArea" placeholder="main" value="main" style="margin-top: 4px;">
+            <input type="text" id="footerArea" placeholder="footer" value="footer" style="margin-top: 4px;">
+          </div>
+        </div>
+        <button id="submitChallenge">Apply & Check</button>
+        <div id="challengeFeedback"></div>
+      </div>
+      <div class="note">
+        💡 Hint: The first row should have three cells all named "header". Second row: "sidebar" then two "main". Third row: three "footer". Then assign each item to its area using <code>grid-area</code>.
+      </div>
+    </div>
+  </div>
+
+  <!-- Additional Tips -->
+  <div class="card">
+    <h2>✨ Pro Tips</h2>
+    <ul style="margin-left: 1.5rem; line-height: 1.6;">
+      <li>Use <strong>descriptive area names</strong> (e.g., "header", "sidebar", "content").</li>
+      <li>Empty cells are represented by a period <code>.</code> (e.g., <code>'header . sidebar'</code>).</li>
+      <li>You can rearrange the entire layout at different breakpoints using media queries – just change <code>grid-template-areas</code>!</li>
+      <li>Combine <code>grid-area</code> with <code>grid-template-areas</code> for responsive, semantic layouts.</li>
+      <li>Use <code>grid-area</code> line‑number syntax for precise control when areas aren't enough.</li>
+    </ul>
+  </div>
+
+  <footer>
+    🎉 Master grid areas and you'll build complex layouts with ease. The challenge above tests your understanding – try to solve it!
+  </footer>
+</div>
+
+<script>
+  // Demo 1: grid-template-areas interactive
+  const areaGrid = document.getElementById('areaGrid');
+  const areasInput = document.getElementById('areasInput');
+  const colsInput = document.getElementById('colsInput');
+  const applyAreasBtn = document.getElementById('applyAreasBtn');
+  const areaCode = document.getElementById('areaCode');
+
+  applyAreasBtn.addEventListener('click', () => {
+    let areasStr = areasInput.value;
+    // Remove extra spaces and split lines
+    let lines = areasStr.split('\n').filter(l => l.trim().length > 0);
+    let formatted = lines.map(l => l.trim()).join('\n');
+    areaGrid.style.gridTemplateAreas = formatted;
+    areaGrid.style.gridTemplateColumns = colsInput.value;
+    areaCode.innerHTML = `grid-template-areas: ${formatted.replace(/\n/g, '<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;')};<br>grid-template-columns: ${colsInput.value};`;
+  });
+
+  // Demo 2: grid-area line numbers
+  const lineItem = document.getElementById('lineItem');
+  const lineAreaInput = document.getElementById('lineAreaInput');
+  const applyLineBtn = document.getElementById('applyLineBtn');
+  const lineCode = document.getElementById('lineCode');
+
+  applyLineBtn.addEventListener('click', () => {
+    const val = lineAreaInput.value;
+    lineItem.style.gridArea = val;
+    lineCode.innerHTML = `grid-area: ${val};`;
+  });
+
+  // Challenge logic
+  const challengeGrid = document.getElementById('challengeGrid');
+  const challengeAreas = document.getElementById('challengeAreas');
+  const headerAreaInput = document.getElementById('headerArea');
+  const sidebarAreaInput = document.getElementById('sidebarArea');
+  const mainAreaInput = document.getElementById('mainArea');
+  const footerAreaInput = document.getElementById('footerArea');
+  const submitBtn = document.getElementById('submitChallenge');
+  const feedback = document.getElementById('challengeFeedback');
+
+  // Get the child items (order: header, sidebar, main, footer)
+  const challengeItems = challengeGrid.children;
+
+  submitBtn.addEventListener('click', () => {
+    // Apply grid-template-areas from user input
+    let areasStr = challengeAreas.value;
+    let lines = areasStr.split('\n').filter(l => l.trim().length > 0);
+    let formatted = lines.map(l => l.trim()).join('\n');
+    challengeGrid.style.gridTemplateAreas = formatted;
+
+    // Apply grid-area names to each item
+    if (challengeItems[0]) challengeItems[0].style.gridArea = headerAreaInput.value;
+    if (challengeItems[1]) challengeItems[1].style.gridArea = sidebarAreaInput.value;
+    if (challengeItems[2]) challengeItems[2].style.gridArea = mainAreaInput.value;
+    if (challengeItems[3]) challengeItems[3].style.gridArea = footerAreaInput.value;
+
+    // Check if the layout matches the expected pattern
+    const expected = `'header header header'
+'sidebar main main'
+'footer footer footer'`;
+    const userFormatted = lines.join('\n').toLowerCase().replace(/\s+/g, ' ').trim();
+    const expectedFormatted = expected.toLowerCase().replace(/\s+/g, ' ').trim();
+    const headerName = headerAreaInput.value.trim().toLowerCase();
+    const sidebarName = sidebarAreaInput.value.trim().toLowerCase();
+    const mainName = mainAreaInput.value.trim().toLowerCase();
+    const footerName = footerAreaInput.value.trim().toLowerCase();
+
+    let areaMatch = (userFormatted === expectedFormatted);
+    let namesCorrect = (headerName === 'header' && sidebarName === 'sidebar' && mainName === 'main' && footerName === 'footer');
+
+    if (areaMatch && namesCorrect) {
+      feedback.innerHTML = '<div class="correct">✅ Perfect! The layout matches the magazine design.</div>';
+    } else if (areaMatch && !namesCorrect) {
+      feedback.innerHTML = '<div class="correct" style="background: #f97316;">⚠️ Grid areas are correct, but the item names (grid-area values) should be "header", "sidebar", "main", "footer".</div>';
+    } else if (!areaMatch && namesCorrect) {
+      feedback.innerHTML = '<div class="correct" style="background: #f97316;">⚠️ Item names are correct, but the grid-template-areas pattern is wrong. Remember: first row all "header", second row "sidebar" + two "main", third row all "footer".</div>';
+    } else {
+      feedback.innerHTML = '<div class="correct" style="background: #ef4444;">❌ Not yet. Check your grid-template-areas (3x3) and the grid-area names. Use the hint above!</div>';
+    }
+  });
+</script>
+</body>
+</html>

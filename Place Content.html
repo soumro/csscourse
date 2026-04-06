@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CSS place-content – Complete Guide (Grid & Flexbox)</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: system-ui, 'Segoe UI', Roboto, sans-serif;
+      background: #f4f7fc;
+      padding: 2rem;
+      color: #0f172a;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+      background: linear-gradient(135deg, #1e293b, #3b82f6);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .sub {
+      border-left: 4px solid #f97316;
+      padding-left: 1rem;
+      margin-bottom: 2rem;
+      color: #334155;
+    }
+
+    .card {
+      background: white;
+      border-radius: 28px;
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+    }
+
+    h2 {
+      font-size: 1.4rem;
+      margin-bottom: 1rem;
+      border-left: 5px solid #f97316;
+      padding-left: 0.75rem;
+    }
+
+    .demo-area {
+      background: #f1f5f9;
+      border-radius: 20px;
+      padding: 1rem;
+      margin: 1rem 0;
+    }
+
+    .grid-container {
+      background: #cbd5e1;
+      border: 2px solid #475569;
+      border-radius: 16px;
+      padding: 1rem;
+      display: grid;
+      grid-template-columns: repeat(2, 100px);
+      grid-template-rows: repeat(2, 60px);
+      gap: 12px;
+      transition: all 0.2s;
+      height: 280px;
+    }
+
+    .flex-container {
+      background: #cbd5e1;
+      border: 2px solid #475569;
+      border-radius: 16px;
+      padding: 1rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      transition: all 0.2s;
+      height: 200px;
+      width: 100%;
+    }
+
+    .grid-item, .flex-item {
+      background: #3b82f6;
+      color: white;
+      padding: 0.8rem;
+      border-radius: 12px;
+      text-align: center;
+      font-weight: 500;
+    }
+
+    .flex-item {
+      width: 100px;
+    }
+
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin: 1rem 0;
+    }
+
+    .control-group {
+      background: white;
+      padding: 0.8rem;
+      border-radius: 16px;
+      flex: 1;
+      min-width: 180px;
+    }
+
+    label {
+      display: block;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      color: #475569;
+      margin-bottom: 0.3rem;
+    }
+
+    select {
+      width: 100%;
+      padding: 0.4rem;
+      border-radius: 12px;
+      border: 1px solid #cbd5e1;
+      font-family: monospace;
+    }
+
+    .code-snippet {
+      background: #1e293b;
+      color: #e2e8f0;
+      padding: 0.8rem;
+      border-radius: 16px;
+      font-family: monospace;
+      font-size: 0.85rem;
+      margin-top: 1rem;
+      overflow-x: auto;
+    }
+
+    .note {
+      background: #eef2ff;
+      border-left: 4px solid #3b82f6;
+      padding: 0.8rem;
+      border-radius: 16px;
+      font-size: 0.85rem;
+      margin-top: 1rem;
+    }
+
+    .comparison {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      margin-top: 1rem;
+    }
+
+    .comparison-card {
+      flex: 1;
+      background: #f8fafc;
+      border-radius: 20px;
+      padding: 1rem;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 2rem;
+      font-size: 0.8rem;
+      color: #475569;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <h1>✨ CSS place-content</h1>
+  <div class="sub">Shorthand for <code>align-content</code> and <code>justify-content</code> – perfect for centering and spacing in Grid & Flexbox.</div>
+
+  <!-- Interactive Grid Demo -->
+  <div class="card">
+    <h2>🎮 Live Grid Playground</h2>
+    <div class="demo-area">
+      <div id="gridDemo" class="grid-container" style="place-content: start start;">
+        <div class="grid-item">1</div>
+        <div class="grid-item">2</div>
+        <div class="grid-item">3</div>
+        <div class="grid-item">4</div>
+      </div>
+      <div class="controls">
+        <div class="control-group">
+          <label>place-content (align justify)</label>
+          <select id="placeSelectGrid">
+            <option value="start start">start start</option>
+            <option value="center center">center center</option>
+            <option value="end end">end end</option>
+            <option value="space-between space-between">space-between space-between</option>
+            <option value="space-around space-around">space-around space-around</option>
+            <option value="space-evenly space-evenly">space-evenly space-evenly</option>
+            <option value="center space-between">center space-between</option>
+          </select>
+        </div>
+      </div>
+      <div class="code-snippet" id="gridCode">
+        place-content: start start;
+      </div>
+      <div class="note">
+        💡 In Grid, <code>place-content</code> sets both <code>align-content</code> (vertical) and <code>justify-content</code> (horizontal) at once. The container has a fixed height to make alignment visible.
+      </div>
+    </div>
+  </div>
+
+  <!-- Flexbox Interactive Demo -->
+  <div class="card">
+    <h2>🎮 Flexbox Playground</h2>
+    <div class="demo-area">
+      <div id="flexDemo" class="flex-container" style="place-content: flex-start flex-start;">
+        <div class="flex-item">A</div>
+        <div class="flex-item">B</div>
+        <div class="flex-item">C</div>
+      </div>
+      <div class="controls">
+        <div class="control-group">
+          <label>place-content (align justify)</label>
+          <select id="placeSelectFlex">
+            <option value="flex-start flex-start">flex-start flex-start</option>
+            <option value="center center">center center</option>
+            <option value="flex-end flex-end">flex-end flex-end</option>
+            <option value="space-between space-between">space-between space-between</option>
+            <option value="space-around space-around">space-around space-around</option>
+            <option value="space-evenly space-evenly">space-evenly space-evenly</option>
+            <option value="center space-between">center space-between</option>
+          </select>
+        </div>
+      </div>
+      <div class="code-snippet" id="flexCode">
+        place-content: flex-start flex-start;
+      </div>
+      <div class="note">
+        🔄 In Flexbox, <code>place-content</code> works when <code>flex-wrap: wrap</code> is enabled and there are multiple lines. It aligns the flex lines (align-content) and the flex items along the main axis (justify-content).
+      </div>
+    </div>
+  </div>
+
+  <!-- Syntax & Examples -->
+  <div class="card">
+    <h2>📖 Syntax & Usage</h2>
+    <div class="comparison">
+      <div class="comparison-card">
+        <h3>One value</h3>
+        <code>place-content: center;</code>
+        <p>Sets both <code>align-content</code> and <code>justify-content</code> to the same value.</p>
+        <div style="display: grid; grid-template-columns: repeat(2, 70px); place-content: center; gap: 8px; background: #e2e8f0; padding: 8px; height: 120px; margin-top: 8px;">
+          <div class="grid-item" style="width: auto;">1</div><div class="grid-item">2</div>
+        </div>
+      </div>
+      <div class="comparison-card">
+        <h3>Two values</h3>
+        <code>place-content: center space-between;</code>
+        <p>First = <code>align-content</code>, second = <code>justify-content</code>.</p>
+        <div style="display: grid; grid-template-columns: repeat(2, 70px); place-content: center space-between; gap: 8px; background: #e2e8f0; padding: 8px; height: 120px; margin-top: 8px;">
+          <div class="grid-item">1</div><div class="grid-item">2</div>
+        </div>
+      </div>
+    </div>
+    <div class="code-snippet">
+      /* Examples */<br>
+      place-content: center;              /* center both axes */<br>
+      place-content: start end;           /* align: start, justify: end */<br>
+      place-content: space-between stretch; /* align: space-between, justify: stretch (Grid only) */
+    </div>
+  </div>
+
+  <!-- Common Values Reference -->
+  <div class="card">
+    <h2>📋 Common Values</h2>
+    <div style="overflow-x: auto;">
+      <table style="width:100%; border-collapse: collapse; background: #f1f5f9; border-radius: 20px;">
+        <thead style="background: #334155; color: white;">
+          <tr><th style="padding: 10px;">Value</th><th>align-content</th><th>justify-content</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><code>start</code> / <code>flex-start</code></td><td>Aligns to top</td><td>Aligns to left</td></tr>
+          <tr><td><code>end</code> / <code>flex-end</code></td><td>Aligns to bottom</td><td>Aligns to right</td></tr>
+          <tr><td><code>center</code></td><td>Centers vertically</td><td>Centers horizontally</td></tr>
+          <tr><td><code>space-between</code></td><td>Even space between rows</td><td>Even space between columns</td></tr>
+          <tr><td><code>space-around</code></td><td>Space around rows</td><td>Space around columns</td></tr>
+          <tr><td><code>space-evenly</code></td><td>Equal space everywhere</td><td>Equal space everywhere</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="note">
+      🎯 <strong>Pro tip:</strong> Use <code>place-content: center;</code> to perfectly center a grid or flex container's content both horizontally and vertically – no more complicated margins!
+    </div>
+  </div>
+
+  <!-- Comparison: place-content vs place-items vs place-self -->
+  <div class="card">
+    <h2>🧩 Related Shorthands</h2>
+    <ul style="margin-left: 1.5rem; line-height: 1.8;">
+      <li><code>place-content</code> – aligns the entire grid/flex container (align-content + justify-content).</li>
+      <li><code>place-items</code> – aligns items inside their cells (align-items + justify-items) – Grid only.</li>
+      <li><code>place-self</code> – aligns a single item (align-self + justify-self) – Grid only.</li>
+    </ul>
+    <div class="demo-area">
+      <div style="display: grid; grid-template-columns: 100px 100px; place-items: center; gap: 8px; background: #e2e8f0; padding: 12px;">
+        <div class="grid-item" style="width: 60px;">item</div>
+        <div class="grid-item" style="width: 80px;">item</div>
+      </div>
+      <code>place-items: center; /* centers each item inside its cell */</code>
+    </div>
+  </div>
+
+  <footer>
+    ✨ Experiment with the live demos above. <code>place-content</code> is the most efficient way to control both axes alignment in one line. Master it to build perfectly centered layouts effortlessly.
+  </footer>
+</div>
+
+<script>
+  // Grid demo
+  const gridContainer = document.getElementById('gridDemo');
+  const gridSelect = document.getElementById('placeSelectGrid');
+  const gridCode = document.getElementById('gridCode');
+
+  gridSelect.addEventListener('change', () => {
+    const value = gridSelect.value;
+    gridContainer.style.placeContent = value;
+    gridCode.innerHTML = `place-content: ${value};`;
+  });
+
+  // Flex demo
+  const flexContainer = document.getElementById('flexDemo');
+  const flexSelect = document.getElementById('placeSelectFlex');
+  const flexCode = document.getElementById('flexCode');
+
+  flexSelect.addEventListener('change', () => {
+    const value = flexSelect.value;
+    flexContainer.style.placeContent = value;
+    flexCode.innerHTML = `place-content: ${value};`;
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CSS Grid: align-content vs align-items – Complete Guide</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: system-ui, 'Segoe UI', Roboto, sans-serif;
+      background: #f4f7fc;
+      padding: 2rem;
+      color: #0f172a;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+      background: linear-gradient(135deg, #1e293b, #3b82f6);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .sub {
+      border-left: 4px solid #f97316;
+      padding-left: 1rem;
+      margin-bottom: 2rem;
+      color: #334155;
+    }
+
+    .card {
+      background: white;
+      border-radius: 28px;
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+    }
+
+    h2 {
+      font-size: 1.4rem;
+      margin-bottom: 1rem;
+      border-left: 5px solid #f97316;
+      padding-left: 0.75rem;
+    }
+
+    .demo-area {
+      background: #f1f5f9;
+      border-radius: 20px;
+      padding: 1rem;
+      margin: 1rem 0;
+    }
+
+    .grid-container {
+      background: #cbd5e1;
+      border: 2px solid #475569;
+      border-radius: 16px;
+      padding: 1rem;
+      display: grid;
+      grid-template-columns: 100px 100px;
+      grid-template-rows: 60px 60px;
+      gap: 12px;
+      transition: all 0.2s;
+      height: 300px; /* fixed height to see align-content effect */
+    }
+
+    .grid-item {
+      background: #3b82f6;
+      color: white;
+      padding: 0.5rem;
+      border-radius: 12px;
+      text-align: center;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Different background for second row items to show distinction */
+    .grid-item:nth-child(3),
+    .grid-item:nth-child(4) {
+      background: #f97316;
+    }
+
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin: 1rem 0;
+    }
+
+    .control-group {
+      background: white;
+      padding: 0.8rem;
+      border-radius: 16px;
+      flex: 1;
+      min-width: 180px;
+    }
+
+    label {
+      display: block;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      color: #475569;
+      margin-bottom: 0.3rem;
+    }
+
+    select {
+      width: 100%;
+      padding: 0.4rem;
+      border-radius: 12px;
+      border: 1px solid #cbd5e1;
+      font-family: monospace;
+    }
+
+    .code-snippet {
+      background: #1e293b;
+      color: #e2e8f0;
+      padding: 0.8rem;
+      border-radius: 16px;
+      font-family: monospace;
+      font-size: 0.85rem;
+      margin-top: 1rem;
+      overflow-x: auto;
+    }
+
+    .comparison {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      margin-top: 1rem;
+    }
+
+    .comparison-card {
+      flex: 1;
+      background: #f8fafc;
+      border-radius: 20px;
+      padding: 1rem;
+    }
+
+    .note {
+      background: #eef2ff;
+      border-left: 4px solid #3b82f6;
+      padding: 0.8rem;
+      border-radius: 16px;
+      font-size: 0.85rem;
+      margin-top: 1rem;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 2rem;
+      font-size: 0.8rem;
+      color: #475569;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <h1>📐 align-content vs align-items</h1>
+  <div class="sub">Understanding vertical alignment in CSS Grid (and Flexbox)</div>
+
+  <!-- Interactive Grid Demo -->
+  <div class="card">
+    <h2>⚡ Live Grid Alignment Lab</h2>
+    <div class="demo-area">
+      <div id="demoGrid" class="grid-container" style="align-content: start; align-items: stretch;">
+        <div class="grid-item">1</div>
+        <div class="grid-item">2</div>
+        <div class="grid-item">3</div>
+        <div class="grid-item">4</div>
+      </div>
+      <div class="controls">
+        <div class="control-group">
+          <label>align-content (aligns grid tracks inside container)</label>
+          <select id="alignContentSelect">
+            <option value="start">start</option>
+            <option value="end">end</option>
+            <option value="center">center</option>
+            <option value="space-between">space-between</option>
+            <option value="space-around">space-around</option>
+            <option value="space-evenly">space-evenly</option>
+          </select>
+        </div>
+        <div class="control-group">
+          <label>align-items (aligns items inside their grid cells)</label>
+          <select id="alignItemsSelect">
+            <option value="stretch">stretch (default)</option>
+            <option value="start">start</option>
+            <option value="end">end</option>
+            <option value="center">center</option>
+          </select>
+        </div>
+      </div>
+      <div class="code-snippet" id="gridCode">
+        align-content: start;<br>
+        align-items: stretch;
+      </div>
+      <div class="note">
+        💡 <strong>align-content</strong> moves the entire set of grid rows (tracks) vertically inside the container – only noticeable when total grid height is less than container height.<br>
+        🧩 <strong>align-items</strong> aligns each item <strong>within its own grid cell</strong> vertically.
+      </div>
+    </div>
+  </div>
+
+  <!-- Detailed Explanation with Visuals -->
+  <div class="card">
+    <h2>📖 Explanation & Visual Examples</h2>
+    <div class="comparison">
+      <div class="comparison-card">
+        <h3>📦 align-content</h3>
+        <div style="background: #e2e8f0; padding: 1rem; border-radius: 16px; height: 180px;">
+          <div style="display: grid; grid-template-columns: 80px 80px; grid-template-rows: 40px 40px; align-content: space-between; gap: 8px; background: #cbd5e1; padding: 0.5rem; border-radius: 12px; height: 150px;">
+            <div class="grid-item" style="width: auto;">A</div>
+            <div class="grid-item" style="width: auto;">B</div>
+            <div class="grid-item" style="width: auto;">C</div>
+            <div class="grid-item" style="width: auto;">D</div>
+          </div>
+        </div>
+        <p>Aligns the <strong>grid rows (tracks)</strong> vertically within the container. Works when total grid height is less than container height.</p>
+        <code>align-content: space-between;</code>
+      </div>
+      <div class="comparison-card">
+        <h3>📌 align-items</h3>
+        <div style="background: #e2e8f0; padding: 1rem; border-radius: 16px;">
+          <div style="display: grid; grid-template-columns: 100px 100px; grid-template-rows: 80px 80px; align-items: center; gap: 8px; background: #cbd5e1; padding: 0.5rem; border-radius: 12px;">
+            <div class="grid-item" style="height: 40px;">A</div>
+            <div class="grid-item" style="height: 30px;">B</div>
+            <div class="grid-item" style="height: 50px;">C</div>
+            <div class="grid-item" style="height: 35px;">D</div>
+          </div>
+        </div>
+        <p>Aligns each item <strong>inside its own grid cell</strong> vertically. Items can have different heights.</p>
+        <code>align-items: center;</code>
+      </div>
+    </div>
+    <div class="note">
+      ⚡ <strong>align-self</strong> does the same as align-items but on a single item (overrides the parent's align-items).
+    </div>
+  </div>
+
+  <!-- Flexbox Context -->
+  <div class="card">
+    <h2>🔄 Flexbox Context</h2>
+    <p>In Flexbox:</p>
+    <ul style="margin-left: 1.5rem; line-height: 1.6;">
+      <li><code>align-content</code> aligns flex lines (when wrapping) vertically – only works with <code>flex-wrap: wrap</code> and multiple lines.</li>
+      <li><code>align-items</code> aligns flex items along the cross axis (vertical when <code>flex-direction: row</code>).</li>
+    </ul>
+    <div class="demo-area">
+      <div style="display: flex; flex-wrap: wrap; align-content: space-between; align-items: center; background: #e2e8f0; padding: 1rem; height: 150px; gap: 8px;">
+        <div class="grid-item" style="height: 40px;">1</div>
+        <div class="grid-item" style="height: 60px;">2</div>
+        <div class="grid-item" style="height: 30px;">3</div>
+      </div>
+      <code>align-content: space-between; align-items: center; (Flexbox with wrapping)</code>
+    </div>
+  </div>
+
+  <!-- Summary Table -->
+  <div class="card">
+    <h2>📋 Quick Reference (Grid)</h2>
+    <div style="overflow-x: auto;">
+      <table style="width:100%; border-collapse: collapse; background: #f1f5f9; border-radius: 20px;">
+        <thead style="background: #334155; color: white;">
+          <tr><th style="padding: 10px;">Property</th><th>Aligns What?</th><th>Affects</th><th>When Visible</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><code>align-content</code></td><td>Grid rows (tracks) inside container</td><td>Container (all rows together)</td><td>When grid height < container height</td></tr>
+          <tr><td><code>align-items</code></td><td>Items inside their grid cells</td><td>Each individual item</td><td>Always (if item height < cell height)</td></tr>
+          <tr><td><code>align-self</code></td><td>Single item inside its cell</td><td>Individual item (overrides align-items)</td><td>Always</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <footer>
+    ✨ Experiment with the live grid above. Change <code>align-content</code> to move the whole grid rows; change <code>align-items</code> to align items inside their cells. Watch how the container height (300px) affects align-content.
+  </footer>
+</div>
+
+<script>
+  const grid = document.getElementById('demoGrid');
+  const alignContentSelect = document.getElementById('alignContentSelect');
+  const alignItemsSelect = document.getElementById('alignItemsSelect');
+  const codeBlock = document.getElementById('gridCode');
+
+  function updateGrid() {
+    const alignContentVal = alignContentSelect.value;
+    const alignItemsVal = alignItemsSelect.value;
+    grid.style.alignContent = alignContentVal;
+    grid.style.alignItems = alignItemsVal;
+    codeBlock.innerHTML = `align-content: ${alignContentVal};<br>align-items: ${alignItemsVal};`;
+  }
+
+  alignContentSelect.addEventListener('change', updateGrid);
+  alignItemsSelect.addEventListener('change', updateGrid);
+  updateGrid();
+</script>
+</body>
+</html>

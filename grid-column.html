@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CSS Rearranging Items – order, grid placement, and more</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: system-ui, 'Segoe UI', Roboto, sans-serif;
+      background: #f4f7fc;
+      padding: 2rem;
+      color: #0f172a;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+      background: linear-gradient(135deg, #1e293b, #f97316);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .sub {
+      border-left: 4px solid #f97316;
+      padding-left: 1rem;
+      margin-bottom: 2rem;
+      color: #334155;
+    }
+
+    .card {
+      background: white;
+      border-radius: 28px;
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+    }
+
+    h2 {
+      font-size: 1.4rem;
+      margin-bottom: 1rem;
+      border-left: 5px solid #f97316;
+      padding-left: 0.75rem;
+    }
+
+    .demo-area {
+      background: #f1f5f9;
+      border-radius: 20px;
+      padding: 1rem;
+      margin: 1rem 0;
+    }
+
+    .flex-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      background: #e2e8f0;
+      padding: 1rem;
+      border-radius: 16px;
+    }
+
+    .grid-container {
+      display: grid;
+      gap: 12px;
+      background: #e2e8f0;
+      padding: 1rem;
+      border-radius: 16px;
+    }
+
+    .item {
+      background: #3b82f6;
+      color: white;
+      padding: 1rem;
+      border-radius: 12px;
+      text-align: center;
+      font-weight: 600;
+      transition: all 0.2s;
+    }
+
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin: 1rem 0;
+      align-items: flex-end;
+    }
+
+    .control-group {
+      background: white;
+      padding: 0.8rem;
+      border-radius: 16px;
+      flex: 1;
+      min-width: 150px;
+    }
+
+    label {
+      display: block;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      color: #475569;
+      margin-bottom: 0.3rem;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 0.4rem;
+      border-radius: 12px;
+      border: 1px solid #cbd5e1;
+      font-family: monospace;
+    }
+
+    button {
+      background: #0f172a;
+      color: white;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 40px;
+      cursor: pointer;
+      font-weight: 500;
+    }
+
+    .code-snippet {
+      background: #1e293b;
+      color: #e2e8f0;
+      padding: 0.8rem;
+      border-radius: 16px;
+      font-family: monospace;
+      font-size: 0.85rem;
+      margin-top: 1rem;
+      overflow-x: auto;
+    }
+
+    .note {
+      background: #eef2ff;
+      border-left: 4px solid #3b82f6;
+      padding: 0.8rem;
+      border-radius: 16px;
+      font-size: 0.85rem;
+      margin-top: 1rem;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 2rem;
+      font-size: 0.8rem;
+      color: #475569;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <h1>🔄 Rearranging Items with CSS</h1>
+  <div class="sub">Reorder, reposition, and override default document flow using <code>order</code>, <code>grid-row/column</code>, <code>grid-area</code>, and <code>place-self</code>.</div>
+
+  <!-- Flexbox: order property -->
+  <div class="card">
+    <h2>1. Flexbox: <code>order</code></h2>
+    <p>Change the visual order of flex items without touching HTML. Default order = 0; lower numbers appear first.</p>
+    <div class="demo-area">
+      <div class="flex-container" id="flexOrderDemo">
+        <div class="item" style="order: 0;">Item 1 (order:0)</div>
+        <div class="item" style="order: 0;">Item 2 (order:0)</div>
+        <div class="item" style="order: 0;">Item 3 (order:0)</div>
+        <div class="item" style="order: 0;">Item 4 (order:0)</div>
+      </div>
+      <div class="controls">
+        <div class="control-group">
+          <label>Item 1 order</label>
+          <input type="number" id="order1" value="0" step="1">
+        </div>
+        <div class="control-group">
+          <label>Item 2 order</label>
+          <input type="number" id="order2" value="0" step="1">
+        </div>
+        <div class="control-group">
+          <label>Item 3 order</label>
+          <input type="number" id="order3" value="0" step="1">
+        </div>
+        <div class="control-group">
+          <label>Item 4 order</label>
+          <input type="number" id="order4" value="0" step="1">
+        </div>
+      </div>
+      <button id="applyOrderBtn">Apply Orders</button>
+      <div class="code-snippet">
+        .item { order: value; }  /* default 0, negative allowed */
+      </div>
+      <div class="note">
+        💡 <strong>order</strong> works in both Flexbox and Grid. Items are sorted by order value (ascending). Ties respect source order.
+      </div>
+    </div>
+  </div>
+
+  <!-- Grid: grid-row / grid-column -->
+  <div class="card">
+    <h2>2. Grid: <code>grid-row</code> & <code>grid-column</code></h2>
+    <p>Place items anywhere on the grid by specifying start and end lines.</p>
+    <div class="demo-area">
+      <div class="grid-container" id="gridPlacementDemo" style="grid-template-columns: repeat(3, 1fr); grid-auto-rows: 80px;">
+        <div class="item" id="gridItemA">A</div>
+        <div class="item" id="gridItemB">B</div>
+        <div class="item" id="gridItemC">C</div>
+      </div>
+      <div class="controls">
+        <div class="control-group">
+          <label>Item A: grid-column</label>
+          <input type="text" id="colA" value="auto" placeholder="e.g., 1 / 3">
+        </div>
+        <div class="control-group">
+          <label>Item A: grid-row</label>
+          <input type="text" id="rowA" value="auto" placeholder="e.g., 1 / 2">
+        </div>
+        <div class="control-group">
+          <label>Item B: grid-column</label>
+          <input type="text" id="colB" value="auto">
+        </div>
+        <div class="control-group">
+          <label>Item B: grid-row</label>
+          <input type="text" id="rowB" value="auto">
+        </div>
+        <div class="control-group">
+          <label>Item C: grid-column</label>
+          <input type="text" id="colC" value="auto">
+        </div>
+        <div class="control-group">
+          <label>Item C: grid-row</label>
+          <input type="text" id="rowC" value="auto">
+        </div>
+      </div>
+      <button id="applyPlacementBtn">Apply Placement</button>
+      <div class="code-snippet">
+        .item { grid-column: 1 / 3; grid-row: 2 / 3; }
+      </div>
+      <div class="note">
+        🎯 Use <code>grid-column: span 2</code> to make an item span multiple tracks. Values like <code>1 / 3</code> mean start at line 1, end at line 3.
+      </div>
+    </div>
+  </div>
+
+  <!-- Grid: grid-template-areas + grid-area -->
+  <div class="card">
+    <h2>3. Grid: <code>grid-template-areas</code> & <code>grid-area</code></h2>
+    <p>Name grid cells and assign items to those names – perfect for responsive reordering.</p>
+    <div class="demo-area">
+      <div class="grid-container" id="areasDemo" style="grid-template-areas: 'header header' 'sidebar main' 'footer footer'; grid-template-columns: 1fr 2fr; gap: 12px;">
+        <div class="item" style="grid-area: header;">Header</div>
+        <div class="item" style="grid-area: sidebar;">Sidebar</div>
+        <div class="item" style="grid-area: main;">Main Content</div>
+        <div class="item" style="grid-area: footer;">Footer</div>
+      </div>
+      <div class="controls">
+        <div class="control-group">
+          <label>New grid-template-areas</label>
+          <input type="text" id="areasInput" value="'header header' 'sidebar main' 'footer footer'" style="font-family: monospace;">
+        </div>
+        <button id="applyAreasBtn">Change Layout</button>
+      </div>
+      <div class="code-snippet">
+        .container { grid-template-areas: 'header header' 'sidebar main' 'footer footer'; }<br>
+        .item { grid-area: header; }
+      </div>
+      <div class="note">
+        🧩 Try changing areas to <code>'main main' 'sidebar header' 'footer footer'</code> to see items reposition instantly.
+      </div>
+    </div>
+  </div>
+
+  <!-- place-self / align-self / justify-self -->
+  <div class="card">
+    <h2>4. Single‑Item Alignment: <code>place-self</code>, <code>align-self</code>, <code>justify-self</code></h2>
+    <p>Reposition an individual item inside its grid cell without affecting others.</p>
+    <div class="demo-area">
+      <div class="grid-container" style="grid-template-columns: repeat(3, 1fr); grid-auto-rows: 100px; align-items: start; justify-items: start;">
+        <div class="item" id="selfItem1">Normal</div>
+        <div class="item" id="selfItem2" style="place-self: center;">Place‑self: center</div>
+        <div class="item" id="selfItem3">Normal</div>
+      </div>
+      <div class="controls">
+        <div class="control-group">
+          <label>Middle item: place-self</label>
+          <select id="placeSelfSelect">
+            <option value="center">center</option>
+            <option value="start">start</option>
+            <option value="end">end</option>
+            <option value="stretch">stretch</option>
+          </select>
+        </div>
+      </div>
+      <div class="code-snippet">
+        .item { place-self: center; }  /* shorthand for align-self + justify-self */
+      </div>
+      <div class="note">
+        ⚡ <code>place-self</code> overrides <code>align-items</code> / <code>justify-items</code> on a per‑item basis.
+      </div>
+    </div>
+  </div>
+
+  <!-- Bonus: Combining order + grid placement -->
+  <div class="card">
+    <h2>🎯 Pro Tips: Combining Techniques</h2>
+    <ul style="margin-left: 1.5rem; line-height: 1.6;">
+      <li>Use <code>order</code> for simple reordering in Flexbox/Grid.</li>
+      <li>Use <code>grid-row</code> / <code>grid-column</code> for explicit placement anywhere in the grid.</li>
+      <li>Use <code>grid-template-areas</code> for responsive reordering (e.g., mobile first).</li>
+      <li>Use <code>place-self</code> to fine‑tune a single item’s alignment inside its cell.</li>
+      <li>All these techniques keep the HTML clean and semantic – layout changes stay in CSS.</li>
+    </ul>
+  </div>
+
+  <footer>
+    ✨ Experiment above: change order numbers, drag items across grid cells, or modify template areas. Master these to build adaptive, reorderable layouts without JavaScript.
+  </footer>
+</div>
+
+<script>
+  // Flexbox order demo
+  const flexContainer = document.getElementById('flexOrderDemo');
+  const items = flexContainer.children;
+  const orderInputs = [document.getElementById('order1'), document.getElementById('order2'), document.getElementById('order3'), document.getElementById('order4')];
+  const applyOrderBtn = document.getElementById('applyOrderBtn');
+
+  applyOrderBtn.addEventListener('click', () => {
+    for (let i = 0; i < items.length; i++) {
+      items[i].style.order = orderInputs[i].value;
+    }
+  });
+
+  // Grid placement demo
+  const gridPlacementItems = {
+    A: { col: document.getElementById('colA'), row: document.getElementById('rowA'), elem: document.getElementById('gridItemA') },
+    B: { col: document.getElementById('colB'), row: document.getElementById('rowB'), elem: document.getElementById('gridItemB') },
+    C: { col: document.getElementById('colC'), row: document.getElementById('rowC'), elem: document.getElementById('gridItemC') }
+  };
+  document.getElementById('applyPlacementBtn').addEventListener('click', () => {
+    for (let key of ['A', 'B', 'C']) {
+      const item = gridPlacementItems[key];
+      const colVal = item.col.value.trim();
+      const rowVal = item.row.value.trim();
+      if (colVal && colVal !== 'auto') item.elem.style.gridColumn = colVal;
+      else item.elem.style.gridColumn = '';
+      if (rowVal && rowVal !== 'auto') item.elem.style.gridRow = rowVal;
+      else item.elem.style.gridRow = '';
+    }
+  });
+
+  // Grid template areas demo
+  const areasContainer = document.getElementById('areasDemo');
+  const areasInput = document.getElementById('areasInput');
+  document.getElementById('applyAreasBtn').addEventListener('click', () => {
+    areasContainer.style.gridTemplateAreas = areasInput.value;
+  });
+
+  // place-self demo
+  const selfItem = document.getElementById('selfItem2');
+  const placeSelfSelect = document.getElementById('placeSelfSelect');
+  placeSelfSelect.addEventListener('change', () => {
+    selfItem.style.placeSelf = placeSelfSelect.value;
+  });
+</script>
+</body>
+</html>
