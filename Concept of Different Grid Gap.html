@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CSS Grid Gap – Complete Guide: row-gap, column-gap, gap</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: system-ui, 'Segoe UI', Roboto, sans-serif;
+      background: #f4f7fc;
+      padding: 2rem;
+      color: #0f172a;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+      background: linear-gradient(135deg, #1e293b, #3b82f6);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .sub {
+      border-left: 4px solid #f97316;
+      padding-left: 1rem;
+      margin-bottom: 2rem;
+      color: #334155;
+    }
+
+    .card {
+      background: white;
+      border-radius: 28px;
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+    }
+
+    h2 {
+      font-size: 1.4rem;
+      margin-bottom: 1rem;
+      border-left: 5px solid #f97316;
+      padding-left: 0.75rem;
+    }
+
+    .demo-area {
+      background: #f1f5f9;
+      border-radius: 20px;
+      padding: 1rem;
+      margin: 1rem 0;
+    }
+
+    .grid-container {
+      background: #cbd5e1;
+      border: 2px solid #475569;
+      border-radius: 16px;
+      padding: 0.8rem;
+      display: grid;
+      transition: all 0.2s;
+    }
+
+    .grid-item {
+      background: #3b82f6;
+      color: white;
+      padding: 1rem;
+      border-radius: 12px;
+      text-align: center;
+      font-weight: 500;
+    }
+
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin: 1rem 0;
+    }
+
+    .control-group {
+      background: white;
+      padding: 0.8rem;
+      border-radius: 16px;
+      flex: 1;
+      min-width: 140px;
+    }
+
+    label {
+      display: block;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      color: #475569;
+      margin-bottom: 0.3rem;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 0.4rem;
+      border-radius: 12px;
+      border: 1px solid #cbd5e1;
+      font-family: monospace;
+    }
+
+    .code-snippet {
+      background: #1e293b;
+      color: #e2e8f0;
+      padding: 0.8rem;
+      border-radius: 16px;
+      font-family: monospace;
+      font-size: 0.85rem;
+      margin-top: 1rem;
+      overflow-x: auto;
+    }
+
+    .example-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      margin: 1rem 0;
+    }
+
+    .example-card {
+      background: #f8fafc;
+      border-radius: 20px;
+      padding: 1rem;
+      flex: 1;
+      text-align: center;
+    }
+
+    .note {
+      background: #eef2ff;
+      border-left: 4px solid #3b82f6;
+      padding: 0.8rem;
+      border-radius: 16px;
+      font-size: 0.85rem;
+      margin-top: 1rem;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 2rem;
+      font-size: 0.8rem;
+      color: #475569;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <h1>📏 CSS Grid Gap: row‑gap, column‑gap, gap</h1>
+  <div class="sub">Control spacing between grid items – independently or together.</div>
+
+  <!-- Interactive Playground -->
+  <div class="card">
+    <h2>🎮 Live Gap Lab</h2>
+    <div class="demo-area">
+      <div id="grid" class="grid-container" style="display: grid; grid-template-columns: repeat(3, 1fr);">
+        <div class="grid-item">1</div>
+        <div class="grid-item">2</div>
+        <div class="grid-item">3</div>
+        <div class="grid-item">4</div>
+        <div class="grid-item">5</div>
+        <div class="grid-item">6</div>
+      </div>
+      <div class="controls">
+        <div class="control-group">
+          <label>row‑gap</label>
+          <input type="range" id="rowGapSlider" min="0" max="40" step="2" value="16">
+          <span id="rowGapVal">16px</span>
+        </div>
+        <div class="control-group">
+          <label>column‑gap</label>
+          <input type="range" id="colGapSlider" min="0" max="40" step="2" value="16">
+          <span id="colGapVal">16px</span>
+        </div>
+        <div class="control-group">
+          <label>gap shorthand</label>
+          <button id="applyShorthandBtn">Apply 20px 8px</button>
+          <button id="resetGapsBtn">Reset to 16px both</button>
+        </div>
+      </div>
+      <div class="code-snippet" id="gapOutput">
+        row-gap: 16px;<br>
+        column-gap: 16px;<br>
+        /* shorthand: gap: 16px; */
+      </div>
+    </div>
+  </div>
+
+  <!-- Detailed explanation -->
+  <div class="card">
+    <h2>📖 Understanding Gap Properties</h2>
+    <div class="example-grid">
+      <div class="example-card">
+        <div style="display: grid; grid-template-columns: repeat(2, 1fr); row-gap: 24px; column-gap: 8px; background: #e2e8f0; padding: 8px; border-radius: 12px;">
+          <div class="grid-item">row-gap 24px</div><div class="grid-item">col-gap 8px</div>
+          <div class="grid-item">3</div><div class="grid-item">4</div>
+        </div>
+        <code>row-gap: 24px; column-gap: 8px;</code>
+      </div>
+      <div class="example-card">
+        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px 30px; background: #e2e8f0; padding: 8px; border-radius: 12px;">
+          <div class="grid-item">row 12px</div><div class="grid-item">col 30px</div>
+          <div class="grid-item">3</div><div class="grid-item">4</div>
+        </div>
+        <code>gap: 12px 30px; (row column)</code>
+      </div>
+      <div class="example-card">
+        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; background: #e2e8f0; padding: 8px; border-radius: 12px;">
+          <div class="grid-item">equal gap</div><div class="grid-item">20px all sides</div>
+          <div class="grid-item">3</div><div class="grid-item">4</div>
+        </div>
+        <code>gap: 20px; (same for rows & columns)</code>
+      </div>
+    </div>
+    <div class="note">
+      💡 <strong>Legacy note:</strong> Old browsers used <code>grid-row-gap</code> and <code>grid-column-gap</code>. Modern CSS uses <code>row-gap</code>, <code>column-gap</code>, and <code>gap</code> (which also works in Flexbox).<br>
+      ✅ <code>gap</code> shorthand: one value → equal; two values → row column.
+    </div>
+  </div>
+
+  <!-- Gap in Flexbox (bonus) -->
+  <div class="card">
+    <h2>🧩 Gap also works in Flexbox!</h2>
+    <div class="demo-area">
+      <div style="display: flex; flex-wrap: wrap; gap: 24px 12px; background: #e2e8f0; padding: 1rem; border-radius: 20px;">
+        <div class="grid-item" style="width: 100px;">Flex 1</div>
+        <div class="grid-item" style="width: 100px;">Flex 2</div>
+        <div class="grid-item" style="width: 100px;">Flex 3</div>
+        <div class="grid-item" style="width: 100px;">Flex 4</div>
+      </div>
+      <div class="code-snippet">
+        display: flex; flex-wrap: wrap; gap: 24px 12px;
+      </div>
+      <div class="note">
+        🎯 The <code>gap</code> property is now universal – works in Grid, Flexbox, and Multi‑column layouts.
+      </div>
+    </div>
+  </div>
+
+  <!-- Visual comparison table -->
+  <div class="card">
+    <h2>📊 Property Reference</h2>
+    <div style="overflow-x: auto;">
+      <table style="width:100%; border-collapse: collapse; background: #f1f5f9; border-radius: 20px;">
+        <thead style="background: #334155; color: white;">
+          <tr><th style="padding: 10px;">Property</th><th>Description</th><th>Example</th><th>Legacy Equivalent</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><code>row-gap</code></td><td>Vertical gap between rows</td><td><code>row-gap: 20px;</code></td><td><code>grid-row-gap</code></td></tr>
+          <tr><td><code>column-gap</code></td><td>Horizontal gap between columns</td><td><code>column-gap: 1rem;</code></td><td><code>grid-column-gap</code></td></tr>
+          <tr><td><code>gap</code> (one value)</td><td>Same gap for rows & columns</td><td><code>gap: 16px;</code></td><td><code>grid-gap: 16px;</code></td></tr>
+          <tr><td><code>gap</code> (two values)</td><td>row-gap column-gap</td><td><code>gap: 12px 24px;</code></td><td><code>grid-gap: 12px 24px;</code></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <footer>
+    ✨ Adjust the sliders above to see real‑time changes. Mastering gap gives you fine control over spacing without extra margins.
+  </footer>
+</div>
+
+<script>
+  const grid = document.getElementById('grid');
+  const rowSlider = document.getElementById('rowGapSlider');
+  const colSlider = document.getElementById('colGapSlider');
+  const rowVal = document.getElementById('rowGapVal');
+  const colVal = document.getElementById('colGapVal');
+  const gapOutput = document.getElementById('gapOutput');
+  const applyShorthand = document.getElementById('applyShorthandBtn');
+  const resetBtn = document.getElementById('resetGapsBtn');
+
+  function updateGaps() {
+    const row = rowSlider.value + 'px';
+    const col = colSlider.value + 'px';
+    grid.style.rowGap = row;
+    grid.style.columnGap = col;
+    rowVal.innerText = row;
+    colVal.innerText = col;
+    gapOutput.innerHTML = `row-gap: ${row};<br>column-gap: ${col};<br>/* shorthand: gap: ${row} ${col}; */`;
+  }
+
+  rowSlider.addEventListener('input', updateGaps);
+  colSlider.addEventListener('input', updateGaps);
+  
+  applyShorthand.addEventListener('click', () => {
+    // set both row and column to 20px and 8px
+    grid.style.rowGap = '20px';
+    grid.style.columnGap = '8px';
+    rowSlider.value = 20;
+    colSlider.value = 8;
+    updateGaps();
+  });
+
+  resetBtn.addEventListener('click', () => {
+    rowSlider.value = 16;
+    colSlider.value = 16;
+    updateGaps();
+  });
+
+  updateGaps();
+</script>
+</body>
+</html>
