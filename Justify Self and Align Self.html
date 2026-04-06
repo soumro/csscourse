@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CSS Grid: justify-self & align-self – Complete Guide</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: system-ui, 'Segoe UI', Roboto, sans-serif;
+      background: #f4f7fc;
+      padding: 2rem;
+      color: #0f172a;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+      background: linear-gradient(135deg, #1e293b, #3b82f6);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .sub {
+      border-left: 4px solid #f97316;
+      padding-left: 1rem;
+      margin-bottom: 2rem;
+      color: #334155;
+    }
+
+    .card {
+      background: white;
+      border-radius: 28px;
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+    }
+
+    h2 {
+      font-size: 1.4rem;
+      margin-bottom: 1rem;
+      border-left: 5px solid #f97316;
+      padding-left: 0.75rem;
+    }
+
+    .demo-area {
+      background: #f1f5f9;
+      border-radius: 20px;
+      padding: 1rem;
+      margin: 1rem 0;
+    }
+
+    .grid-container {
+      display: grid;
+      grid-template-columns: 150px 150px;
+      grid-template-rows: 120px 120px;
+      gap: 16px;
+      background: #cbd5e1;
+      padding: 1rem;
+      border-radius: 16px;
+      margin-bottom: 1rem;
+    }
+
+    .grid-item {
+      background: #3b82f6;
+      color: white;
+      padding: 0.5rem;
+      border-radius: 12px;
+      text-align: center;
+      font-weight: 500;
+      transition: all 0.2s;
+      width: fit-content;
+      min-width: 60px;
+    }
+
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin: 1rem 0;
+    }
+
+    .control-group {
+      background: white;
+      padding: 0.8rem;
+      border-radius: 16px;
+      flex: 1;
+      min-width: 150px;
+    }
+
+    label {
+      display: block;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      color: #475569;
+      margin-bottom: 0.3rem;
+    }
+
+    select {
+      width: 100%;
+      padding: 0.4rem;
+      border-radius: 12px;
+      border: 1px solid #cbd5e1;
+      font-family: monospace;
+    }
+
+    .code-snippet {
+      background: #1e293b;
+      color: #e2e8f0;
+      padding: 0.8rem;
+      border-radius: 16px;
+      font-family: monospace;
+      font-size: 0.85rem;
+      margin-top: 1rem;
+      overflow-x: auto;
+    }
+
+    .note {
+      background: #eef2ff;
+      border-left: 4px solid #3b82f6;
+      padding: 0.8rem;
+      border-radius: 16px;
+      font-size: 0.85rem;
+      margin-top: 1rem;
+    }
+
+    .comparison {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      margin-top: 1rem;
+    }
+
+    .comparison-card {
+      flex: 1;
+      background: #f8fafc;
+      border-radius: 20px;
+      padding: 1rem;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 2rem;
+      font-size: 0.8rem;
+      color: #475569;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <h1>🎯 justify-self & align-self</h1>
+  <div class="sub">Individual item alignment inside a grid cell – override container settings.</div>
+
+  <!-- Interactive Playground -->
+  <div class="card">
+    <h2>⚡ Interactive Grid: Override justify‑items & align‑items</h2>
+    <div class="demo-area">
+      <div class="grid-container" id="demoGrid" style="justify-items: start; align-items: start;">
+        <div class="grid-item" id="item1">Item 1</div>
+        <div class="grid-item" id="item2">Item 2</div>
+        <div class="grid-item" id="item3">Item 3</div>
+        <div class="grid-item" id="item4">Item 4</div>
+      </div>
+      <div class="controls">
+        <div class="control-group">
+          <label>justify-self (Item 2)</label>
+          <select id="justifySelfSelect">
+            <option value="stretch">stretch (default)</option>
+            <option value="start">start</option>
+            <option value="end">end</option>
+            <option value="center">center</option>
+          </select>
+        </div>
+        <div class="control-group">
+          <label>align-self (Item 2)</label>
+          <select id="alignSelfSelect">
+            <option value="stretch">stretch (default)</option>
+            <option value="start">start</option>
+            <option value="end">end</option>
+            <option value="center">center</option>
+          </select>
+        </div>
+      </div>
+      <div class="code-snippet" id="selfCode">
+        .item2 { justify-self: start; align-self: start; }
+      </div>
+      <div class="note">
+        💡 <strong>justify-self</strong> aligns horizontally (left/right) inside the grid cell.<br>
+        🧩 <strong>align-self</strong> aligns vertically (top/bottom) inside the grid cell.<br>
+        These properties override <code>justify-items</code> / <code>align-items</code> on the container.
+      </div>
+    </div>
+  </div>
+
+  <!-- Visual Examples -->
+  <div class="card">
+    <h2>📸 Visual Examples – All Values</h2>
+    <div class="comparison">
+      <div class="comparison-card">
+        <strong>justify-self: start</strong>
+        <div style="display: grid; grid-template-columns: 100px; background: #e2e8f0; padding: 8px; margin-top: 8px;">
+          <div class="grid-item" style="justify-self: start; width: auto;">Item</div>
+        </div>
+      </div>
+      <div class="comparison-card">
+        <strong>justify-self: center</strong>
+        <div style="display: grid; grid-template-columns: 100px; background: #e2e8f0; padding: 8px;">
+          <div class="grid-item" style="justify-self: center; width: auto;">Item</div>
+        </div>
+      </div>
+      <div class="comparison-card">
+        <strong>justify-self: end</strong>
+        <div style="display: grid; grid-template-columns: 100px; background: #e2e8f0; padding: 8px;">
+          <div class="grid-item" style="justify-self: end; width: auto;">Item</div>
+        </div>
+      </div>
+      <div class="comparison-card">
+        <strong>justify-self: stretch</strong>
+        <div style="display: grid; grid-template-columns: 100px; background: #e2e8f0; padding: 8px;">
+          <div class="grid-item" style="justify-self: stretch; width: auto;">Item</div>
+        </div>
+      </div>
+    </div>
+    <div class="comparison" style="margin-top: 1rem;">
+      <div class="comparison-card">
+        <strong>align-self: start</strong>
+        <div style="display: grid; grid-template-rows: 80px; background: #e2e8f0; padding: 8px;">
+          <div class="grid-item" style="align-self: start; height: auto;">Item</div>
+        </div>
+      </div>
+      <div class="comparison-card">
+        <strong>align-self: center</strong>
+        <div style="display: grid; grid-template-rows: 80px; background: #e2e8f0; padding: 8px;">
+          <div class="grid-item" style="align-self: center; height: auto;">Item</div>
+        </div>
+      </div>
+      <div class="comparison-card">
+        <strong>align-self: end</strong>
+        <div style="display: grid; grid-template-rows: 80px; background: #e2e8f0; padding: 8px;">
+          <div class="grid-item" style="align-self: end; height: auto;">Item</div>
+        </div>
+      </div>
+      <div class="comparison-card">
+        <strong>align-self: stretch</strong>
+        <div style="display: grid; grid-template-rows: 80px; background: #e2e8f0; padding: 8px;">
+          <div class="grid-item" style="align-self: stretch; height: auto;">Item</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Difference between container and item alignment -->
+  <div class="card">
+    <h2>⚖️ Container vs Individual Alignment</h2>
+    <div class="demo-area">
+      <div class="grid-container" style="justify-items: center; align-items: center;">
+        <div class="grid-item">Default (center)</div>
+        <div class="grid-item" style="justify-self: start; align-self: start;">Overridden (start)</div>
+        <div class="grid-item">Default (center)</div>
+        <div class="grid-item" style="justify-self: end; align-self: end;">Overridden (end)</div>
+      </div>
+      <div class="code-snippet">
+        .container { justify-items: center; align-items: center; }<br>
+        .item2 { justify-self: start; align-self: start; }<br>
+        .item4 { justify-self: end; align-self: end; }
+      </div>
+      <div class="note">
+        🎯 The container sets default alignment for all items. Individual <code>*-self</code> properties override them.
+      </div>
+    </div>
+  </div>
+
+  <!-- Flexbox Note -->
+  <div class="card">
+    <h2>🔄 Flexbox Context</h2>
+    <p>In Flexbox, <code>align-self</code> works exactly the same (overrides <code>align-items</code> on the cross axis). However, <code>justify-self</code> <strong>does nothing</strong> in Flexbox – use <code>margin: auto</code> instead.</p>
+    <div class="demo-area">
+      <div style="display: flex; align-items: center; gap: 1rem; background: #e2e8f0; padding: 1rem; height: 100px;">
+        <div class="grid-item" style="align-self: flex-start;">flex-start</div>
+        <div class="grid-item" style="align-self: center;">center</div>
+        <div class="grid-item" style="align-self: flex-end;">flex-end</div>
+        <div class="grid-item" style="align-self: stretch;">stretch</div>
+      </div>
+      <code>align-self: flex-start | center | flex-end | stretch;</code>
+    </div>
+  </div>
+
+  <!-- Shorthand: place-self -->
+  <div class="card">
+    <h2>📝 Shorthand: <code>place-self</code></h2>
+    <p><code>place-self: &lt;align-self&gt; &lt;justify-self&gt;;</code> – set both at once.</p>
+    <div class="demo-area">
+      <div class="grid-container" style="grid-template-columns: 100px;">
+        <div class="grid-item" style="place-self: center end;">place-self: center end</div>
+      </div>
+      <div class="code-snippet">
+        place-self: center end;  /* align-self: center, justify-self: end */
+      </div>
+    </div>
+  </div>
+
+  <!-- Quick Reference -->
+  <div class="card">
+    <h2>📋 Quick Reference</h2>
+    <div style="overflow-x: auto;">
+      <table style="width:100%; border-collapse: collapse; background: #f1f5f9; border-radius: 20px;">
+        <thead style="background: #334155; color: white;">
+          <tr><th style="padding: 10px;">Property</th><th>Axis</th><th>Overrides</th><th>Valid Values</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><code>justify-self</code></td><td>Horizontal (inline axis)</td><td><code>justify-items</code> on container</td>
+            <td><code>start | end | center | stretch</code></td>
+           </tr>
+           <tr>
+            <td><code>align-self</code></td>
+            <td>Vertical (block axis)</td>
+            <td><code>align-items</code> on container</td>
+            <td><code>start | end | center | stretch</code></td>
+           </tr>
+           <tr>
+            <td><code>place-self</code></td>
+            <td>Both (shorthand)</td>
+            <td>Both container properties</td>
+            <td><code>center end</code>, <code>start stretch</code>, etc.</td>
+           </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <footer>
+    ✨ Use <code>justify-self</code> and <code>align-self</code> to fine‑tune individual grid items. Perfect for asymmetric designs and responsive layouts.
+  </footer>
+</div>
+
+<script>
+  const item2 = document.getElementById('item2');
+  const justifySelect = document.getElementById('justifySelfSelect');
+  const alignSelect = document.getElementById('alignSelfSelect');
+  const codeBlock = document.getElementById('selfCode');
+
+  function updateSelf() {
+    const justifyVal = justifySelect.value;
+    const alignVal = alignSelect.value;
+    item2.style.justifySelf = justifyVal;
+    item2.style.alignSelf = alignVal;
+    codeBlock.innerHTML = `.item2 { justify-self: ${justifyVal}; align-self: ${alignVal}; }`;
+  }
+
+  justifySelect.addEventListener('change', updateSelf);
+  alignSelect.addEventListener('change', updateSelf);
+  updateSelf();
+</script>
+</body>
+</html>
