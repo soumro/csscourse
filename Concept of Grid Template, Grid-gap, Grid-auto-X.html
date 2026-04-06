@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CSS Grid: Template, Gap & Auto‑X – Interactive Guide</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: system-ui, 'Segoe UI', Roboto, sans-serif;
+      background: #f4f7fc;
+      padding: 2rem;
+      color: #0f172a;
+    }
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+      background: linear-gradient(135deg, #1e293b, #3b82f6);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+    .sub {
+      border-left: 4px solid #f97316;
+      padding-left: 1rem;
+      margin-bottom: 2rem;
+      color: #334155;
+    }
+    .card {
+      background: white;
+      border-radius: 28px;
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+    }
+    h2 {
+      font-size: 1.4rem;
+      margin-bottom: 1rem;
+      border-left: 5px solid #f97316;
+      padding-left: 0.75rem;
+    }
+    .demo-area {
+      background: #f1f5f9;
+      border-radius: 20px;
+      padding: 1rem;
+      margin: 1rem 0;
+    }
+    .grid-container {
+      background: #e2e8f0;
+      border: 2px solid #475569;
+      border-radius: 16px;
+      padding: 0.8rem;
+      display: grid;
+      transition: all 0.2s;
+    }
+    .grid-item {
+      background: #3b82f6;
+      color: white;
+      padding: 1rem;
+      border-radius: 12px;
+      text-align: center;
+      font-weight: 500;
+    }
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin: 1rem 0;
+    }
+    .control-group {
+      background: white;
+      padding: 0.8rem;
+      border-radius: 16px;
+      flex: 1;
+      min-width: 160px;
+    }
+    label {
+      display: block;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      color: #475569;
+      margin-bottom: 0.3rem;
+    }
+    input, select {
+      width: 100%;
+      padding: 0.4rem;
+      border-radius: 12px;
+      border: 1px solid #cbd5e1;
+      font-family: monospace;
+    }
+    .code-snippet {
+      background: #1e293b;
+      color: #e2e8f0;
+      padding: 0.8rem;
+      border-radius: 16px;
+      font-family: monospace;
+      font-size: 0.85rem;
+      margin-top: 1rem;
+      overflow-x: auto;
+    }
+    .example-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      margin: 1rem 0;
+    }
+    .example-card {
+      background: #f8fafc;
+      border-radius: 20px;
+      padding: 1rem;
+      flex: 1;
+      text-align: center;
+    }
+    .note {
+      background: #eef2ff;
+      border-left: 4px solid #3b82f6;
+      padding: 0.8rem;
+      border-radius: 16px;
+      font-size: 0.85rem;
+      margin-top: 1rem;
+    }
+    footer {
+      text-align: center;
+      margin-top: 2rem;
+      font-size: 0.8rem;
+      color: #475569;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <h1>📐 CSS Grid: Template, Gap & Auto‑X</h1>
+  <div class="sub">Define structure, spacing, and automatic placement with powerful grid properties.</div>
+
+  <!-- Interactive Playground -->
+  <div class="card">
+    <h2>🎮 Interactive Grid Lab</h2>
+    <div class="demo-area">
+      <div id="grid" class="grid-container" style="display: grid;">
+        <div class="grid-item">1</div>
+        <div class="grid-item">2</div>
+        <div class="grid-item">3</div>
+        <div class="grid-item">4</div>
+        <div class="grid-item">5</div>
+        <div class="grid-item">6</div>
+      </div>
+      <div class="controls">
+        <div class="control-group">
+          <label>grid-template-columns</label>
+          <input type="text" id="colsInput" value="repeat(3, 1fr)">
+        </div>
+        <div class="control-group">
+          <label>grid-template-rows</label>
+          <input type="text" id="rowsInput" value="auto">
+        </div>
+        <div class="control-group">
+          <label>gap (row & column)</label>
+          <input type="text" id="gapInput" value="16px">
+        </div>
+        <div class="control-group">
+          <label>grid-auto-rows</label>
+          <input type="text" id="autoRowsInput" value="auto">
+        </div>
+        <div class="control-group">
+          <label>grid-auto-flow</label>
+          <select id="autoFlowSelect">
+            <option value="row">row</option>
+            <option value="column">column</option>
+            <option value="row dense">row dense</option>
+            <option value="column dense">column dense</option>
+          </select>
+        </div>
+      </div>
+      <button id="applyBtn">Apply Grid</button>
+      <div class="code-snippet" id="cssOutput"></div>
+    </div>
+  </div>
+
+  <!-- Detailed explanations with examples -->
+  <div class="card">
+    <h2>📌 1. grid-template-columns & grid-template-rows</h2>
+    <div class="example-grid">
+      <div class="example-card">
+        <div style="display: grid; grid-template-columns: 1fr 2fr; gap: 8px; background: #e2e8f0; padding: 8px; border-radius: 12px;">
+          <div class="grid-item">1fr</div>
+          <div class="grid-item">2fr</div>
+        </div>
+        <code>grid-template-columns: 1fr 2fr</code>
+      </div>
+      <div class="example-card">
+        <div style="display: grid; grid-template-columns: repeat(3, 100px); gap: 8px;">
+          <div class="grid-item">100px</div>
+          <div class="grid-item">100px</div>
+          <div class="grid-item">100px</div>
+        </div>
+        <code>repeat(3, 100px)</code>
+      </div>
+      <div class="example-card">
+        <div style="display: grid; grid-template-columns: auto 1fr auto; gap: 8px;">
+          <div class="grid-item">auto</div>
+          <div class="grid-item">1fr</div>
+          <div class="grid-item">auto</div>
+        </div>
+        <code>auto 1fr auto</code> (holy grail)
+      </div>
+    </div>
+    <div class="note">
+      💡 <strong>fr</strong> = fraction unit – distributes free space. <strong>repeat()</strong> creates repeated patterns. <strong>auto</strong> sizes to content.
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>📌 2. grid-template-areas (visual layout)</h2>
+    <div class="demo-area">
+      <div style="display: grid; grid-template-areas: 'header header' 'sidebar main' 'footer footer'; grid-template-columns: 200px 1fr; gap: 12px; background: #e2e8f0; padding: 12px; border-radius: 16px;">
+        <div style="grid-area: header; background: #f97316; padding: 1rem; border-radius: 12px;">Header</div>
+        <div style="grid-area: sidebar; background: #3b82f6; padding: 1rem; border-radius: 12px;">Sidebar</div>
+        <div style="grid-area: main; background: #10b981; padding: 1rem; border-radius: 12px;">Main Content</div>
+        <div style="grid-area: footer; background: #8b5cf6; padding: 1rem; border-radius: 12px;">Footer</div>
+      </div>
+      <div class="code-snippet">
+        grid-template-areas:<br>
+        &nbsp;&nbsp;'header header'<br>
+        &nbsp;&nbsp;'sidebar main'<br>
+        &nbsp;&nbsp;'footer footer';<br>
+        grid-template-columns: 200px 1fr;
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>📌 3. gap (formerly grid-gap)</h2>
+    <p>Defines the spacing between grid items (both rows and columns). You can also use <code>row-gap</code> and <code>column-gap</code> separately.</p>
+    <div class="example-grid">
+      <div class="example-card">
+        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px;">
+          <div class="grid-item">1</div><div class="grid-item">2</div>
+          <div class="grid-item">3</div><div class="grid-item">4</div>
+        </div>
+        <code>gap: 8px;</code>
+      </div>
+      <div class="example-card">
+        <div style="display: grid; grid-template-columns: repeat(2, 1fr); row-gap: 20px; column-gap: 8px;">
+          <div class="grid-item">1</div><div class="grid-item">2</div>
+          <div class="grid-item">3</div><div class="grid-item">4</div>
+        </div>
+        <code>row-gap: 20px; column-gap: 8px;</code>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>📌 4. grid-auto-rows & grid-auto-columns</h2>
+    <p>When you create more items than defined tracks, these properties set the size of implicitly created rows or columns.</p>
+    <div class="example-grid">
+      <div class="example-card">
+        <div style="display: grid; grid-template-columns: repeat(2, 1fr); grid-auto-rows: 80px; gap: 8px;">
+          <div class="grid-item">1</div><div class="grid-item">2</div>
+          <div class="grid-item">3</div><div class="grid-item">4</div>
+          <div class="grid-item">5 (auto row)</div>
+        </div>
+        <code>grid-auto-rows: 80px;</code>
+      </div>
+      <div class="example-card">
+        <div style="display: grid; grid-auto-flow: column; grid-auto-columns: 100px; gap: 8px; overflow-x: auto;">
+          <div class="grid-item">1</div><div class="grid-item">2</div>
+          <div class="grid-item">3</div><div class="grid-item">4</div>
+          <div class="grid-item">5</div>
+        </div>
+        <code>grid-auto-flow: column; grid-auto-columns: 100px;</code>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>📌 5. grid-auto-flow (placement algorithm)</h2>
+    <p>Controls how auto‑placed items fill the grid: <code>row</code> (default), <code>column</code>, or <code>dense</code> (pack tightly).</p>
+    <div class="demo-area">
+      <div style="display: flex; gap: 2rem; flex-wrap: wrap;">
+        <div>
+          <strong>row (default)</strong>
+          <div style="display: grid; grid-template-columns: repeat(3, 80px); grid-auto-flow: row; gap: 4px; margin-top: 8px;">
+            <div class="grid-item">1</div><div class="grid-item">2</div><div class="grid-item">3</div>
+            <div class="grid-item">4</div><div class="grid-item">5</div>
+          </div>
+        </div>
+        <div>
+          <strong>column</strong>
+          <div style="display: grid; grid-template-rows: repeat(3, 80px); grid-auto-flow: column; gap: 4px; margin-top: 8px;">
+            <div class="grid-item">1</div><div class="grid-item">2</div><div class="grid-item">3</div>
+            <div class="grid-item">4</div><div class="grid-item">5</div>
+          </div>
+        </div>
+        <div>
+          <strong>row dense</strong>
+          <div style="display: grid; grid-template-columns: repeat(3, 80px); grid-auto-flow: row dense; gap: 4px; margin-top: 8px;">
+            <div class="grid-item" style="grid-column: span 2;">wide</div>
+            <div class="grid-item">2</div><div class="grid-item">3</div>
+            <div class="grid-item">4</div><div class="grid-item">5</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="note">
+      🔄 <code>dense</code> fills gaps earlier, which may reorder items visually.
+    </div>
+  </div>
+
+  <!-- Summary Table -->
+  <div class="card">
+    <h2>📋 Quick Reference</h2>
+    <div style="overflow-x: auto;">
+      <table style="width:100%; border-collapse: collapse; background: #f1f5f9; border-radius: 20px;">
+        <thead style="background: #334155; color: white;">
+          <tr><th style="padding: 10px;">Property</th><th>Description</th><th>Example Values</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><code>grid-template-columns</code></td><td>Defines column widths</td><td><code>1fr 2fr</code>, <code>repeat(3, 100px)</code>, <code>auto 1fr</code></td></tr>
+          <tr><td><code>grid-template-rows</code></td><td>Defines row heights</td><td><code>100px auto</code>, <code>repeat(2, minmax(50px, auto))</code></td></tr>
+          <tr><td><code>grid-template-areas</code></td><td>Names grid cells for placement</td><td><code>'header header' 'main sidebar'</code></td></tr>
+          <tr><td><code>gap</code></td><td>Space between items (row & column)</td><td><code>16px</code>, <code>2rem</code>, <code>10px 20px</code></td></tr>
+          <tr><td><code>grid-auto-rows</code></td><td>Height of implicit rows</td><td><code>120px</code>, <code>minmax(100px, auto)</code></td></tr>
+          <tr><td><code>grid-auto-columns</code></td><td>Width of implicit columns</td><td><code>1fr</code>, <code>200px</code></td></tr>
+          <tr><td><code>grid-auto-flow</code></td><td>Placement direction (<code>row</code>/<code>column</code>) and packing</td><td><code>row</code>, <code>column dense</code></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <footer>
+    ✨ Adjust the interactive playground to see how each property affects the grid. Master these to build complex, responsive layouts with ease.
+  </footer>
+</div>
+
+<script>
+  const grid = document.getElementById('grid');
+  const colsInput = document.getElementById('colsInput');
+  const rowsInput = document.getElementById('rowsInput');
+  const gapInput = document.getElementById('gapInput');
+  const autoRowsInput = document.getElementById('autoRowsInput');
+  const autoFlowSelect = document.getElementById('autoFlowSelect');
+  const applyBtn = document.getElementById('applyBtn');
+  const cssOutput = document.getElementById('cssOutput');
+
+  function applyGrid() {
+    const cols = colsInput.value.trim();
+    const rows = rowsInput.value.trim();
+    const gap = gapInput.value.trim();
+    const autoRows = autoRowsInput.value.trim();
+    const autoFlow = autoFlowSelect.value;
+
+    grid.style.gridTemplateColumns = cols;
+    grid.style.gridTemplateRows = rows;
+    grid.style.gap = gap;
+    grid.style.gridAutoRows = autoRows;
+    grid.style.gridAutoFlow = autoFlow;
+
+    cssOutput.innerHTML = `display: grid;<br>
+grid-template-columns: ${cols};<br>
+grid-template-rows: ${rows};<br>
+gap: ${gap};<br>
+grid-auto-rows: ${autoRows};<br>
+grid-auto-flow: ${autoFlow};`;
+  }
+
+  applyBtn.addEventListener('click', applyGrid);
+  applyGrid();
+</script>
+</body>
+</html>

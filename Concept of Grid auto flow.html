@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CSS Grid: grid-auto-flow – Complete Interactive Guide</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: system-ui, 'Segoe UI', Roboto, sans-serif;
+      background: #f4f7fc;
+      padding: 2rem;
+      color: #0f172a;
+    }
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+      background: linear-gradient(135deg, #1e293b, #3b82f6);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+    .sub {
+      border-left: 4px solid #f97316;
+      padding-left: 1rem;
+      margin-bottom: 2rem;
+      color: #334155;
+    }
+    .card {
+      background: white;
+      border-radius: 28px;
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+    }
+    h2 {
+      font-size: 1.4rem;
+      margin-bottom: 1rem;
+      border-left: 5px solid #f97316;
+      padding-left: 0.75rem;
+    }
+    .demo-area {
+      background: #f1f5f9;
+      border-radius: 20px;
+      padding: 1rem;
+      margin: 1rem 0;
+    }
+    .grid-container {
+      background: #e2e8f0;
+      border: 2px solid #475569;
+      border-radius: 16px;
+      padding: 0.8rem;
+      display: grid;
+      transition: all 0.2s;
+    }
+    .grid-item {
+      background: #3b82f6;
+      color: white;
+      padding: 0.8rem;
+      border-radius: 12px;
+      text-align: center;
+      font-weight: 500;
+    }
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin: 1rem 0;
+    }
+    .control-group {
+      background: white;
+      padding: 0.8rem;
+      border-radius: 16px;
+      flex: 1;
+      min-width: 160px;
+    }
+    label {
+      display: block;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      color: #475569;
+      margin-bottom: 0.3rem;
+    }
+    select, input {
+      width: 100%;
+      padding: 0.4rem;
+      border-radius: 12px;
+      border: 1px solid #cbd5e1;
+      font-family: monospace;
+    }
+    .code-snippet {
+      background: #1e293b;
+      color: #e2e8f0;
+      padding: 0.8rem;
+      border-radius: 16px;
+      font-family: monospace;
+      font-size: 0.85rem;
+      margin-top: 1rem;
+      overflow-x: auto;
+    }
+    .example-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      margin: 1rem 0;
+    }
+    .example-card {
+      background: #f8fafc;
+      border-radius: 20px;
+      padding: 1rem;
+      flex: 1;
+      text-align: center;
+    }
+    .note {
+      background: #eef2ff;
+      border-left: 4px solid #3b82f6;
+      padding: 0.8rem;
+      border-radius: 16px;
+      font-size: 0.85rem;
+      margin-top: 1rem;
+    }
+    footer {
+      text-align: center;
+      margin-top: 2rem;
+      font-size: 0.8rem;
+      color: #475569;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <h1>🎯 CSS Grid: <code>grid-auto-flow</code></h1>
+  <div class="sub">Control how auto‑placed items fill the grid – row by row, column by column, or with dense packing.</div>
+
+  <!-- Interactive Playground -->
+  <div class="card">
+    <h2>⚡ Live Demo: Change auto‑flow & see placement</h2>
+    <div class="demo-area">
+      <div id="grid" class="grid-container" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px;">
+        <!-- 7 items to show auto‑placement -->
+        <div class="grid-item">1</div>
+        <div class="grid-item">2</div>
+        <div class="grid-item">3</div>
+        <div class="grid-item">4</div>
+        <div class="grid-item">5</div>
+        <div class="grid-item">6</div>
+        <div class="grid-item">7</div>
+      </div>
+      <div class="controls">
+        <div class="control-group">
+          <label>grid-auto-flow</label>
+          <select id="autoFlowSelect">
+            <option value="row">row (default)</option>
+            <option value="column">column</option>
+            <option value="row dense">row dense</option>
+            <option value="column dense">column dense</option>
+          </select>
+        </div>
+        <div class="control-group">
+          <label>grid-auto-rows (implicit rows)</label>
+          <input type="text" id="autoRowsInput" value="auto" placeholder="e.g., 100px">
+        </div>
+        <div class="control-group">
+          <label>grid-auto-columns (implicit cols)</label>
+          <input type="text" id="autoColsInput" value="auto" placeholder="e.g., 150px">
+        </div>
+      </div>
+      <button id="applyBtn">Apply & Reorder</button>
+      <div class="code-snippet" id="cssOutput"></div>
+    </div>
+  </div>
+
+  <!-- Explanation & Visual Examples -->
+  <div class="card">
+    <h2>📖 What is <code>grid-auto-flow</code>?</h2>
+    <p>The <code>grid-auto-flow</code> property controls how auto‑placed grid items are inserted into the grid. It defines the <strong>direction</strong> (row or column) and optionally the <strong>packing algorithm</strong> (dense).</p>
+    <div class="example-grid">
+      <div class="example-card">
+        <strong>row (default)</strong>
+        <div style="display: grid; grid-template-columns: repeat(3, 80px); grid-auto-flow: row; gap: 6px; margin-top: 8px; justify-content: center;">
+          <div class="grid-item">1</div><div class="grid-item">2</div><div class="grid-item">3</div>
+          <div class="grid-item">4</div><div class="grid-item">5</div><div class="grid-item">6</div>
+          <div class="grid-item">7</div>
+        </div>
+        <p>Items fill rows first → new rows created as needed.</p>
+      </div>
+      <div class="example-card">
+        <strong>column</strong>
+        <div style="display: grid; grid-template-rows: repeat(3, 80px); grid-auto-flow: column; gap: 6px; margin-top: 8px; justify-content: center;">
+          <div class="grid-item">1</div><div class="grid-item">2</div><div class="grid-item">3</div>
+          <div class="grid-item">4</div><div class="grid-item">5</div><div class="grid-item">6</div>
+          <div class="grid-item">7</div>
+        </div>
+        <p>Items fill columns first → new columns created.</p>
+      </div>
+      <div class="example-card">
+        <strong>row dense</strong>
+        <div style="display: grid; grid-template-columns: repeat(3, 80px); grid-auto-flow: row dense; gap: 6px; margin-top: 8px;">
+          <div class="grid-item" style="grid-column: span 2;">wide</div>
+          <div class="grid-item">2</div><div class="grid-item">3</div>
+          <div class="grid-item">4</div><div class="grid-item">5</div>
+        </div>
+        <p><code>dense</code> fills gaps earlier, possibly reordering items visually.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Detailed Breakdown -->
+  <div class="card">
+    <h2>🎯 Values Explained</h2>
+    <table style="width:100%; border-collapse: collapse; background: #f1f5f9; border-radius: 20px; overflow: hidden;">
+      <thead style="background: #334155; color: white;">
+        <tr><th style="padding: 10px;">Value</th><th>Direction</th><th>Packing</th><th>Use Case</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><code>row</code></td><td>Fill rows first (left to right, top to bottom)</td><td>Normal</td><td>Default, natural document flow.</td></tr>
+        <tr><td><code>column</code></td><td>Fill columns first (top to bottom, left to right)</td><td>Normal</td><td>Vertical‑first layouts (e.g., masonry‑like).</td></tr>
+        <tr><td><code>row dense</code></td><td>Rows first</td><td>Dense (fill holes)</td><td>Pack items tightly, even if reorder.</td></tr>
+        <tr><td><code>column dense</code></td><td>Columns first</td><td>Dense</td><td>Pack vertically, fill gaps.</td></tr>
+      </tbody>
+    </table>
+    <div class="note">
+      💡 <strong>Dense packing</strong> tries to fill any empty cells earlier, which may change the visual order of items (good for galleries, bad for tab order).
+    </div>
+  </div>
+
+  <!-- Auto‑rows & Auto‑columns -->
+  <div class="card">
+    <h2>📐 Complement: <code>grid-auto-rows</code> & <code>grid-auto-columns</code></h2>
+    <p>When the grid creates implicit tracks (extra rows/columns), these properties define their size.</p>
+    <div class="demo-area">
+      <div style="display: grid; grid-template-columns: repeat(2, 1fr); grid-auto-rows: 80px; gap: 12px; background: #e2e8f0; padding: 12px; border-radius: 16px;">
+        <div class="grid-item">Explicit 1</div>
+        <div class="grid-item">Explicit 2</div>
+        <div class="grid-item">Implicit row 1 (height 80px)</div>
+        <div class="grid-item">Implicit row 2</div>
+      </div>
+      <div class="code-snippet">
+        grid-auto-rows: 80px;  /* all implicit rows get 80px height */
+      </div>
+    </div>
+  </div>
+
+  <!-- Interactive with Dense & Spans -->
+  <div class="card">
+    <h2>🧩 Try Dense Packing with Item Spans</h2>
+    <div class="demo-area">
+      <div id="denseGrid" class="grid-container" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px;">
+        <div class="grid-item" style="grid-column: span 2;">1 (span 2)</div>
+        <div class="grid-item">2</div>
+        <div class="grid-item">3</div>
+        <div class="grid-item" style="grid-column: span 3;">4 (span 3)</div>
+        <div class="grid-item">5</div>
+        <div class="grid-item">6</div>
+        <div class="grid-item">7</div>
+      </div>
+      <div class="controls">
+        <div class="control-group">
+          <label>grid-auto-flow (for dense grid)</label>
+          <select id="denseFlowSelect">
+            <option value="row">row</option>
+            <option value="row dense">row dense</option>
+            <option value="column">column</option>
+            <option value="column dense">column dense</option>
+          </select>
+        </div>
+      </div>
+      <button id="applyDenseBtn">Apply auto‑flow</button>
+      <div class="note">
+        🔍 With <code>row dense</code>, item 5 will try to fill the gap left by wide items. Without <code>dense</code>, items keep original order and gaps remain.
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    ✨ Experiment with the playground – change auto‑flow, implicit row/col sizes, and see how items reposition. Master <code>grid-auto-flow</code> to create flexible, dynamic grids.
+  </footer>
+</div>
+
+<script>
+  const grid = document.getElementById('grid');
+  const autoFlowSelect = document.getElementById('autoFlowSelect');
+  const autoRowsInput = document.getElementById('autoRowsInput');
+  const autoColsInput = document.getElementById('autoColsInput');
+  const applyBtn = document.getElementById('applyBtn');
+  const cssOutput = document.getElementById('cssOutput');
+
+  function applyMainGrid() {
+    const flow = autoFlowSelect.value;
+    const autoRows = autoRowsInput.value.trim() || 'auto';
+    const autoCols = autoColsInput.value.trim() || 'auto';
+    grid.style.gridAutoFlow = flow;
+    grid.style.gridAutoRows = autoRows;
+    grid.style.gridAutoColumns = autoCols;
+    cssOutput.innerHTML = `display: grid;<br>
+grid-template-columns: repeat(3, 1fr);<br>
+grid-auto-flow: ${flow};<br>
+grid-auto-rows: ${autoRows};<br>
+grid-auto-columns: ${autoCols};<br>
+gap: 12px;`;
+  }
+
+  applyBtn.addEventListener('click', applyMainGrid);
+  applyMainGrid();
+
+  // Dense grid demo
+  const denseGrid = document.getElementById('denseGrid');
+  const denseFlowSelect = document.getElementById('denseFlowSelect');
+  const applyDenseBtn = document.getElementById('applyDenseBtn');
+
+  applyDenseBtn.addEventListener('click', () => {
+    denseGrid.style.gridAutoFlow = denseFlowSelect.value;
+  });
+  // Initial style
+  denseGrid.style.gridAutoFlow = 'row';
+</script>
+</body>
+</html>
