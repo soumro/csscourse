@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CSS Flex‑wrap – Complete Interactive Guide</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: system-ui, 'Segoe UI', Roboto, sans-serif;
+      background: #f4f7fc;
+      padding: 2rem;
+      color: #0f172a;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+      background: linear-gradient(135deg, #1e293b, #3b82f6);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .sub {
+      border-left: 4px solid #f97316;
+      padding-left: 1rem;
+      margin-bottom: 2rem;
+      color: #334155;
+    }
+
+    .card {
+      background: white;
+      border-radius: 28px;
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+    }
+
+    h2 {
+      font-size: 1.4rem;
+      margin-bottom: 1rem;
+      border-left: 5px solid #f97316;
+      padding-left: 0.75rem;
+    }
+
+    .demo-area {
+      background: #f1f5f9;
+      border-radius: 20px;
+      padding: 1rem;
+      margin: 1rem 0;
+    }
+
+    .flex-container {
+      background: #cbd5e1;
+      border: 2px solid #475569;
+      border-radius: 16px;
+      padding: 1rem;
+      display: flex;
+      gap: 12px;
+      transition: all 0.2s;
+      margin-bottom: 1rem;
+    }
+
+    .flex-item {
+      background: #3b82f6;
+      color: white;
+      padding: 0.8rem;
+      border-radius: 12px;
+      text-align: center;
+      font-weight: 600;
+      width: 120px;
+    }
+
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin: 1rem 0;
+      align-items: flex-end;
+    }
+
+    .control-group {
+      background: white;
+      padding: 0.8rem;
+      border-radius: 16px;
+      flex: 1;
+      min-width: 150px;
+    }
+
+    label {
+      display: block;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      color: #475569;
+      margin-bottom: 0.3rem;
+    }
+
+    select {
+      width: 100%;
+      padding: 0.4rem;
+      border-radius: 12px;
+      border: 1px solid #cbd5e1;
+      font-family: monospace;
+    }
+
+    .code-snippet {
+      background: #1e293b;
+      color: #e2e8f0;
+      padding: 0.8rem;
+      border-radius: 16px;
+      font-family: monospace;
+      font-size: 0.85rem;
+      margin-top: 1rem;
+      overflow-x: auto;
+    }
+
+    .note {
+      background: #eef2ff;
+      border-left: 4px solid #3b82f6;
+      padding: 0.8rem;
+      border-radius: 16px;
+      font-size: 0.85rem;
+      margin-top: 1rem;
+    }
+
+    .example-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin: 1rem 0;
+    }
+
+    .example-card {
+      background: #f8fafc;
+      border-radius: 20px;
+      padding: 1rem;
+      flex: 1;
+      text-align: center;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 2rem;
+      font-size: 0.8rem;
+      color: #475569;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <h1>📦 CSS `flex-wrap`</h1>
+  <div class="sub">Control whether flex items stay on one line or wrap onto multiple lines.</div>
+
+  <!-- Interactive Playground -->
+  <div class="card">
+    <h2>⚡ Live Flex‑wrap Lab</h2>
+    <div class="demo-area">
+      <div id="flexContainer" class="flex-container" style="flex-wrap: nowrap;">
+        <div class="flex-item">Item 1</div>
+        <div class="flex-item">Item 2</div>
+        <div class="flex-item">Item 3</div>
+        <div class="flex-item">Item 4</div>
+        <div class="flex-item">Item 5</div>
+      </div>
+      <div class="controls">
+        <div class="control-group">
+          <label>flex-wrap</label>
+          <select id="wrapSelect">
+            <option value="nowrap">nowrap (default)</option>
+            <option value="wrap">wrap</option>
+            <option value="wrap-reverse">wrap-reverse</option>
+          </select>
+        </div>
+        <div class="control-group">
+          <label>flex-direction</label>
+          <select id="directionSelect">
+            <option value="row">row</option>
+            <option value="row-reverse">row-reverse</option>
+            <option value="column">column</option>
+            <option value="column-reverse">column-reverse</option>
+          </select>
+        </div>
+        <div class="control-group">
+          <label>align-content (lines alignment)</label>
+          <select id="alignContentSelect">
+            <option value="stretch">stretch (default)</option>
+            <option value="flex-start">flex-start</option>
+            <option value="center">center</option>
+            <option value="flex-end">flex-end</option>
+            <option value="space-between">space-between</option>
+            <option value="space-around">space-around</option>
+          </select>
+        </div>
+      </div>
+      <div class="code-snippet" id="wrapCode">
+        flex-wrap: nowrap;<br>
+        flex-direction: row;<br>
+        align-content: stretch;
+      </div>
+      <div class="note">
+        💡 <strong>nowrap</strong> – all items on one line (may shrink).<br>
+        🔄 <strong>wrap</strong> – items wrap to new rows/columns.<br>
+        🔁 <strong>wrap-reverse</strong> – wraps in opposite cross‑axis direction.<br>
+        📐 <strong>align-content</strong> controls spacing between wrapped lines (only works with wrap).
+      </div>
+    </div>
+  </div>
+
+  <!-- Visual Examples of Each Value -->
+  <div class="card">
+    <h2>📸 Visual Reference – All Values</h2>
+    <div class="example-grid">
+      <div class="example-card">
+        <strong>nowrap</strong>
+        <div style="display: flex; flex-wrap: nowrap; gap: 8px; background: #e2e8f0; padding: 8px; width: 250px; overflow-x: auto;">
+          <div class="flex-item" style="width: 100px;">1</div>
+          <div class="flex-item" style="width: 100px;">2</div>
+          <div class="flex-item" style="width: 100px;">3</div>
+        </div>
+        <p>All items forced into one line (may overflow or shrink).</p>
+      </div>
+      <div class="example-card">
+        <strong>wrap</strong>
+        <div style="display: flex; flex-wrap: wrap; gap: 8px; background: #e2e8f0; padding: 8px; width: 280px;">
+          <div class="flex-item" style="width: 100px;">1</div>
+          <div class="flex-item" style="width: 100px;">2</div>
+          <div class="flex-item" style="width: 100px;">3</div>
+          <div class="flex-item" style="width: 100px;">4</div>
+        </div>
+        <p>Items wrap onto new rows when space runs out.</p>
+      </div>
+      <div class="example-card">
+        <strong>wrap-reverse</strong>
+        <div style="display: flex; flex-wrap: wrap-reverse; gap: 8px; background: #e2e8f0; padding: 8px; width: 280px;">
+          <div class="flex-item" style="width: 100px;">1</div>
+          <div class="flex-item" style="width: 100px;">2</div>
+          <div class="flex-item" style="width: 100px;">3</div>
+          <div class="flex-item" style="width: 100px;">4</div>
+        </div>
+        <p>Lines wrap in reverse order (bottom to top).</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Detailed Explanation -->
+  <div class="card">
+    <h2>📖 Understanding Flex‑wrap</h2>
+    <p><code>flex-wrap</code> controls whether flex items are forced onto a single line or can wrap onto multiple lines. When combined with <code>flex-direction</code>, it defines the <strong>flex flow</strong> (shorthand <code>flex-flow: direction wrap</code>).</p>
+    <ul style="margin-left: 1.5rem; margin-top: 0.5rem; line-height: 1.6;">
+      <li><code>nowrap</code> – all items stay on one line, even if they overflow or shrink.</li>
+      <li><code>wrap</code> – items wrap onto new lines in the cross‑axis direction (top to bottom for row, left to right for column).</li>
+      <li><code>wrap-reverse</code> – same as wrap but lines are placed in reverse order (bottom to top for row, right to left for column).</li>
+    </ul>
+    <div class="note">
+      🎯 When wrapping is enabled, <code>align-content</code> controls how the multiple lines are spaced. Use it to distribute lines evenly or align them as a group.
+    </div>
+  </div>
+
+  <!-- Real‑World Use Cases -->
+  <div class="card">
+    <h2>🚀 Common Use Cases</h2>
+    <div class="example-grid">
+      <div class="example-card">
+        <strong>Responsive Card Grid (wrap)</strong>
+        <div style="display: flex; flex-wrap: wrap; gap: 12px; background: #e2e8f0; padding: 12px;">
+          <div class="flex-item" style="width: 120px;">Card</div>
+          <div class="flex-item" style="width: 120px;">Card</div>
+          <div class="flex-item" style="width: 120px;">Card</div>
+          <div class="flex-item" style="width: 120px;">Card</div>
+        </div>
+        <code>flex-wrap: wrap;</code>
+      </div>
+      <div class="example-card">
+        <strong>Toolbar with Wrap</strong>
+        <div style="display: flex; flex-wrap: wrap; gap: 8px; background: #1e293b; padding: 12px; border-radius: 20px; color: white;">
+          <span>Button 1</span><span>Button 2</span><span>Button 3</span><span>Button 4</span><span>Button 5</span>
+        </div>
+        <code>flex-wrap: wrap;</code> – buttons wrap on small screens.
+      </div>
+      <div class="example-card">
+        <strong>Reverse Order Gallery (wrap-reverse)</strong>
+        <div style="display: flex; flex-wrap: wrap-reverse; gap: 8px; background: #e2e8f0; padding: 8px; height: 180px;">
+          <div class="flex-item" style="width: 80px;">A</div>
+          <div class="flex-item" style="width: 80px;">B</div>
+          <div class="flex-item" style="width: 80px;">C</div>
+        </div>
+        <code>flex-wrap: wrap-reverse;</code>
+      </div>
+    </div>
+  </div>
+
+  <!-- Relationship with align-content -->
+  <div class="card">
+    <h2>📐 <code>align-content</code> – Spacing Between Wrapped Lines</h2>
+    <p>When <code>flex-wrap: wrap</code> creates multiple lines, <code>align-content</code> distributes space between them along the cross axis.</p>
+    <div class="demo-area">
+      <div id="alignDemo" class="flex-container" style="flex-wrap: wrap; align-content: stretch; height: 200px;">
+        <div class="flex-item" style="width: 100px;">1</div>
+        <div class="flex-item" style="width: 100px;">2</div>
+        <div class="flex-item" style="width: 100px;">3</div>
+        <div class="flex-item" style="width: 100px;">4</div>
+        <div class="flex-item" style="width: 100px;">5</div>
+      </div>
+      <div class="controls">
+        <div class="control-group">
+          <label>align-content</label>
+          <select id="alignDemoSelect">
+            <option value="stretch">stretch</option>
+            <option value="flex-start">flex-start</option>
+            <option value="center">center</option>
+            <option value="flex-end">flex-end</option>
+            <option value="space-between">space-between</option>
+            <option value="space-around">space-around</option>
+          </select>
+        </div>
+      </div>
+      <div class="code-snippet" id="alignCode">
+        align-content: stretch;
+      </div>
+    </div>
+  </div>
+
+  <!-- Quick Reference -->
+  <div class="card">
+    <h2>📋 Quick Reference</h2>
+    <div style="overflow-x: auto;">
+      <table style="width:100%; border-collapse: collapse; background: #f1f5f9; border-radius: 20px;">
+        <thead style="background: #334155; color: white;">
+          <tr><th style="padding: 10px;">Value</th><th>Behavior</th><th>Cross‑axis direction</th><th>Use case</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><code>nowrap</code></td><td>Single line, items may shrink or overflow</td><td>N/A</td><td>Navigation bars, single‑row layouts</td></tr>
+          <tr><td><code>wrap</code></td><td>Items wrap to new lines</td><td>Top to bottom (row), left to right (column)</td><td>Responsive grids, galleries, forms</td></tr>
+          <tr><td><code>wrap-reverse</code></td><td>Items wrap in reverse order</td><td>Bottom to top (row), right to left (column)</td><td>Special reverse layouts</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <footer>
+    ✨ Resize the browser window while testing <code>wrap</code> vs <code>nowrap</code> in the interactive lab. Master <code>flex-wrap</code> to build truly responsive layouts.
+  </footer>
+</div>
+
+<script>
+  const container = document.getElementById('flexContainer');
+  const wrapSelect = document.getElementById('wrapSelect');
+  const directionSelect = document.getElementById('directionSelect');
+  const alignContentSelect = document.getElementById('alignContentSelect');
+  const wrapCode = document.getElementById('wrapCode');
+
+  function updateFlex() {
+    const wrap = wrapSelect.value;
+    const direction = directionSelect.value;
+    const alignContent = alignContentSelect.value;
+    container.style.flexWrap = wrap;
+    container.style.flexDirection = direction;
+    container.style.alignContent = alignContent;
+    wrapCode.innerHTML = `flex-wrap: ${wrap};<br>flex-direction: ${direction};<br>align-content: ${alignContent};`;
+  }
+
+  wrapSelect.addEventListener('change', updateFlex);
+  directionSelect.addEventListener('change', updateFlex);
+  alignContentSelect.addEventListener('change', updateFlex);
+  updateFlex();
+
+  // align-content demo
+  const alignDemo = document.getElementById('alignDemo');
+  const alignDemoSelect = document.getElementById('alignDemoSelect');
+  const alignCode = document.getElementById('alignCode');
+
+  alignDemoSelect.addEventListener('change', () => {
+    const val = alignDemoSelect.value;
+    alignDemo.style.alignContent = val;
+    alignCode.innerHTML = `align-content: ${val};`;
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CSS Flexbox – Complete Guide to display: flex</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: system-ui, 'Segoe UI', Roboto, sans-serif;
+      background: #f4f7fc;
+      padding: 2rem;
+      color: #0f172a;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+      background: linear-gradient(135deg, #1e293b, #3b82f6);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .sub {
+      border-left: 4px solid #f97316;
+      padding-left: 1rem;
+      margin-bottom: 2rem;
+      color: #334155;
+    }
+
+    .card {
+      background: white;
+      border-radius: 28px;
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+    }
+
+    h2 {
+      font-size: 1.4rem;
+      margin-bottom: 1rem;
+      border-left: 5px solid #f97316;
+      padding-left: 0.75rem;
+    }
+
+    .demo-area {
+      background: #f1f5f9;
+      border-radius: 20px;
+      padding: 1rem;
+      margin: 1rem 0;
+    }
+
+    .flex-container {
+      background: #cbd5e1;
+      border: 2px solid #475569;
+      border-radius: 16px;
+      padding: 1rem;
+      display: flex;
+      gap: 12px;
+      transition: all 0.2s;
+      margin-bottom: 1rem;
+    }
+
+    .flex-item {
+      background: #3b82f6;
+      color: white;
+      padding: 0.8rem;
+      border-radius: 12px;
+      text-align: center;
+      font-weight: 500;
+    }
+
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin: 1rem 0;
+    }
+
+    .control-group {
+      background: white;
+      padding: 0.8rem;
+      border-radius: 16px;
+      flex: 1;
+      min-width: 140px;
+    }
+
+    label {
+      display: block;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      color: #475569;
+      margin-bottom: 0.3rem;
+    }
+
+    select, input {
+      width: 100%;
+      padding: 0.4rem;
+      border-radius: 12px;
+      border: 1px solid #cbd5e1;
+      font-family: monospace;
+    }
+
+    .code-snippet {
+      background: #1e293b;
+      color: #e2e8f0;
+      padding: 0.8rem;
+      border-radius: 16px;
+      font-family: monospace;
+      font-size: 0.85rem;
+      margin-top: 1rem;
+      overflow-x: auto;
+    }
+
+    .note {
+      background: #eef2ff;
+      border-left: 4px solid #3b82f6;
+      padding: 0.8rem;
+      border-radius: 16px;
+      font-size: 0.85rem;
+      margin-top: 1rem;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 2rem;
+      font-size: 0.8rem;
+      color: #475569;
+    }
+
+    .example-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .example-card {
+      background: #f8fafc;
+      border-radius: 20px;
+      padding: 1rem;
+      flex: 1;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <h1>🎯 CSS Flexbox: <code>display: flex</code></h1>
+  <div class="sub">The one‑dimensional layout powerhouse – align, distribute, and reorder items with ease.</div>
+
+  <!-- Interactive Flexbox Playground -->
+  <div class="card">
+    <h2>⚡ Interactive Flexbox Lab</h2>
+    <div class="demo-area">
+      <div id="flexDemo" class="flex-container" style="flex-direction: row; justify-content: flex-start; align-items: stretch; flex-wrap: nowrap;">
+        <div class="flex-item">Item 1</div>
+        <div class="flex-item">Item 2</div>
+        <div class="flex-item">Item 3</div>
+        <div class="flex-item">Item 4</div>
+      </div>
+      <div class="controls">
+        <div class="control-group">
+          <label>flex-direction</label>
+          <select id="directionSelect">
+            <option value="row">row</option>
+            <option value="row-reverse">row-reverse</option>
+            <option value="column">column</option>
+            <option value="column-reverse">column-reverse</option>
+          </select>
+        </div>
+        <div class="control-group">
+          <label>justify-content (main axis)</label>
+          <select id="justifySelect">
+            <option value="flex-start">flex-start</option>
+            <option value="flex-end">flex-end</option>
+            <option value="center">center</option>
+            <option value="space-between">space-between</option>
+            <option value="space-around">space-around</option>
+            <option value="space-evenly">space-evenly</option>
+          </select>
+        </div>
+        <div class="control-group">
+          <label>align-items (cross axis)</label>
+          <select id="alignSelect">
+            <option value="stretch">stretch</option>
+            <option value="flex-start">flex-start</option>
+            <option value="flex-end">flex-end</option>
+            <option value="center">center</option>
+            <option value="baseline">baseline</option>
+          </select>
+        </div>
+        <div class="control-group">
+          <label>flex-wrap</label>
+          <select id="wrapSelect">
+            <option value="nowrap">nowrap</option>
+            <option value="wrap">wrap</option>
+            <option value="wrap-reverse">wrap-reverse</option>
+          </select>
+        </div>
+      </div>
+      <div class="code-snippet" id="flexCode">
+        display: flex;<br>
+        flex-direction: row;<br>
+        justify-content: flex-start;<br>
+        align-items: stretch;<br>
+        flex-wrap: nowrap;
+      </div>
+    </div>
+  </div>
+
+  <!-- Visual Examples of Core Properties -->
+  <div class="card">
+    <h2>📸 Flex Container Properties</h2>
+    <div class="example-grid">
+      <div class="example-card">
+        <strong>flex-direction: row</strong>
+        <div style="display: flex; gap: 8px; background: #e2e8f0; padding: 8px; margin-top: 8px;">
+          <div class="flex-item">1</div><div class="flex-item">2</div><div class="flex-item">3</div>
+        </div>
+      </div>
+      <div class="example-card">
+        <strong>flex-direction: column</strong>
+        <div style="display: flex; flex-direction: column; gap: 8px; background: #e2e8f0; padding: 8px;">
+          <div class="flex-item">1</div><div class="flex-item">2</div><div class="flex-item">3</div>
+        </div>
+      </div>
+      <div class="example-card">
+        <strong>justify-content: space-between</strong>
+        <div style="display: flex; justify-content: space-between; gap: 8px; background: #e2e8f0; padding: 8px;">
+          <div class="flex-item">1</div><div class="flex-item">2</div><div class="flex-item">3</div>
+        </div>
+      </div>
+      <div class="example-card">
+        <strong>align-items: center</strong>
+        <div style="display: flex; align-items: center; gap: 8px; background: #e2e8f0; padding: 8px; height: 80px;">
+          <div class="flex-item" style="height: 30px;">1</div>
+          <div class="flex-item" style="height: 50px;">2</div>
+          <div class="flex-item" style="height: 40px;">3</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Flex Item Properties -->
+  <div class="card">
+    <h2>🧩 Flex Item Properties</h2>
+    <div class="demo-area">
+      <div class="flex-container" id="itemDemo" style="display: flex;">
+        <div class="flex-item" id="itemA">Item A</div>
+        <div class="flex-item" id="itemB">Item B</div>
+        <div class="flex-item" id="itemC">Item C</div>
+      </div>
+      <div class="controls">
+        <div class="control-group">
+          <label>Item A: flex-grow</label>
+          <input type="number" id="growA" value="0" step="0.5" min="0">
+        </div>
+        <div class="control-group">
+          <label>Item B: flex-grow</label>
+          <input type="number" id="growB" value="1" step="0.5" min="0">
+        </div>
+        <div class="control-group">
+          <label>Item C: flex-grow</label>
+          <input type="number" id="growC" value="0" step="0.5" min="0">
+        </div>
+        <div class="control-group">
+          <label>Item B: order</label>
+          <input type="number" id="orderB" value="0" step="1">
+        </div>
+      </div>
+      <button id="applyItemBtn">Apply Item Properties</button>
+      <div class="code-snippet" id="itemCode">
+        .item-a { flex-grow: 0; }<br>
+        .item-b { flex-grow: 1; order: 0; }<br>
+        .item-c { flex-grow: 0; }
+      </div>
+      <div class="note">
+        💡 <strong>flex-grow</strong> distributes extra space. <strong>order</strong> changes visual order (lower numbers come first). Other item properties: <code>flex-shrink</code>, <code>flex-basis</code>, <code>align-self</code>.
+      </div>
+    </div>
+  </div>
+
+  <!-- Real‑World Examples -->
+  <div class="card">
+    <h2>🚀 Common Layouts with Flexbox</h2>
+    <div class="example-grid">
+      <div class="example-card">
+        <strong>Navigation Bar</strong>
+        <div style="display: flex; justify-content: space-between; background: #1e293b; color: white; padding: 0.8rem; border-radius: 40px;">
+          <span>Logo</span>
+          <div style="display: flex; gap: 1rem;"><span>Home</span><span>About</span><span>Contact</span></div>
+        </div>
+        <code>justify-content: space-between</code>
+      </div>
+      <div class="example-card">
+        <strong>Centered Content</strong>
+        <div style="display: flex; justify-content: center; align-items: center; background: #e2e8f0; height: 100px; border-radius: 20px;">
+          <div class="flex-item">Perfectly Centered</div>
+        </div>
+        <code>justify-content: center; align-items: center;</code>
+      </div>
+      <div class="example-card">
+        <strong>Card Grid (with wrap)</strong>
+        <div style="display: flex; flex-wrap: wrap; gap: 8px; background: #e2e8f0; padding: 8px;">
+          <div class="flex-item" style="width: 100px;">Card</div>
+          <div class="flex-item" style="width: 100px;">Card</div>
+          <div class="flex-item" style="width: 100px;">Card</div>
+        </div>
+        <code>flex-wrap: wrap;</code>
+      </div>
+    </div>
+  </div>
+
+  <!-- Flexbox vs Grid Note -->
+  <div class="card">
+    <h2>⚖️ Flexbox vs Grid</h2>
+    <p>Flexbox is <strong>one‑dimensional</strong> – ideal for rows OR columns. Grid is <strong>two‑dimensional</strong> – rows AND columns together. Use Flexbox for navigation, sidebars, and distributing items along a single axis. Use Grid for full page layouts.</p>
+    <div class="note">
+      ✅ Flexbox + Grid are best friends – combine them for ultimate layout control!
+    </div>
+  </div>
+
+  <!-- Quick Reference -->
+  <div class="card">
+    <h2>📋 Flexbox Quick Reference</h2>
+    <div style="overflow-x: auto;">
+      <table style="width:100%; border-collapse: collapse; background: #f1f5f9; border-radius: 20px;">
+        <thead style="background: #334155; color: white;">
+          <tr><th style="padding: 10px;">Property</th><th>Applies To</th><th>Description</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><code>display: flex</code></td><td>Container</td><td>Enables flex layout</td></tr>
+          <tr><td><code>flex-direction</code></td><td>Container</td><td>row | row-reverse | column | column-reverse</td></tr>
+          <tr><td><code>justify-content</code></td><td>Container</td><td>Alignment along main axis</td></tr>
+          <tr><td><code>align-items</code></td><td>Container</td><td>Alignment along cross axis</td></tr>
+          <tr><td><code>flex-wrap</code></td><td>Container</td><td>nowrap | wrap | wrap-reverse</td></tr>
+          <tr><td><code>gap</code></td><td>Container</td><td>Space between items</td></tr>
+          <tr><td><code>flex-grow</code></td><td>Item</td><td>How much item grows</td></tr>
+          <tr><td><code>order</code></td><td>Item</td><td>Visual order (lower = earlier)</td></tr>
+          <tr><td><code>align-self</code></td><td>Item</td><td>Overrides align-items for a single item</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <footer>
+    ✨ Experiment with the interactive labs above – change flex direction, alignment, wrapping, and item growth. Flexbox is the foundation of modern responsive UI.
+  </footer>
+</div>
+
+<script>
+  // Interactive Flex Container
+  const flexContainer = document.getElementById('flexDemo');
+  const directionSelect = document.getElementById('directionSelect');
+  const justifySelect = document.getElementById('justifySelect');
+  const alignSelect = document.getElementById('alignSelect');
+  const wrapSelect = document.getElementById('wrapSelect');
+  const flexCode = document.getElementById('flexCode');
+
+  function updateFlexContainer() {
+    const direction = directionSelect.value;
+    const justify = justifySelect.value;
+    const align = alignSelect.value;
+    const wrap = wrapSelect.value;
+    flexContainer.style.flexDirection = direction;
+    flexContainer.style.justifyContent = justify;
+    flexContainer.style.alignItems = align;
+    flexContainer.style.flexWrap = wrap;
+    flexCode.innerHTML = `display: flex;<br>flex-direction: ${direction};<br>justify-content: ${justify};<br>align-items: ${align};<br>flex-wrap: ${wrap};`;
+  }
+
+  directionSelect.addEventListener('change', updateFlexContainer);
+  justifySelect.addEventListener('change', updateFlexContainer);
+  alignSelect.addEventListener('change', updateFlexContainer);
+  wrapSelect.addEventListener('change', updateFlexContainer);
+  updateFlexContainer();
+
+  // Flex Item Properties
+  const itemA = document.getElementById('itemA');
+  const itemB = document.getElementById('itemB');
+  const itemC = document.getElementById('itemC');
+  const growA = document.getElementById('growA');
+  const growB = document.getElementById('growB');
+  const growC = document.getElementById('growC');
+  const orderB = document.getElementById('orderB');
+  const applyBtn = document.getElementById('applyItemBtn');
+  const itemCode = document.getElementById('itemCode');
+
+  applyBtn.addEventListener('click', () => {
+    itemA.style.flexGrow = growA.value;
+    itemB.style.flexGrow = growB.value;
+    itemC.style.flexGrow = growC.value;
+    itemB.style.order = orderB.value;
+    itemCode.innerHTML = `.item-a { flex-grow: ${growA.value}; }<br>.item-b { flex-grow: ${growB.value}; order: ${orderB.value}; }<br>.item-c { flex-grow: ${growC.value}; }`;
+  });
+</script>
+</body>
+</html>

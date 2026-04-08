@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CSS Flex‑direction – Complete Interactive Guide</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: system-ui, 'Segoe UI', Roboto, sans-serif;
+      background: #f4f7fc;
+      padding: 2rem;
+      color: #0f172a;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+      background: linear-gradient(135deg, #1e293b, #3b82f6);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .sub {
+      border-left: 4px solid #f97316;
+      padding-left: 1rem;
+      margin-bottom: 2rem;
+      color: #334155;
+    }
+
+    .card {
+      background: white;
+      border-radius: 28px;
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+    }
+
+    h2 {
+      font-size: 1.4rem;
+      margin-bottom: 1rem;
+      border-left: 5px solid #f97316;
+      padding-left: 0.75rem;
+    }
+
+    .demo-area {
+      background: #f1f5f9;
+      border-radius: 20px;
+      padding: 1rem;
+      margin: 1rem 0;
+    }
+
+    .flex-container {
+      background: #cbd5e1;
+      border: 2px solid #475569;
+      border-radius: 16px;
+      padding: 1rem;
+      display: flex;
+      gap: 12px;
+      transition: all 0.2s;
+      min-height: 180px;
+    }
+
+    .flex-item {
+      background: #3b82f6;
+      color: white;
+      padding: 0.8rem;
+      border-radius: 12px;
+      text-align: center;
+      font-weight: 600;
+      width: 80px;
+    }
+
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin: 1rem 0;
+      align-items: center;
+    }
+
+    .control-group {
+      background: white;
+      padding: 0.8rem;
+      border-radius: 16px;
+      flex: 1;
+      min-width: 150px;
+    }
+
+    label {
+      display: block;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      color: #475569;
+      margin-bottom: 0.3rem;
+    }
+
+    select {
+      width: 100%;
+      padding: 0.4rem;
+      border-radius: 12px;
+      border: 1px solid #cbd5e1;
+      font-family: monospace;
+    }
+
+    .code-snippet {
+      background: #1e293b;
+      color: #e2e8f0;
+      padding: 0.8rem;
+      border-radius: 16px;
+      font-family: monospace;
+      font-size: 0.85rem;
+      margin-top: 1rem;
+      overflow-x: auto;
+    }
+
+    .note {
+      background: #eef2ff;
+      border-left: 4px solid #3b82f6;
+      padding: 0.8rem;
+      border-radius: 16px;
+      font-size: 0.85rem;
+      margin-top: 1rem;
+    }
+
+    .example-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin: 1rem 0;
+    }
+
+    .example-card {
+      background: #f8fafc;
+      border-radius: 20px;
+      padding: 1rem;
+      flex: 1;
+      text-align: center;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 2rem;
+      font-size: 0.8rem;
+      color: #475569;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <h1>🧭 CSS `flex-direction`</h1>
+  <div class="sub">Define the direction of the main axis – controls how flex items are placed inside a flex container.</div>
+
+  <!-- Interactive Playground -->
+  <div class="card">
+    <h2>⚡ Interactive Flex‑direction Lab</h2>
+    <div class="demo-area">
+      <div id="flexBox" class="flex-container" style="flex-direction: row;">
+        <div class="flex-item">1</div>
+        <div class="flex-item">2</div>
+        <div class="flex-item">3</div>
+        <div class="flex-item">4</div>
+      </div>
+      <div class="controls">
+        <div class="control-group">
+          <label>flex-direction</label>
+          <select id="directionSelect">
+            <option value="row">row</option>
+            <option value="row-reverse">row-reverse</option>
+            <option value="column">column</option>
+            <option value="column-reverse">column-reverse</option>
+          </select>
+        </div>
+        <div class="control-group">
+          <label>justify-content (main axis)</label>
+          <select id="justifySelect">
+            <option value="flex-start">flex-start</option>
+            <option value="center">center</option>
+            <option value="flex-end">flex-end</option>
+            <option value="space-between">space-between</option>
+          </select>
+        </div>
+      </div>
+      <div class="code-snippet" id="liveCode">
+        flex-direction: row;<br>
+        justify-content: flex-start;
+      </div>
+      <div class="note">
+        💡 <strong>flex-direction</strong> changes the main axis. <code>justify-content</code> aligns items along that axis. Try different combinations!
+      </div>
+    </div>
+  </div>
+
+  <!-- Visual Examples of Each Value -->
+  <div class="card">
+    <h2>📸 Visual Reference – All Values</h2>
+    <div class="example-grid">
+      <div class="example-card">
+        <strong>row (default)</strong>
+        <div style="display: flex; flex-direction: row; gap: 8px; background: #e2e8f0; padding: 8px; border-radius: 12px;">
+          <div class="flex-item" style="width: 60px;">1</div>
+          <div class="flex-item" style="width: 60px;">2</div>
+          <div class="flex-item" style="width: 60px;">3</div>
+        </div>
+        <p>Left to right</p>
+      </div>
+      <div class="example-card">
+        <strong>row-reverse</strong>
+        <div style="display: flex; flex-direction: row-reverse; gap: 8px; background: #e2e8f0; padding: 8px; border-radius: 12px;">
+          <div class="flex-item" style="width: 60px;">1</div>
+          <div class="flex-item" style="width: 60px;">2</div>
+          <div class="flex-item" style="width: 60px;">3</div>
+        </div>
+        <p>Right to left</p>
+      </div>
+      <div class="example-card">
+        <strong>column</strong>
+        <div style="display: flex; flex-direction: column; gap: 8px; background: #e2e8f0; padding: 8px; border-radius: 12px; width: 100px;">
+          <div class="flex-item" style="width: auto;">1</div>
+          <div class="flex-item" style="width: auto;">2</div>
+          <div class="flex-item" style="width: auto;">3</div>
+        </div>
+        <p>Top to bottom</p>
+      </div>
+      <div class="example-card">
+        <strong>column-reverse</strong>
+        <div style="display: flex; flex-direction: column-reverse; gap: 8px; background: #e2e8f0; padding: 8px; border-radius: 12px; width: 100px;">
+          <div class="flex-item" style="width: auto;">1</div>
+          <div class="flex-item" style="width: auto;">2</div>
+          <div class="flex-item" style="width: auto;">3</div>
+        </div>
+        <p>Bottom to top</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Detailed Explanation -->
+  <div class="card">
+    <h2>📖 Understanding the Main Axis</h2>
+    <p><code>flex-direction</code> determines the <strong>main axis</strong> – the direction along which flex items are placed. It also affects <code>justify-content</code> (main axis alignment) and <code>align-items</code> (cross axis alignment).</p>
+    <ul style="margin-left: 1.5rem; margin-top: 0.5rem; line-height: 1.6;">
+      <li><code>row</code> → main axis = horizontal (left to right)</li>
+      <li><code>row-reverse</code> → main axis = horizontal (right to left)</li>
+      <li><code>column</code> → main axis = vertical (top to bottom)</li>
+      <li><code>column-reverse</code> → main axis = vertical (bottom to top)</li>
+    </ul>
+    <div class="note">
+      🎯 When you change <code>flex-direction</code>, the meaning of <code>justify-content</code> and <code>align-items</code> swaps accordingly. For example, in <code>column</code>, <code>justify-content</code> aligns items vertically.
+    </div>
+  </div>
+
+  <!-- Real‑World Use Cases -->
+  <div class="card">
+    <h2>🚀 Common Use Cases</h2>
+    <div class="example-grid">
+      <div class="example-card">
+        <strong>Navigation Bar (row)</strong>
+        <div style="display: flex; flex-direction: row; justify-content: space-between; background: #1e293b; color: white; padding: 0.5rem; border-radius: 40px;">
+          <span>Logo</span><span>Menu</span>
+        </div>
+        <code>flex-direction: row;</code>
+      </div>
+      <div class="example-card">
+        <strong>Mobile Menu (column)</strong>
+        <div style="display: flex; flex-direction: column; gap: 8px; background: #1e293b; color: white; padding: 0.8rem; border-radius: 20px;">
+          <span>Home</span><span>About</span><span>Contact</span>
+        </div>
+        <code>flex-direction: column;</code>
+      </div>
+      <div class="example-card">
+        <strong>Reverse Order (row-reverse)</strong>
+        <div style="display: flex; flex-direction: row-reverse; gap: 8px; background: #e2e8f0; padding: 8px;">
+          <div class="flex-item" style="width: 60px;">Last</div>
+          <div class="flex-item" style="width: 60px;">Middle</div>
+          <div class="flex-item" style="width: 60px;">First</div>
+        </div>
+        <code>flex-direction: row-reverse;</code>
+      </div>
+    </div>
+  </div>
+
+  <!-- Quick Reference -->
+  <div class="card">
+    <h2>📋 Quick Reference</h2>
+    <div style="overflow-x: auto;">
+      <table style="width:100%; border-collapse: collapse; background: #f1f5f9; border-radius: 20px;">
+        <thead style="background: #334155; color: white;">
+          <tr><th style="padding: 10px;">Value</th><th>Main Axis Direction</th><th>Start → End</th><th>Cross Axis</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><code>row</code></td><td>Horizontal</td><td>left → right</td><td>vertical (top → bottom)</td> </tr>
+          <tr><td><code>row-reverse</code></td><td>Horizontal</td><td>right → left</td><td>vertical (top → bottom)</td> </tr>
+          <tr><td><code>column</code></td><td>Vertical</td><td>top → bottom</td><td>horizontal (left → right)</td> </tr>
+          <tr><td><code>column-reverse</code></td><td>Vertical</td><td>bottom → top</td><td>horizontal (left → right)</td> </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <footer>
+    ✨ Change the flex‑direction in the live demo above and watch how items rearrange. Master <code>flex-direction</code> to control layout direction in responsive designs.
+  </footer>
+</div>
+
+<script>
+  const flexContainer = document.getElementById('flexBox');
+  const directionSelect = document.getElementById('directionSelect');
+  const justifySelect = document.getElementById('justifySelect');
+  const liveCode = document.getElementById('liveCode');
+
+  function updateFlex() {
+    const direction = directionSelect.value;
+    const justify = justifySelect.value;
+    flexContainer.style.flexDirection = direction;
+    flexContainer.style.justifyContent = justify;
+    liveCode.innerHTML = `flex-direction: ${direction};<br>justify-content: ${justify};`;
+  }
+
+  directionSelect.addEventListener('change', updateFlex);
+  justifySelect.addEventListener('change', updateFlex);
+  updateFlex();
+</script>
+</body>
+</html>

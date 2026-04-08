@@ -67,9 +67,9 @@
       border-radius: 16px;
       padding: 1rem;
       display: flex;
-      flex-wrap: wrap;
       gap: 12px;
       transition: all 0.2s;
+      margin-bottom: 1rem;
     }
 
     .grid-container {
@@ -78,8 +78,10 @@
       border-radius: 16px;
       padding: 1rem;
       display: grid;
-      grid-template-columns: repeat(3, 100px);
+      grid-template-columns: 100px 100px;
+      gap: 12px;
       transition: all 0.2s;
+      margin-bottom: 1rem;
     }
 
     .flex-item, .grid-item {
@@ -89,10 +91,6 @@
       border-radius: 12px;
       text-align: center;
       font-weight: 500;
-    }
-
-    .grid-item {
-      width: 100px;
     }
 
     .controls {
@@ -107,7 +105,7 @@
       padding: 0.8rem;
       border-radius: 16px;
       flex: 1;
-      min-width: 160px;
+      min-width: 180px;
     }
 
     label {
@@ -138,10 +136,19 @@
       overflow-x: auto;
     }
 
+    .note {
+      background: #eef2ff;
+      border-left: 4px solid #3b82f6;
+      padding: 0.8rem;
+      border-radius: 16px;
+      font-size: 0.85rem;
+      margin-top: 1rem;
+    }
+
     .example-grid {
       display: flex;
       flex-wrap: wrap;
-      gap: 1.5rem;
+      gap: 1rem;
       margin: 1rem 0;
     }
 
@@ -151,15 +158,6 @@
       padding: 1rem;
       flex: 1;
       text-align: center;
-    }
-
-    .note {
-      background: #eef2ff;
-      border-left: 4px solid #3b82f6;
-      padding: 0.8rem;
-      border-radius: 16px;
-      font-size: 0.85rem;
-      margin-top: 1rem;
     }
 
     footer {
@@ -173,7 +171,7 @@
 <body>
 <div class="container">
   <h1>🎯 CSS `justify-content`</h1>
-  <div class="sub">Align items along the main axis – in Flexbox and Grid.</div>
+  <div class="sub">Align flex items along the main axis (Flexbox) or align grid columns along the inline axis (Grid).</div>
 
   <!-- Flexbox Interactive Playground -->
   <div class="card">
@@ -201,7 +199,7 @@
         justify-content: flex-start;
       </div>
       <div class="note">
-        💡 In Flexbox, <code>justify-content</code> aligns items along the <strong>main axis</strong> (horizontal when flex-direction is row, vertical when column).
+        💡 In Flexbox, <code>justify-content</code> aligns items along the <strong>main axis</strong> (horizontal when <code>flex-direction: row</code>, vertical when <code>flex-direction: column</code>).
       </div>
     </div>
   </div>
@@ -215,8 +213,6 @@
         <div class="grid-item">2</div>
         <div class="grid-item">3</div>
         <div class="grid-item">4</div>
-        <div class="grid-item">5</div>
-        <div class="grid-item">6</div>
       </div>
       <div class="controls">
         <div class="control-group">
@@ -235,98 +231,97 @@
         justify-content: start;
       </div>
       <div class="note">
-        📐 In Grid, <code>justify-content</code> aligns the <strong>entire grid</strong> within the container when the total grid size is smaller than the container.
+        📐 In Grid, <code>justify-content</code> aligns the <strong>entire grid</strong> horizontally within the container when the total grid width is less than the container width.
       </div>
     </div>
   </div>
 
-  <!-- Visual Examples of All Values -->
+  <!-- Visual Reference – All Values -->
   <div class="card">
     <h2>📸 Visual Reference – All Values</h2>
     <div class="example-grid">
       <div class="example-card">
         <strong>flex-start / start</strong>
-        <div style="display: flex; justify-content: flex-start; background: #e2e8f0; padding: 8px; border-radius: 12px; margin-top: 8px;">
+        <div style="display: flex; justify-content: flex-start; background: #e2e8f0; padding: 8px; margin-top: 8px; gap: 8px;">
           <div class="flex-item" style="width: 60px;">1</div>
           <div class="flex-item" style="width: 60px;">2</div>
         </div>
-        <code>items packed at start</code>
-      </div>
-      <div class="example-card">
-        <strong>flex-end / end</strong>
-        <div style="display: flex; justify-content: flex-end; background: #e2e8f0; padding: 8px; border-radius: 12px; margin-top: 8px;">
-          <div class="flex-item" style="width: 60px;">1</div>
-          <div class="flex-item" style="width: 60px;">2</div>
-        </div>
-        <code>items packed at end</code>
+        <p>Items packed at the beginning</p>
       </div>
       <div class="example-card">
         <strong>center</strong>
-        <div style="display: flex; justify-content: center; background: #e2e8f0; padding: 8px; border-radius: 12px; margin-top: 8px;">
+        <div style="display: flex; justify-content: center; background: #e2e8f0; padding: 8px; margin-top: 8px; gap: 8px;">
           <div class="flex-item" style="width: 60px;">1</div>
           <div class="flex-item" style="width: 60px;">2</div>
         </div>
-        <code>items centered</code>
+        <p>Items centered</p>
+      </div>
+      <div class="example-card">
+        <strong>flex-end / end</strong>
+        <div style="display: flex; justify-content: flex-end; background: #e2e8f0; padding: 8px; margin-top: 8px; gap: 8px;">
+          <div class="flex-item" style="width: 60px;">1</div>
+          <div class="flex-item" style="width: 60px;">2</div>
+        </div>
+        <p>Items packed at the end</p>
       </div>
       <div class="example-card">
         <strong>space-between</strong>
-        <div style="display: flex; justify-content: space-between; background: #e2e8f0; padding: 8px; border-radius: 12px; margin-top: 8px;">
+        <div style="display: flex; justify-content: space-between; background: #e2e8f0; padding: 8px; margin-top: 8px;">
           <div class="flex-item" style="width: 60px;">1</div>
           <div class="flex-item" style="width: 60px;">2</div>
+          <div class="flex-item" style="width: 60px;">3</div>
         </div>
-        <code>equal space between</code>
+        <p>First at start, last at end, equal space between</p>
       </div>
       <div class="example-card">
         <strong>space-around</strong>
-        <div style="display: flex; justify-content: space-around; background: #e2e8f0; padding: 8px; border-radius: 12px; margin-top: 8px;">
+        <div style="display: flex; justify-content: space-around; background: #e2e8f0; padding: 8px; margin-top: 8px;">
           <div class="flex-item" style="width: 60px;">1</div>
           <div class="flex-item" style="width: 60px;">2</div>
+          <div class="flex-item" style="width: 60px;">3</div>
         </div>
-        <code>space around items</code>
+        <p>Equal space around each item</p>
       </div>
       <div class="example-card">
         <strong>space-evenly</strong>
-        <div style="display: flex; justify-content: space-evenly; background: #e2e8f0; padding: 8px; border-radius: 12px; margin-top: 8px;">
+        <div style="display: flex; justify-content: space-evenly; background: #e2e8f0; padding: 8px; margin-top: 8px;">
           <div class="flex-item" style="width: 60px;">1</div>
           <div class="flex-item" style="width: 60px;">2</div>
+          <div class="flex-item" style="width: 60px;">3</div>
         </div>
-        <code>equal space everywhere</code>
+        <p>Equal space between and around all items</p>
       </div>
     </div>
   </div>
 
-  <!-- Flex vs Grid Differences -->
+  <!-- Flex Direction Impact -->
   <div class="card">
-    <h2>⚖️ Flexbox vs Grid: Main Axis Direction</h2>
-    <div class="example-grid">
-      <div class="example-card">
-        <strong>Flexbox row (default)</strong>
-        <div style="display: flex; justify-content: space-between; background: #e2e8f0; padding: 8px; border-radius: 12px;">
-          <div class="flex-item">A</div><div class="flex-item">B</div>
-        </div>
-        <p>Main axis = horizontal → justify-content spaces items horizontally.</p>
+    <h2>🔄 Impact of flex-direction on justify-content</h2>
+    <div class="demo-area">
+      <div id="directionDemo" class="flex-container" style="justify-content: center; flex-direction: row;">
+        <div class="flex-item">A</div>
+        <div class="flex-item">B</div>
+        <div class="flex-item">C</div>
       </div>
-      <div class="example-card">
-        <strong>Flexbox column</strong>
-        <div style="display: flex; flex-direction: column; justify-content: space-between; height: 150px; background: #e2e8f0; padding: 8px; border-radius: 12px;">
-          <div class="flex-item">Top</div><div class="flex-item">Bottom</div>
+      <div class="controls">
+        <div class="control-group">
+          <label>flex-direction</label>
+          <select id="directionSelect">
+            <option value="row">row (horizontal)</option>
+            <option value="column">column (vertical)</option>
+          </select>
         </div>
-        <p>Main axis = vertical → justify-content spaces items vertically.</p>
       </div>
-      <div class="example-card">
-        <strong>Grid</strong>
-        <div style="display: grid; grid-template-columns: repeat(2, 80px); justify-content: space-between; background: #e2e8f0; padding: 8px; border-radius: 12px;">
-          <div class="grid-item">1</div><div class="grid-item">2</div>
-        </div>
-        <p>justify-content aligns the entire grid horizontally inside the container.</p>
+      <div class="code-snippet" id="directionOutput">
+        justify-content: center; flex-direction: row;
       </div>
-    </div>
-    <div class="note">
-      🧠 In Grid, <code>justify-content</code> only works when the total grid width is less than the container width. For aligning individual items inside a grid cell, use <code>justify-self</code> or <code>justify-items</code>.
+      <div class="note">
+        🔄 When <code>flex-direction: column</code>, <code>justify-content</code> aligns items <strong>vertically</strong> (top to bottom). The main axis becomes vertical.
+      </div>
     </div>
   </div>
 
-  <!-- Quick Reference Table -->
+  <!-- Summary Table -->
   <div class="card">
     <h2>📋 Quick Reference</h2>
     <div style="overflow-x: auto;">
@@ -335,19 +330,19 @@
           <tr><th style="padding: 10px;">Value</th><th>Effect</th><th>Flexbox</th><th>Grid</th></tr>
         </thead>
         <tbody>
-          <tr><td><code>flex-start / start</code></td><td>Items packed at the beginning</td><td>✅</td><td>✅</td> </tr>
-          <tr><td><code>flex-end / end</code></td><td>Items packed at the end</td><td>✅</td><td>✅</td> </tr>
-          <tr><td><code>center</code></td><td>Items centered</td><td>✅</td><td>✅</td> </tr>
-          <tr><td><code>space-between</code></td><td>First item at start, last at end, equal space between</td><td>✅</td><td>✅</td> </tr>
-          <tr><td><code>space-around</code></td><td>Equal space around each item</td><td>✅</td><td>✅</td> </tr>
-          <tr><td><code>space-evenly</code></td><td>Equal space between and around all items</td><td>✅</td><td>✅</td> </tr>
+          <tr><td><code>flex-start / start</code></td><td>Items packed at the beginning</td><td>✅</td><td>✅</td></tr>
+          <tr><td><code>flex-end / end</code></td><td>Items packed at the end</td><td>✅</td><td>✅</td></tr>
+          <tr><td><code>center</code></td><td>Items centered</td><td>✅</td><td>✅</td></tr>
+          <tr><td><code>space-between</code></td><td>First at start, last at end, equal space between</td><td>✅</td><td>✅</td></tr>
+          <tr><td><code>space-around</code></td><td>Equal space around each item</td><td>✅</td><td>✅</td></tr>
+          <tr><td><code>space-evenly</code></td><td>Equal space between and around all items</td><td>✅</td><td>✅</td></tr>
         </tbody>
       </table>
     </div>
   </div>
 
   <footer>
-    ✨ Try the interactive demos above – change the dropdowns to see how items move. <code>justify-content</code> is essential for spacing and alignment.
+    ✨ Use <code>justify-content</code> to distribute space along the main axis – perfect for navigation bars, centered content, and flexible layouts.
   </footer>
 </div>
 
@@ -374,9 +369,16 @@
     gridOutput.innerHTML = `justify-content: ${value};`;
   });
 
-  // Initial values
-  flexContainer.style.justifyContent = 'flex-start';
-  gridContainer.style.justifyContent = 'start';
+  // Flex-direction impact demo
+  const directionContainer = document.getElementById('directionDemo');
+  const directionSelect = document.getElementById('directionSelect');
+  const directionOutput = document.getElementById('directionOutput');
+
+  directionSelect.addEventListener('change', () => {
+    const dir = directionSelect.value;
+    directionContainer.style.flexDirection = dir;
+    directionOutput.innerHTML = `justify-content: center; flex-direction: ${dir};`;
+  });
 </script>
 </body>
 </html>

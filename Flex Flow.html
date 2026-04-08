@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CSS Flex‑flow – The Ultimate Shorthand Guide</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: system-ui, 'Segoe UI', Roboto, sans-serif;
+      background: #f4f7fc;
+      padding: 2rem;
+      color: #0f172a;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+      background: linear-gradient(135deg, #1e293b, #3b82f6);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .sub {
+      border-left: 4px solid #f97316;
+      padding-left: 1rem;
+      margin-bottom: 2rem;
+      color: #334155;
+    }
+
+    .card {
+      background: white;
+      border-radius: 28px;
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+    }
+
+    h2 {
+      font-size: 1.4rem;
+      margin-bottom: 1rem;
+      border-left: 5px solid #f97316;
+      padding-left: 0.75rem;
+    }
+
+    .demo-area {
+      background: #f1f5f9;
+      border-radius: 20px;
+      padding: 1rem;
+      margin: 1rem 0;
+    }
+
+    .flex-container {
+      background: #cbd5e1;
+      border: 2px solid #475569;
+      border-radius: 16px;
+      padding: 1rem;
+      display: flex;
+      gap: 12px;
+      transition: all 0.2s;
+      min-height: 180px;
+    }
+
+    .flex-item {
+      background: #3b82f6;
+      color: white;
+      padding: 0.8rem;
+      border-radius: 12px;
+      text-align: center;
+      font-weight: 600;
+      width: 100px;
+    }
+
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin: 1rem 0;
+    }
+
+    .control-group {
+      background: white;
+      padding: 0.8rem;
+      border-radius: 16px;
+      flex: 1;
+      min-width: 180px;
+    }
+
+    label {
+      display: block;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      color: #475569;
+      margin-bottom: 0.3rem;
+    }
+
+    select {
+      width: 100%;
+      padding: 0.4rem;
+      border-radius: 12px;
+      border: 1px solid #cbd5e1;
+      font-family: monospace;
+    }
+
+    .code-snippet {
+      background: #1e293b;
+      color: #e2e8f0;
+      padding: 0.8rem;
+      border-radius: 16px;
+      font-family: monospace;
+      font-size: 0.85rem;
+      margin-top: 1rem;
+      overflow-x: auto;
+    }
+
+    .note {
+      background: #eef2ff;
+      border-left: 4px solid #3b82f6;
+      padding: 0.8rem;
+      border-radius: 16px;
+      font-size: 0.85rem;
+      margin-top: 1rem;
+    }
+
+    .example-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      margin: 1rem 0;
+    }
+
+    .example-card {
+      background: #f8fafc;
+      border-radius: 20px;
+      padding: 1rem;
+      flex: 1;
+      text-align: center;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 2rem;
+      font-size: 0.8rem;
+      color: #475569;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <h1>🧵 CSS `flex-flow`</h1>
+  <div class="sub">Shorthand for <code>flex-direction</code> + <code>flex-wrap</code> – write cleaner, more efficient flex layouts.</div>
+
+  <!-- Interactive Playground -->
+  <div class="card">
+    <h2>⚡ Live Flex‑flow Lab</h2>
+    <div class="demo-area">
+      <div id="flexDemo" class="flex-container" style="flex-flow: row nowrap;">
+        <div class="flex-item">1</div>
+        <div class="flex-item">2</div>
+        <div class="flex-item">3</div>
+        <div class="flex-item">4</div>
+        <div class="flex-item">5</div>
+      </div>
+      <div class="controls">
+        <div class="control-group">
+          <label>flex-flow</label>
+          <select id="flowSelect">
+            <option value="row nowrap">row nowrap (default)</option>
+            <option value="row wrap">row wrap</option>
+            <option value="row wrap-reverse">row wrap-reverse</option>
+            <option value="row-reverse nowrap">row-reverse nowrap</option>
+            <option value="row-reverse wrap">row-reverse wrap</option>
+            <option value="row-reverse wrap-reverse">row-reverse wrap-reverse</option>
+            <option value="column nowrap">column nowrap</option>
+            <option value="column wrap">column wrap</option>
+            <option value="column wrap-reverse">column wrap-reverse</option>
+            <option value="column-reverse nowrap">column-reverse nowrap</option>
+            <option value="column-reverse wrap">column-reverse wrap</option>
+            <option value="column-reverse wrap-reverse">column-reverse wrap-reverse</option>
+          </select>
+        </div>
+        <div class="control-group">
+          <label>align-content (line spacing)</label>
+          <select id="alignContentSelect">
+            <option value="stretch">stretch</option>
+            <option value="flex-start">flex-start</option>
+            <option value="center">center</option>
+            <option value="flex-end">flex-end</option>
+            <option value="space-between">space-between</option>
+            <option value="space-around">space-around</option>
+          </select>
+        </div>
+      </div>
+      <div class="code-snippet" id="liveCode">
+        flex-flow: row nowrap;
+      </div>
+      <div class="note">
+        💡 <code>flex-flow</code> accepts one or two values: first <code>flex-direction</code>, then <code>flex-wrap</code>.<br>
+        Example: <code>flex-flow: column wrap;</code> → items go top‑to‑bottom and wrap left‑to‑right.
+      </div>
+    </div>
+  </div>
+
+  <!-- Visual Examples of Common Values -->
+  <div class="card">
+    <h2>📸 Common flex‑flow Values</h2>
+    <div class="example-grid">
+      <div class="example-card">
+        <strong>row wrap</strong>
+        <div style="display: flex; flex-flow: row wrap; gap: 8px; background: #e2e8f0; padding: 8px; width: 260px;">
+          <div class="flex-item" style="width: 80px;">1</div>
+          <div class="flex-item" style="width: 80px;">2</div>
+          <div class="flex-item" style="width: 80px;">3</div>
+          <div class="flex-item" style="width: 80px;">4</div>
+        </div>
+        <code>flex-flow: row wrap;</code>
+      </div>
+      <div class="example-card">
+        <strong>column wrap</strong>
+        <div style="display: flex; flex-flow: column wrap; gap: 8px; background: #e2e8f0; padding: 8px; height: 150px; width: 260px;">
+          <div class="flex-item" style="width: auto;">1</div>
+          <div class="flex-item" style="width: auto;">2</div>
+          <div class="flex-item" style="width: auto;">3</div>
+          <div class="flex-item" style="width: auto;">4</div>
+        </div>
+        <code>flex-flow: column wrap;</code>
+      </div>
+      <div class="example-card">
+        <strong>row-reverse wrap</strong>
+        <div style="display: flex; flex-flow: row-reverse wrap; gap: 8px; background: #e2e8f0; padding: 8px; width: 260px;">
+          <div class="flex-item" style="width: 80px;">1</div>
+          <div class="flex-item" style="width: 80px;">2</div>
+          <div class="flex-item" style="width: 80px;">3</div>
+        </div>
+        <code>flex-flow: row-reverse wrap;</code>
+      </div>
+    </div>
+  </div>
+
+  <!-- Detailed Explanation -->
+  <div class="card">
+    <h2>📖 Understanding `flex-flow`</h2>
+    <p><code>flex-flow</code> is a shorthand that sets both <code>flex-direction</code> and <code>flex-wrap</code> in one declaration. It follows the pattern:</p>
+    <div class="code-snippet">
+      flex-flow: &lt;flex-direction&gt; &lt;flex-wrap&gt;;
+    </div>
+    <ul style="margin-left: 1.5rem; margin-top: 0.5rem; line-height: 1.6;">
+      <li>If only one value is given, it applies to <code>flex-direction</code> and <code>flex-wrap</code> defaults to <code>nowrap</code>.</li>
+      <li>If two values are given, the first is <code>flex-direction</code>, the second is <code>flex-wrap</code>.</li>
+      <li>Allowed <code>flex-direction</code> values: <code>row</code>, <code>row-reverse</code>, <code>column</code>, <code>column-reverse</code>.</li>
+      <li>Allowed <code>flex-wrap</code> values: <code>nowrap</code>, <code>wrap</code>, <code>wrap-reverse</code>.</li>
+    </ul>
+    <div class="note">
+      🎯 Using <code>flex-flow</code> reduces code duplication and makes your intent clearer – perfect for responsive layouts where direction and wrapping change at breakpoints.
+    </div>
+  </div>
+
+  <!-- Real‑World Use Cases -->
+  <div class="card">
+    <h2>🚀 Practical Examples</h2>
+    <div class="example-grid">
+      <div class="example-card">
+        <strong>Responsive Navigation (row wrap)</strong>
+        <div style="display: flex; flex-flow: row wrap; gap: 12px; background: #1e293b; color: white; padding: 1rem; border-radius: 60px; justify-content: center;">
+          <span>Home</span><span>About</span><span>Services</span><span>Contact</span><span>Blog</span>
+        </div>
+        <code>flex-flow: row wrap;</code>
+        <p>Items wrap to new line on narrow screens.</p>
+      </div>
+      <div class="example-card">
+        <strong>Vertical Card List (column nowrap)</strong>
+        <div style="display: flex; flex-flow: column nowrap; gap: 8px; background: #e2e8f0; padding: 8px; width: 200px;">
+          <div class="flex-item" style="width: auto;">Card A</div>
+          <div class="flex-item" style="width: auto;">Card B</div>
+          <div class="flex-item" style="width: auto;">Card C</div>
+        </div>
+        <code>flex-flow: column nowrap;</code>
+      </div>
+      <div class="example-card">
+        <strong>Masonry‑like Grid (column wrap)</strong>
+        <div style="display: flex; flex-flow: column wrap; gap: 8px; background: #e2e8f0; padding: 8px; height: 200px;">
+          <div class="flex-item" style="width: auto;">1</div>
+          <div class="flex-item" style="width: auto;">2</div>
+          <div class="flex-item" style="width: auto;">3</div>
+          <div class="flex-item" style="width: auto;">4</div>
+        </div>
+        <code>flex-flow: column wrap;</code>
+        <p>Creates vertical columns that wrap horizontally.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Media Query Example -->
+  <div class="card">
+    <h2>📱 Responsive Flex‑flow with Media Queries</h2>
+    <p>Change <code>flex-flow</code> at different screen sizes to completely reorganize your layout without touching HTML.</p>
+    <div class="code-snippet">
+      /* Desktop: horizontal row */<br>
+      .container { flex-flow: row wrap; }<br>
+      <br>
+      /* Mobile: vertical column */<br>
+      @media (max-width: 600px) {<br>
+      &nbsp;&nbsp;.container { flex-flow: column nowrap; }<br>
+      }
+    </div>
+    <div class="note">
+      🧠 This is the power of <code>flex-flow</code> – you can redefine both direction and wrapping at once, making layouts incredibly adaptive.
+    </div>
+  </div>
+
+  <!-- Quick Reference Table -->
+  <div class="card">
+    <h2>📋 Quick Reference</h2>
+    <div style="overflow-x: auto;">
+      <table style="width:100%; border-collapse: collapse; background: #f1f5f9; border-radius: 20px;">
+        <thead style="background: #334155; color: white;">
+          <tr><th style="padding: 10px;">flex-flow value</th><th>flex-direction</th><th>flex-wrap</th><th>Typical use</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><code>row nowrap</code> (default)</td><td>row</td><td>nowrap</td><td>Horizontal navigation, single line</td></tr>
+          <tr><td><code>row wrap</code></td><td>row</td><td>wrap</td><td>Responsive card grid, buttons</td></tr>
+          <tr><td><code>row wrap-reverse</code></td><td>row</td><td>wrap-reverse</td><td>Reverse order wrapping</td></tr>
+          <tr><td><code>column nowrap</code></td><td>column</td><td>nowrap</td><td>Vertical list, sidebar items</td></tr>
+          <tr><td><code>column wrap</code></td><td>column</td><td>wrap</td><td>Multi‑column lists, masonry effect</td></tr>
+          <tr><td><code>column wrap-reverse</code></td><td>column</td><td>wrap-reverse</td><td>Reverse multi‑column</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <footer>
+    ✨ Master <code>flex-flow</code> to write concise, powerful flex layouts. Combine with media queries for ultimate responsiveness.
+  </footer>
+</div>
+
+<script>
+  const flexContainer = document.getElementById('flexDemo');
+  const flowSelect = document.getElementById('flowSelect');
+  const alignContentSelect = document.getElementById('alignContentSelect');
+  const liveCode = document.getElementById('liveCode');
+
+  function updateFlexFlow() {
+    const flow = flowSelect.value;
+    const align = alignContentSelect.value;
+    flexContainer.style.flexFlow = flow;
+    flexContainer.style.alignContent = align;
+    liveCode.innerHTML = `flex-flow: ${flow};<br>align-content: ${align};`;
+  }
+
+  flowSelect.addEventListener('change', updateFlexFlow);
+  alignContentSelect.addEventListener('change', updateFlexFlow);
+  updateFlexFlow();
+</script>
+</body>
+</html>
