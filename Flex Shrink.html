@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CSS flex-shrink – Complete Interactive Guide</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: system-ui, 'Segoe UI', Roboto, sans-serif;
+      background: #f4f7fc;
+      padding: 2rem;
+      color: #0f172a;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+      background: linear-gradient(135deg, #1e293b, #3b82f6);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .sub {
+      border-left: 4px solid #f97316;
+      padding-left: 1rem;
+      margin-bottom: 2rem;
+      color: #334155;
+    }
+
+    .card {
+      background: white;
+      border-radius: 28px;
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+    }
+
+    h2 {
+      font-size: 1.4rem;
+      margin-bottom: 1rem;
+      border-left: 5px solid #f97316;
+      padding-left: 0.75rem;
+    }
+
+    .demo-area {
+      background: #f1f5f9;
+      border-radius: 20px;
+      padding: 1rem;
+      margin: 1rem 0;
+    }
+
+    .flex-container {
+      background: #cbd5e1;
+      border: 2px solid #475569;
+      border-radius: 16px;
+      padding: 1rem;
+      display: flex;
+      gap: 12px;
+      transition: all 0.2s;
+      width: 100%;
+      resize: horizontal;
+      overflow: auto;
+      margin-bottom: 1rem;
+    }
+
+    .flex-item {
+      background: #3b82f6;
+      color: white;
+      padding: 0.8rem;
+      border-radius: 12px;
+      text-align: center;
+      font-weight: 600;
+      transition: all 0.2s;
+      width: 180px;  /* fixed width to demonstrate shrinking */
+    }
+
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin: 1rem 0;
+      align-items: flex-end;
+    }
+
+    .control-group {
+      background: white;
+      padding: 0.8rem;
+      border-radius: 16px;
+      flex: 1;
+      min-width: 140px;
+    }
+
+    label {
+      display: block;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      color: #475569;
+      margin-bottom: 0.3rem;
+    }
+
+    input {
+      width: 100%;
+      padding: 0.4rem;
+      border-radius: 12px;
+      border: 1px solid #cbd5e1;
+      font-family: monospace;
+    }
+
+    .code-snippet {
+      background: #1e293b;
+      color: #e2e8f0;
+      padding: 0.8rem;
+      border-radius: 16px;
+      font-family: monospace;
+      font-size: 0.85rem;
+      margin-top: 1rem;
+      overflow-x: auto;
+    }
+
+    .note {
+      background: #eef2ff;
+      border-left: 4px solid #3b82f6;
+      padding: 0.8rem;
+      border-radius: 16px;
+      font-size: 0.85rem;
+      margin-top: 1rem;
+    }
+
+    .example-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin: 1rem 0;
+    }
+
+    .example-card {
+      background: #f8fafc;
+      border-radius: 20px;
+      padding: 1rem;
+      flex: 1;
+      text-align: center;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 2rem;
+      font-size: 0.8rem;
+      color: #475569;
+    }
+
+    .resize-handle {
+      font-size: 0.75rem;
+      text-align: right;
+      margin-top: 0.25rem;
+      color: #475569;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <h1>📉 CSS `flex-shrink`</h1>
+  <div class="sub">Controls how flex items shrink when there isn't enough space in the container.</div>
+
+  <!-- Interactive Playground -->
+  <div class="card">
+    <h2>⚡ Live Flex‑Shrink Lab</h2>
+    <div class="demo-area">
+      <div id="flexDemo" class="flex-container">
+        <div class="flex-item" id="item1">Item 1 (width: 180px)</div>
+        <div class="flex-item" id="item2">Item 2 (width: 180px)</div>
+        <div class="flex-item" id="item3">Item 3 (width: 180px)</div>
+      </div>
+      <div class="resize-handle">💡 Resize the container by dragging the bottom‑right corner of the gray area above ↴</div>
+      <div class="controls">
+        <div class="control-group">
+          <label>Item 1 flex-shrink</label>
+          <input type="number" id="shrink1" value="1" step="0.5" min="0">
+        </div>
+        <div class="control-group">
+          <label>Item 2 flex-shrink</label>
+          <input type="number" id="shrink2" value="1" step="0.5" min="0">
+        </div>
+        <div class="control-group">
+          <label>Item 3 flex-shrink</label>
+          <input type="number" id="shrink3" value="1" step="0.5" min="0">
+        </div>
+      </div>
+      <button id="applyBtn">Apply flex‑shrink</button>
+      <div class="code-snippet" id="flexCode">
+        .item1 { flex-shrink: 1; }<br>
+        .item2 { flex-shrink: 1; }<br>
+        .item3 { flex-shrink: 1; }
+      </div>
+      <div class="note">
+        💡 <strong>flex-shrink</strong> determines how much an item shrinks relative to others when the container is too small.<br>
+        Default is <code>1</code> (items can shrink). If set to <code>0</code>, the item will NOT shrink – it may overflow.<br>
+        Larger values shrink more aggressively.
+      </div>
+    </div>
+  </div>
+
+  <!-- Visual Examples of Different Shrink Ratios -->
+  <div class="card">
+    <h2>📸 Visual Examples – Shrink Ratios</h2>
+    <div class="example-grid">
+      <div class="example-card">
+        <strong>All shrink equally (1,1,1)</strong>
+        <div style="display: flex; gap: 8px; background: #e2e8f0; padding: 8px; width: 400px;">
+          <div style="background: #3b82f6; width: 150px; flex-shrink: 1; padding: 8px;">150px</div>
+          <div style="background: #3b82f6; width: 150px; flex-shrink: 1; padding: 8px;">150px</div>
+          <div style="background: #3b82f6; width: 150px; flex-shrink: 1; padding: 8px;">150px</div>
+        </div>
+        <p>Each shrinks by the same amount.</p>
+      </div>
+      <div class="example-card">
+        <strong>Middle item shrinks twice as much (1,2,1)</strong>
+        <div style="display: flex; gap: 8px; background: #e2e8f0; padding: 8px; width: 400px;">
+          <div style="background: #3b82f6; width: 150px; flex-shrink: 1; padding: 8px;">1</div>
+          <div style="background: #f97316; width: 150px; flex-shrink: 2; padding: 8px;">2</div>
+          <div style="background: #3b82f6; width: 150px; flex-shrink: 1; padding: 8px;">1</div>
+        </div>
+        <p>Middle item shrinks more to fit the container.</p>
+      </div>
+      <div class="example-card">
+        <strong>Last item does NOT shrink (1,1,0)</strong>
+        <div style="display: flex; gap: 8px; background: #e2e8f0; padding: 8px; width: 400px;">
+          <div style="background: #3b82f6; width: 150px; flex-shrink: 1; padding: 8px;">1</div>
+          <div style="background: #3b82f6; width: 150px; flex-shrink: 1; padding: 8px;">1</div>
+          <div style="background: #f97316; width: 150px; flex-shrink: 0; padding: 8px;">0</div>
+        </div>
+        <p>The last item overflows (or forces scroll) because it refuses to shrink.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- How flex-shrink works (detailed) -->
+  <div class="card">
+    <h2>📖 How `flex-shrink` Works</h2>
+    <ul style="margin-left: 1.5rem; line-height: 1.6;">
+      <li><code>flex-shrink</code> defines how much an item should <strong>shrink</strong> relative to others when there is <strong>negative space</strong> (overflow).</li>
+      <li>Default value is <code>1</code> – items are allowed to shrink.</li>
+      <li>If set to <code>0</code>, the item will NOT shrink – it will overflow the container or cause a scrollbar.</li>
+      <li>Higher values cause the item to shrink more aggressively (e.g., <code>flex-shrink: 2</code> shrinks twice as much as an item with <code>1</code>).</li>
+      <li>Shrinking is proportional to the product of <code>flex-shrink</code> and the item's <strong>content size / flex-basis</strong>.</li>
+      <li>Together with <code>flex-grow</code> and <code>flex-basis</code>, it forms the <code>flex</code> shorthand: <code>flex: &lt;grow&gt; &lt;shrink&gt; &lt;basis&gt;;</code></li>
+    </ul>
+    <div class="code-snippet">
+      /* Example: first item never shrinks, middle shrinks twice as much */<br>
+      .item1 { flex-shrink: 0; }<br>
+      .item2 { flex-shrink: 2; }<br>
+      .item3 { flex-shrink: 1; }
+    </div>
+  </div>
+
+  <!-- Relationship with flex-basis and flex-grow -->
+  <div class="card">
+    <h2>🧩 Flex‑Shrink in Context: The `flex` Shorthand</h2>
+    <p><code>flex-shrink</code> is part of the <code>flex</code> shorthand: <code>flex: &lt;flex-grow&gt; &lt;flex-shrink&gt; &lt;flex-basis&gt;;</code></p>
+    <ul style="margin-left: 1.5rem; line-height: 1.6;">
+      <li><code>flex: 1;</code> → <code>flex-grow: 1; flex-shrink: 1; flex-basis: 0%;</code></li>
+      <li><code>flex: 0 1 auto;</code> → default (no grow, can shrink, basis auto).</li>
+      <li><code>flex: 0 0 200px;</code> → fixed width 200px, never grows or shrinks.</li>
+      <li><code>flex: 2 2 100px;</code> → grow twice as much, shrink twice as much, start at 100px.</li>
+    </ul>
+    <div class="note">
+      🔥 <strong>Common pattern:</strong> <code>flex: 0 0 200px;</code> to create fixed‑width elements that never resize.
+    </div>
+  </div>
+
+  <!-- Interactive demo: Compare shrink with different basis -->
+  <div class="card">
+    <h2>🎮 Bonus: Flex‑Shrink vs Flex‑Basis</h2>
+    <div class="demo-area">
+      <div id="basisDemo" class="flex-container">
+        <div class="flex-item" style="flex-shrink: 1; flex-basis: 200px;">A<br>shrink:1</div>
+        <div class="flex-item" style="flex-shrink: 2; flex-basis: 200px;">B<br>shrink:2</div>
+        <div class="flex-item" style="flex-shrink: 0; flex-basis: 200px;">C<br>shrink:0</div>
+      </div>
+      <div class="controls">
+        <div class="control-group">
+          <label>Container width (px)</label>
+          <input type="range" id="widthSlider" min="300" max="800" value="600" step="10">
+          <span id="widthVal">600px</span>
+        </div>
+      </div>
+      <div class="code-snippet" id="basisCode">
+        Container width: 600px → items shrink to fit.<br>
+        A: shrink 1, B: shrink 2 (shrinks more), C: shrink 0 (doesn't shrink)
+      </div>
+      <div class="note">
+        📏 As you shrink the container width, notice how item B shrinks more than item A, while item C never shrinks (it overflows or forces a scrollbar).
+      </div>
+    </div>
+  </div>
+
+  <!-- Quick Reference -->
+  <div class="card">
+    <h2>📋 Quick Reference</h2>
+    <div style="overflow-x: auto;">
+      <table style="width:100%; border-collapse: collapse; background: #f1f5f9; border-radius: 20px;">
+        <thead style="background: #334155; color: white;">
+          <tr><th style="padding: 10px;">Value</th><th>Effect</th><th>Example</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><code>1</code> (default)</td>
+            <td>Item can shrink proportionally</td>
+            <td><code>flex-shrink: 1;</code></td>
+           </tr>
+           <tr>
+            <td><code>0</code></td>
+            <td>Item does NOT shrink (may overflow)</td>
+            <td><code>flex-shrink: 0;</code></td>
+           </tr>
+           <tr>
+            <td><code>2</code>, <code>3</code>, etc.</td>
+            <td>Item shrinks twice/three times as much as an item with <code>1</code></td>
+            <td><code>flex-shrink: 2;</code></td>
+           </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <footer>
+    ✨ Master <code>flex-shrink</code> to control how your layouts behave on narrow screens – prevent unwanted shrinking or allow flexible compression.
+  </footer>
+</div>
+
+<script>
+  // Main interactive demo
+  const container = document.getElementById('flexDemo');
+  const item1 = document.getElementById('item1');
+  const item2 = document.getElementById('item2');
+  const item3 = document.getElementById('item3');
+  const shrink1 = document.getElementById('shrink1');
+  const shrink2 = document.getElementById('shrink2');
+  const shrink3 = document.getElementById('shrink3');
+  const applyBtn = document.getElementById('applyBtn');
+  const flexCode = document.getElementById('flexCode');
+
+  function updateFlexShrink() {
+    const val1 = parseFloat(shrink1.value) || 0;
+    const val2 = parseFloat(shrink2.value) || 0;
+    const val3 = parseFloat(shrink3.value) || 0;
+    item1.style.flexShrink = val1;
+    item2.style.flexShrink = val2;
+    item3.style.flexShrink = val3;
+    flexCode.innerHTML = `.item1 { flex-shrink: ${val1}; }\n.item2 { flex-shrink: ${val2}; }\n.item3 { flex-shrink: ${val3}; }`;
+  }
+
+  applyBtn.addEventListener('click', updateFlexShrink);
+  updateFlexShrink();
+
+  // Bonus: container width slider for basis demo
+  const basisContainer = document.querySelector('#basisDemo');
+  const widthSlider = document.getElementById('widthSlider');
+  const widthVal = document.getElementById('widthVal');
+  const basisCode = document.getElementById('basisCode');
+
+  widthSlider.addEventListener('input', () => {
+    const w = widthSlider.value + 'px';
+    basisContainer.style.width = w;
+    widthVal.innerText = w;
+    basisCode.innerHTML = `Container width: ${w} → items shrink to fit.<br>A: shrink 1, B: shrink 2 (shrinks more), C: shrink 0 (doesn't shrink)`;
+  });
+  // initial call to set width
+  widthSlider.dispatchEvent(new Event('input'));
+</script>
+</body>
+</html>
