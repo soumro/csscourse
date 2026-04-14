@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CSS flex-grow – Complete Interactive Guide</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: system-ui, 'Segoe UI', Roboto, sans-serif;
+      background: #f4f7fc;
+      padding: 2rem;
+      color: #0f172a;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+      background: linear-gradient(135deg, #1e293b, #3b82f6);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .sub {
+      border-left: 4px solid #f97316;
+      padding-left: 1rem;
+      margin-bottom: 2rem;
+      color: #334155;
+    }
+
+    .card {
+      background: white;
+      border-radius: 28px;
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+    }
+
+    h2 {
+      font-size: 1.4rem;
+      margin-bottom: 1rem;
+      border-left: 5px solid #f97316;
+      padding-left: 0.75rem;
+    }
+
+    .demo-area {
+      background: #f1f5f9;
+      border-radius: 20px;
+      padding: 1rem;
+      margin: 1rem 0;
+    }
+
+    .flex-container {
+      background: #cbd5e1;
+      border: 2px solid #475569;
+      border-radius: 16px;
+      padding: 1rem;
+      display: flex;
+      gap: 12px;
+      transition: all 0.2s;
+      margin-bottom: 1rem;
+    }
+
+    .flex-item {
+      background: #3b82f6;
+      color: white;
+      padding: 0.8rem;
+      border-radius: 12px;
+      text-align: center;
+      font-weight: 600;
+      transition: all 0.2s;
+    }
+
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin: 1rem 0;
+      align-items: flex-end;
+    }
+
+    .control-group {
+      background: white;
+      padding: 0.8rem;
+      border-radius: 16px;
+      flex: 1;
+      min-width: 140px;
+    }
+
+    label {
+      display: block;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      color: #475569;
+      margin-bottom: 0.3rem;
+    }
+
+    input {
+      width: 100%;
+      padding: 0.4rem;
+      border-radius: 12px;
+      border: 1px solid #cbd5e1;
+      font-family: monospace;
+    }
+
+    .code-snippet {
+      background: #1e293b;
+      color: #e2e8f0;
+      padding: 0.8rem;
+      border-radius: 16px;
+      font-family: monospace;
+      font-size: 0.85rem;
+      margin-top: 1rem;
+      overflow-x: auto;
+    }
+
+    .note {
+      background: #eef2ff;
+      border-left: 4px solid #3b82f6;
+      padding: 0.8rem;
+      border-radius: 16px;
+      font-size: 0.85rem;
+      margin-top: 1rem;
+    }
+
+    .example-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin: 1rem 0;
+    }
+
+    .example-card {
+      background: #f8fafc;
+      border-radius: 20px;
+      padding: 1rem;
+      flex: 1;
+      text-align: center;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 2rem;
+      font-size: 0.8rem;
+      color: #475569;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <h1>📈 CSS `flex-grow`</h1>
+  <div class="sub">Controls how flex items expand to fill extra space in the main axis.</div>
+
+  <!-- Interactive Playground -->
+  <div class="card">
+    <h2>⚡ Live Flex‑Grow Lab</h2>
+    <div class="demo-area">
+      <div id="flexDemo" class="flex-container">
+        <div class="flex-item" id="item1">1</div>
+        <div class="flex-item" id="item2">2</div>
+        <div class="flex-item" id="item3">3</div>
+      </div>
+      <div class="controls">
+        <div class="control-group">
+          <label>Item 1 flex-grow</label>
+          <input type="number" id="grow1" value="0" step="0.5" min="0">
+        </div>
+        <div class="control-group">
+          <label>Item 2 flex-grow</label>
+          <input type="number" id="grow2" value="1" step="0.5" min="0">
+        </div>
+        <div class="control-group">
+          <label>Item 3 flex-grow</label>
+          <input type="number" id="grow3" value="0" step="0.5" min="0">
+        </div>
+      </div>
+      <button id="applyBtn">Apply flex‑grow</button>
+      <div class="code-snippet" id="flexCode">
+        .item1 { flex-grow: 0; }<br>
+        .item2 { flex-grow: 1; }<br>
+        .item3 { flex-grow: 0; }
+      </div>
+      <div class="note">
+        💡 <strong>flex-grow</strong> distributes extra space proportionally. In the example, Item 2 has <code>flex-grow: 1</code>, while others have <code>0</code>. Item 2 takes all the extra space.<br>
+        📐 Formula: extra space is distributed according to the ratio of grow factors. If all items have <code>flex-grow: 1</code>, they share space equally.
+      </div>
+    </div>
+  </div>
+
+  <!-- Visual Examples of Different Ratios -->
+  <div class="card">
+    <h2>📸 Visual Examples – Growth Ratios</h2>
+    <div class="example-grid">
+      <div class="example-card">
+        <strong>Equal growth (all 1)</strong>
+        <div style="display: flex; gap: 8px; background: #e2e8f0; padding: 8px;">
+          <div style="background: #3b82f6; flex-grow: 1; padding: 8px;">1</div>
+          <div style="background: #3b82f6; flex-grow: 1; padding: 8px;">1</div>
+          <div style="background: #3b82f6; flex-grow: 1; padding: 8px;">1</div>
+        </div>
+        <p>All share extra space equally.</p>
+      </div>
+      <div class="example-card">
+        <strong>Ratio 1:2:1</strong>
+        <div style="display: flex; gap: 8px; background: #e2e8f0; padding: 8px;">
+          <div style="background: #3b82f6; flex-grow: 1; padding: 8px;">1</div>
+          <div style="background: #f97316; flex-grow: 2; padding: 8px;">2</div>
+          <div style="background: #3b82f6; flex-grow: 1; padding: 8px;">1</div>
+        </div>
+        <p>Middle item gets twice the extra space.</p>
+      </div>
+      <div class="example-card">
+        <strong>One item grows (1,0,0)</strong>
+        <div style="display: flex; gap: 8px; background: #e2e8f0; padding: 8px;">
+          <div style="background: #f97316; flex-grow: 1; padding: 8px;">1</div>
+          <div style="background: #3b82f6; flex-grow: 0; padding: 8px;">0</div>
+          <div style="background: #3b82f6; flex-grow: 0; padding: 8px;">0</div>
+        </div>
+        <p>Only the first item takes extra space.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- How flex-grow works (detailed) -->
+  <div class="card">
+    <h2>📖 How `flex-grow` Works</h2>
+    <ul style="margin-left: 1.5rem; line-height: 1.6;">
+      <li><code>flex-grow</code> defines how much of the <strong>remaining space</strong> in the flex container an item should take.</li>
+      <li>Default value is <code>0</code> – the item does NOT grow.</li>
+      <li>If all items have <code>flex-grow: 1</code>, they share the remaining space equally.</li>
+      <li>If items have different values (e.g., 1, 2, 1), the extra space is distributed proportionally.</li>
+      <li>Only works if there is <strong>extra space</strong> after laying out the items' initial sizes (based on <code>flex-basis</code> or content).</li>
+      <li><code>flex-grow</code> is a unitless number – ratios matter, not absolute values.</li>
+    </ul>
+    <div class="code-snippet">
+      /* Example: 1:2:1 ratio */<br>
+      .item1 { flex-grow: 1; }<br>
+      .item2 { flex-grow: 2; }  /* gets twice the extra space of item1 */<br>
+      .item3 { flex-grow: 1; }
+    </div>
+  </div>
+
+  <!-- Relationship with flex-basis and flex-shrink -->
+  <div class="card">
+    <h2>🧩 Flex‑Grow in Context: The `flex` Shorthand</h2>
+    <p><code>flex-grow</code> is part of the <code>flex</code> shorthand: <code>flex: &lt;flex-grow&gt; &lt;flex-shrink&gt; &lt;flex-basis&gt;;</code></p>
+    <ul style="margin-left: 1.5rem; line-height: 1.6;">
+      <li><code>flex: 1;</code> → <code>flex-grow: 1; flex-shrink: 1; flex-basis: 0%;</code></li>
+      <li><code>flex: 0 1 auto;</code> → default (no grow, can shrink, basis auto).</li>
+      <li><code>flex: 2 1 100px;</code> → grow twice as much, can shrink, start from 100px basis.</li>
+    </ul>
+    <div class="note">
+      🔥 <strong>Common pattern:</strong> <code>flex: 1;</code> on all items to create equal‑width columns.
+    </div>
+  </div>
+
+  <!-- Interactive demo: show the effect of flex-basis -->
+  <div class="card">
+    <h2>🎮 Bonus: Compare with fixed flex‑basis</h2>
+    <div class="demo-area">
+      <div id="basisDemo" class="flex-container">
+        <div class="flex-item" style="flex-grow: 1; flex-basis: 50px;">A</div>
+        <div class="flex-item" style="flex-grow: 2; flex-basis: 50px;">B</div>
+        <div class="flex-item" style="flex-grow: 1; flex-basis: 50px;">C</div>
+      </div>
+      <div class="controls">
+        <div class="control-group">
+          <label>flex-basis (px)</label>
+          <input type="range" id="basisSlider" min="20" max="150" value="50" step="5">
+          <span id="basisVal">50px</span>
+        </div>
+      </div>
+      <div class="code-snippet" id="basisCode">
+        flex-grow: 1, 2, 1; flex-basis: 50px;
+      </div>
+      <div class="note">
+        📏 <code>flex-basis</code> sets the initial size before growing. The extra space is distributed according to flex‑grow ratios <strong>after</strong> accounting for the bases.
+      </div>
+    </div>
+  </div>
+
+  <!-- Quick Reference -->
+  <div class="card">
+    <h2>📋 Quick Reference</h2>
+    <div style="overflow-x: auto;">
+      <table style="width:100%; border-collapse: collapse; background: #f1f5f9; border-radius: 20px;">
+        <thead style="background: #334155; color: white;">
+          <tr><th style="padding: 10px;">Value</th><th>Effect</th><th>Example</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><code>0</code> (default)</td><td>Item does NOT grow; takes only its content or flex-basis size</td><td><code>flex-grow: 0;</code></td> </tr>
+          <tr><td><code>1</code></td><td>Item grows to fill available space (proportionally if others also grow)</td><td><code>flex-grow: 1;</code></td> </tr>
+          <tr><td><code>2</code>, <code>3</code>, etc.</td><td>Item grows twice/three times as much as an item with <code>1</code></td><td><code>flex-grow: 2;</code></td> </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <footer>
+    ✨ Master <code>flex-grow</code> to create flexible, responsive layouts that adapt to any screen width.
+  </footer>
+</div>
+
+<script>
+  // Main interactive demo
+  const item1 = document.getElementById('item1');
+  const item2 = document.getElementById('item2');
+  const item3 = document.getElementById('item3');
+  const grow1 = document.getElementById('grow1');
+  const grow2 = document.getElementById('grow2');
+  const grow3 = document.getElementById('grow3');
+  const applyBtn = document.getElementById('applyBtn');
+  const flexCode = document.getElementById('flexCode');
+
+  function updateFlexGrow() {
+    const val1 = parseFloat(grow1.value) || 0;
+    const val2 = parseFloat(grow2.value) || 0;
+    const val3 = parseFloat(grow3.value) || 0;
+    item1.style.flexGrow = val1;
+    item2.style.flexGrow = val2;
+    item3.style.flexGrow = val3;
+    flexCode.innerHTML = `.item1 { flex-grow: ${val1}; }\n.item2 { flex-grow: ${val2}; }\n.item3 { flex-grow: ${val3}; }`;
+  }
+
+  applyBtn.addEventListener('click', updateFlexGrow);
+  updateFlexGrow();
+
+  // Bonus: flex-basis slider demo
+  const basisItems = document.querySelectorAll('#basisDemo .flex-item');
+  const basisSlider = document.getElementById('basisSlider');
+  const basisVal = document.getElementById('basisVal');
+  const basisCode = document.getElementById('basisCode');
+
+  basisSlider.addEventListener('input', () => {
+    const basis = basisSlider.value + 'px';
+    basisItems.forEach(item => {
+      item.style.flexBasis = basis;
+    });
+    basisVal.innerText = basis;
+    basisCode.innerHTML = `flex-grow: 1, 2, 1; flex-basis: ${basis};`;
+  });
+</script>
+</body>
+</html>
